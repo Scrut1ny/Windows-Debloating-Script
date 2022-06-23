@@ -29,14 +29,17 @@ rem Windows Defender Network
 rem sc stop "WdNisSvc" & sc config "WdNisSvc" start= disabled
 
 >nul 2>&1 (
+	sc stop "agent_ovpnconnect" & sc config "agent_ovpnconnect" start= disabled
 	sc stop "AMD Crash Defender Service" & sc config "AMD Crash Defender Service" start= disabled
 	sc stop "AMD External Events Utility" & sc config "AMD External Events Utility" start= disabled
 	sc stop "amdfendr" & sc config "amdfendr" start= disabled
 	sc stop "amdfendrmgr" & sc config "amdfendrmgr" start= disabled
+	sc stop "Apple Mobile Device Service" & sc config "Apple Mobile Device Service" start= disabled
 	sc stop "AppVClient" & sc config "AppVClient" start= disabled
 	sc stop "autotimesvc" & sc config "autotimesvc" start= disabled
 	sc stop "Backupper Service" & sc config "Backupper Service" start= disabled
 	sc stop "BDESVC" & sc config "BDESVC" start= disabled
+	sc stop "Bonjour Service" & sc config "Bonjour Service" start= disabled
 	sc stop "BthAvctpSvc" & sc config "BthAvctpSvc" start= disabled
 	sc stop "camsvc" & sc config "camsvc" start= disabled
 	sc stop "cbdhsvc" & sc config "cbdhsvc" start= disabled
@@ -90,6 +93,7 @@ rem sc stop "WdNisSvc" & sc config "WdNisSvc" start= disabled
 	sc stop "NVDisplay.ContainerLocalSystem" & sc config "NVDisplay.ContainerLocalSystem" start= disabled
 	sc stop "OneSyncSvc" & sc config "OneSyncSvc" start= disabled
 	sc stop "OneSyncSvc_5f1ad" & sc config "OneSyncSvc_5f1ad" start= disabled
+	sc stop "ovpnhelper_service" & sc config "ovpnhelper_service" start= disabled
 	sc stop "PcaSvc" & sc config "PcaSvc" start= disabled
 	sc stop "PhoneSvc" & sc config "PhoneSvc" start= disabled
 	sc stop "PimIndexMaintenanceSvc_5f1ad" & sc config "PimIndexMaintenanceSvc_5f1ad" start= disabled
@@ -137,6 +141,7 @@ rem sc stop "WdNisSvc" & sc config "WdNisSvc" start= disabled
 	sc stop "Wecsvc" & sc config "Wecsvc" start= disabled
 	sc stop "wercplsupport" & sc config "wercplsupport" start= disabled
 	sc stop "WerSvc" & sc config "WerSvc" start= disabled
+	sc stop "WinDefend" & sc config "WinDefend" start= disabled
 	sc stop "WinHttpAutoProxySvc" & sc config "WinHttpAutoProxySvc" start= disabled
 	sc stop "WinRM" & sc config "WinRM" start= disabled
 	sc stop "wisvc" & sc config "wisvc" start= disabled
