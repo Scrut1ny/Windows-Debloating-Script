@@ -36,6 +36,7 @@ rem sc stop "WdNisSvc" & sc config "WdNisSvc" start= disabled
 	sc stop "amdfendrmgr" & sc config "amdfendrmgr" start= disabled
 	sc stop "Apple Mobile Device Service" & sc config "Apple Mobile Device Service" start= disabled
 	sc stop "AppVClient" & sc config "AppVClient" start= disabled
+	sc stop "AppXSvc" & sc config "AppXSvc" start= disabled
 	sc stop "autotimesvc" & sc config "autotimesvc" start= disabled
 	sc stop "Backupper Service" & sc config "Backupper Service" start= disabled
 	sc stop "BDESVC" & sc config "BDESVC" start= disabled
