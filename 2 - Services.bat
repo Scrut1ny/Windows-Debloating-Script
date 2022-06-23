@@ -28,6 +28,12 @@ rem sc stop "wscsvc" & sc config "wscsvc" start= disabled
 rem Windows Defender Network
 rem sc stop "WdNisSvc" & sc config "WdNisSvc" start= disabled
 
+rem Diagnostics
+rem sc stop "diagsvc" & sc config "diagsvc" start= disabled
+rem sc stop "DPS" & sc config "DPS" start= disabled
+rem sc stop "WdiServiceHost" & sc config "WdiServiceHost" start= disabled
+rem sc stop "WdiSystemHost" & sc config "WdiSystemHost" start= disabled
+
 >nul 2>&1 (
 	sc stop "agent_ovpnconnect" & sc config "agent_ovpnconnect" start= disabled
 	sc stop "AMD Crash Defender Service" & sc config "AMD Crash Defender Service" start= disabled
