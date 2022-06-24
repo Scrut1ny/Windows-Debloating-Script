@@ -164,6 +164,12 @@ rem sc stop "WdiSystemHost" & sc config "WdiSystemHost" start= disabled
 	sc stop "XblGameSave" & sc config "XblGameSave" start= disabled
 	sc stop "XboxGipSvc" & sc config "XboxGipSvc" start= disabled
 	sc stop "XboxNetApiSvc" & sc config "XboxNetApiSvc" start= disabled
+	
+	sc stop "GUPMService" & sc config "GUPMService" start= disabled
+	sc stop "Steam Client Service" & sc config "Steam Client Service" start= disabled
+	sc stop "BEService" & sc config "BEService" start= disabled
+	sc stop "EasyAntiCheat" & sc config "EasyAntiCheat" start= disabled
+	sc stop "EasyAntiCheat_EOS" & sc config "EasyAntiCheat_EOS" start= disabled
 )
 
 echo Done&>nul pause
