@@ -171,7 +171,12 @@ rem sc stop "WdiSystemHost" & sc config "WdiSystemHost" start= disabled
 	sc stop "EasyAntiCheat" & sc config "EasyAntiCheat" start= disabled
 	sc stop "EasyAntiCheat_EOS" & sc config "EasyAntiCheat_EOS" start= disabled
 	sc stop "Apple Mobile Device Service" & sc config "Apple Mobile Device Service" start= disabled
+	sc stop "cloudidsvc" & sc config "cloudidsvc" start= disabled
+	sc stop "ClipSVC" & sc config "ClipSVC" start= disabled
+	sc stop "LicenseManager" & sc config "LicenseManager" start= disabled
 	
+	sc stop "" & sc config "" start= disabled
+	sc stop "" & sc config "" start= disabled
 	sc stop "" & sc config "" start= disabled
 	sc stop "" & sc config "" start= disabled
 	sc stop "" & sc config "" start= disabled
