@@ -24,7 +24,6 @@
  - ShutUp10 > https://www.oo-software.com/en/shutup10
  - Courvix Network > https://courvix.com/vpn
  - Discord > https://discord.com/
- - FFmpeg > https://ffmpeg.org/
  - GeForce® Experience™ > https://www.nvidia.com/en-us/geforce/geforce-experience/
  - Glary Utilities 5 > https://www.glarysoft.com/
 	* License codes: 3788-6167-9582-6222-6668 | X788-6167-958X-NL5P-UZJB | 8788-6167-9588-7Y0E-2K7W
@@ -45,6 +44,7 @@
 	* Pro Licence Key: ZF3R0-FHED2-M80TY-8QYGC-NPKYF
  - Wireshark > https://www.wireshark.org/
  - yt-dlp > https://github.com/yt-dlp/yt-dlp/releases/latest
+ - FFmpeg > https://ffmpeg.org/
 
 ========== Extra Software ==========
 
