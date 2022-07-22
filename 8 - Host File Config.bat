@@ -10,6 +10,15 @@ fltmc >nul 2>&1 || (
 )
 
 >nul 2>&1 >>"%WINDIR%\System32\drivers\etc\hosts" (
+	echo # Malwarebytes
+	echo 127.0.0.1 telemetry.malwarebytes.com
+	echo 127.0.0.1 sirius.mwbsys.com
+	echo 127.0.0.1 cdn.mwbsys.com
+	echo(
+	echo # Nest Device
+	echo 127.0.0.1 logsink.devices.nest.com
+	echo(
+	echo # Windows Telemtry & Tracking domians
 	echo 127.0.0.1 a-0001.a-msedge.net
 	echo 127.0.0.1 a.ads1.msn.com
 	echo 127.0.0.1 a.ads2.msn.com
@@ -100,7 +109,6 @@ fltmc >nul 2>&1 || (
 	echo 127.0.0.1 weus2watcab01.blob.core.windows.net
 	echo 127.0.0.1 weus2watcab02.blob.core.windows.net
 	echo 127.0.0.1 win10.ipv6.microsoft.com
-	
 )
 
 ipconfig/flushdns>nul
