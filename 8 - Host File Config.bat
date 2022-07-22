@@ -9,7 +9,7 @@ fltmc >nul 2>&1 || (
     exit 0
 )
 
->>"%WINDIR%\System32\drivers\etc\hosts" (
+>nul 2>&1 >>"%WINDIR%\System32\drivers\etc\hosts" (
 	echo 127.0.0.1 a-0001.a-msedge.net
 	echo 127.0.0.1 a.ads1.msn.com
 	echo 127.0.0.1 a.ads2.msn.com
@@ -103,7 +103,4 @@ fltmc >nul 2>&1 || (
 	
 )
 
-if not errorlevel 1 (echo Success) else (echo Failure)
-
 ipconfig/flushdns>nul
-pause>nul
