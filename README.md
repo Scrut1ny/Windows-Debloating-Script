@@ -43,9 +43,9 @@ WIN + R - SystemPropertiesPerformance.exe
 ☐  Save taskbar thumbnail previews
 ☐  Show shadows under mouse pointer
 ☐  Show shadows under windows
-☐  Show thumbnails instead of icons
-☑  Show translucent selection rectangle
-☑  Show window contents while dragging
+☑  Show thumbnails instead of icons
+☐  Show translucent selection rectangle
+☐  Show window contents while dragging
 ☐  Slide open combo boxes
 ☑  Smooth edges of screen fonts
 ☐  Smooth-scroll list boxes
