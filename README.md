@@ -94,6 +94,7 @@ powercfg /S *Ultimate Performance GUID*
 # 4 - MISC
 
 ### BIOS Keys by Manufacturer
+`shutdown /r /fw /f /t 0`
 |Manufacturer|Key/Sequence|
 |-|-|
 |ASRock|`F2` or `DEL`|
