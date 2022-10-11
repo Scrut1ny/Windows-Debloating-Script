@@ -95,6 +95,7 @@ echo(&echo   # Disabling Services
 	sc stop "MicrosoftEdgeElevationService" & sc config "MicrosoftEdgeElevationService" start= disabled
 	sc stop "edgeupdate" & sc config "edgeupdate" start= disabled rem Keeps your Microsoft software up to date. If this service is disabled or stopped, your Microsoft software will not be kept up to date, meaning security vulnerabilities that may arise cannot be fixed and features may not work. This service uninstalls itself when there is no Microsoft software using it.
 	sc stop "edgeupdatem" & sc config "edgeupdatem" start= disabled rem Keeps your Microsoft software up to date. If this service is disabled or stopped, your Microsoft software will not be kept up to date, meaning security vulnerabilities that may arise cannot be fixed and features may not work. This service uninstalls itself when there is no Microsoft software using it.
+	
 	sc stop "XboxGipSvc" & sc config "XboxGipSvc" start= disabled rem This service manages connected Xbox Accessories.
 	sc stop "XblAuthManager" & sc config "XblAuthManager" start= disabled rem Provides authentication and authorization services for interacting with Xbox Live.
 	sc stop "XblGameSave" & sc config "XblGameSave" start= disabled rem This service syncs save data for Xbox Live save enabled games.
@@ -104,6 +105,21 @@ echo(&echo   # Disabling Services
 	rem sc config "XblAuthManager" start= demand & sc start "XblAuthManager"
 	rem sc config "XblGameSave" start= demand & sc start "XblGameSave"
 	rem sc config "XboxNetApiSvc" start= demand & sc start "XboxNetApiSvc"
+	
+	rem Extra
+	sc stop "NahimicService" & sc config "NahimicService" start= disabled
+	sc stop "PhoneSvc" & sc config "PhoneSvc" start= disabled
+	sc stop "Steam Client Service" & sc config "Steam Client Service" start= disabled
+	
+	rem VMware
+	sc stop "VMAuthdService" & sc config "VMAuthdService" start= disabled
+	sc stop "VMnetDHCP" & sc config "VMnetDHCP" start= disabled
+	sc stop "VMware NAT Service" & sc config "VMware NAT Service" start= disabled
+	sc stop "VMUSBArbService" & sc config "VMUSBArbService" start= disabled
+	
+	rem Origin
+	sc stop "Origin Web Helper Service" & sc config "Origin Web Helper Service" start= disabled
+	sc stop "Origin Client Service" & sc config "Origin Client Service" start= disabled
 )
 
 :: ====================
