@@ -21,6 +21,7 @@
 
 ========== Useful Optional Software ==========
 
+ - Autoruns > https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns
  - Optimizer > https://github.com/hellzerg/optimizer
  - ShutUp10 > https://www.oo-software.com/en/shutup10
  - Courvix Network > https://courvix.com/vpn
