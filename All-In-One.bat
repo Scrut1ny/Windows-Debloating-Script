@@ -635,7 +635,7 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess\S-1-15-2-3624051433-2125758914-1423191267-1740899205-1073925389-3782572162-737981194\{2EEF81BE-33FA-4800-9670-1CD474972C3F}" /v "Value" /t REG_SZ /d "Deny" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess\S-1-15-2-3624051433-2125758914-1423191267-1740899205-1073925389-3782572162-737981194\{E5323777-F976-4f5b-9B55-B94699C46E44}" /v "Value" /t REG_SZ /d "Deny" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess\S-1-15-2-4153522205-3718366397-1353898457-1332184198-1210887116-3116787857-2103916698\{2EEF81BE-33FA-4800-9670-1CD474972C3F}" /v "Value" /t REG_SZ /d "Deny" /f
-	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /v "ShowedToastAtLevel" /t REG_DWORD /d "3" /f
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /v "ShowedToastAtLevel" /t REG_DWORD /d "4" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d "1" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartPage" /v "StartMenu_Start_Time" /t REG_BINARY /d "C3166B83A98BD801" /f
@@ -799,7 +799,7 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKLM\SYSTEM\ControlSet001\Services\UnistoreSvc" /v "Start" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SYSTEM\ControlSet001\Services\UserDataSvc" /v "Start" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SYSTEM\ControlSet001\Services\WpnUserService" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener" /v "Start" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\SQMLogger" /v "Start" /t REG_DWORD /d "0" /f
@@ -817,6 +817,27 @@ echo(&echo   # Applying Registry Tweaks
 echo(&echo   # Applying Sophisicated Tweaks
 
 >nul 2>&1 (
+	rem ====================
+	rem Downloading and setting up Everything Search + Search Bar.
+	for /f tokens^=6^ delims^=/^" %%A in ('curl -ksL https://voidtools.com/downloads ^| findstr /C:"x64-Setup.exe"') do (
+		if not defined newest_version set "newest_version=%%A"
+	)
+	curl -ksLO https://voidtools.com/!newest_version! & !newest_version!
+	for /f "tokens=1,* delims=: " %%A in ('curl -ksL https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest ^| findstr /c:"browser_download_url"') do (
+		curl -ksLO %%B
+		for /f "tokens=8 delims=/" %%B in (%%B) do (
+			%%B /quiet /passive
+		)
+	)
+	
+	rem Unlock the taskbar
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
+	taskkill /f /im explorer.exe & explorer.exe
+	rem Lock the taskbar
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
+	taskkill /f /im explorer.exe & explorer.exe
+	rem ====================
+
 	rem Turns off hibernation mode
 	powercfg -h off
 	
@@ -952,6 +973,10 @@ echo(&echo   # Applying Sophisicated Tweaks
 
 echo(&echo   # Adding Custom Host File Config
 
+rem Adding Windows Defender Exclusion for hosts file.
+powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
+
+rem Removing & adding custom hosts file.
 del /F/Q "%WINDIR%\System32\drivers\etc\hosts"
 cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 
@@ -959,9 +984,6 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo ###################################
 	echo # Custom Host Config by: Scrut1ny #
 	echo ###################################
-	echo(
-	echo # Malwarebytes Telemtry
-	echo 0.0.0.0 telemetry.malwarebytes.com
 	echo(
 	echo # Windows Telemtry 
 	echo 0.0.0.0 a-0001.a-msedge.net
@@ -1485,65 +1507,34 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 echo(&echo   # Configurating Network Settings
 
 >nul 2>&1 (
-	rem Reset firewall
-	rem netsh advfirewall reset
-	rem delete http cache
-	netsh nap reset
-	netsh rpc reset
-	netsh winhttp reset
-	netsh http flush
-	netsh http delete timeout timeouttype=idleconnectiontimeout
-	netsh http delete timeout timeouttype=headerwaittimeout
-	rem make connection direct
-	netsh winhttp reset proxy
-	rem disable tracing
-	netsh winhttp reset tracing
-	rem delete http cache
-	netsh http delete cache
-	rem BranchCache Optimize WAN traffic
-	netsh branchcache reset
-	rem Routing Lists Clear
-	netsh routing reset
-	rem Network-Adapter’s Software Default (Winsock Reset and Rebuild)
-	netsh winsock reset
-	rem Resetting both IPV's
-	netsh interface ipv4 reset
-	netsh interface ipv6 reset
-	rem Network-Interfaces Reset
-	netsh interface reset all
-	netsh interface httpstunnel reset
-	rem Hardcore TCP/IP Reset and Rebuild
-	netsh int ip reset c:\temp\netsh_ip_reset_log.txt
-	rem Purges the contents of the NetBIOS name cache and then reloads the pre-tagged entries from the Lmhosts file. Releases and then refreshes NetBIOS names for the local computer that is registered with WINS servers.
 	nbtstat -R
 	nbtstat -RR
-	rem Random
+	netsh branchcache reset
 	netsh dhcpclient trace disable
-	netsh interface httpstunnel reset
-	netsh interface portproxy reset
-	netsh interface tcp reset
-	netsh interface udp reset
+	netsh http flush
+	netsh nap reset
+	netsh routing reset
+	netsh rpc reset
 	netsh trace stop
-	netsh winhttp reset autoproxy
-	netsh winhttp reset proxy
-	netsh winhttp reset tracing
-	netsh winsock reset catalog
+	netsh winhttp reset
+	netsh winsock reset
 	netsh winsock set autotuning off
+	netsh interface reset all
 	
 	rem Turning off connection
 	ipconfig/release
 	
 	rem Ethernet
-	netsh interface ipv4 add dns "Ethernet" 1.1.1.1
+	netsh interface ipv4 set dns "Ethernet" static 1.1.1.1 primary
 	netsh interface ipv4 add dns "Ethernet" 1.0.0.1 index=2
-	netsh interface ipv6 add dns "Ethernet" 2606:4700:4700::1111
-	netsh interface ipv6 add dns "Ethernet" 2606:4700:4700::1001 index=2
+	rem netsh interface ipv6 set dns "Ethernet" static 2606:4700:4700::1111 primary
+	rem netsh interface ipv6 add dns "Ethernet" 2606:4700:4700::1001 index=2
 	
 	rem WIFI
-	netsh interface ipv4 add dns "WIFI" 1.1.1.1
+	netsh interface ipv4 set dns "WIFI" static 1.1.1.1 primary
 	netsh interface ipv4 add dns "WIFI" 1.0.0.1 index=2
-	netsh interface ipv6 add dns "WIFI" 2606:4700:4700::1111
-	netsh interface ipv6 add dns "WIFI" 2606:4700:4700::1001 index=2
+	rem netsh interface ipv6 set dns "WIFI" static 2606:4700:4700::1111 primary
+	rem netsh interface ipv6 add dns "WIFI" 2606:4700:4700::1001 index=2
 	
 	rem Applies an alternate NCSI
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "208.67.222.222" /f
