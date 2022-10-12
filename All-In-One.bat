@@ -1550,7 +1550,7 @@ echo(&echo   # Configurating Network Settings
 	for /f "tokens=1,* delims=: " %%A in ('curl -fksL "https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest" ^| findstr /c:"browser_download_url"') do (
 		curl -ksLO "%%~B"
 		for /f "tokens=8 delims=/" %%C in ("%%~B") do (
-			%%C /quiet /passive & del /F /Q "%%C"
+			%%C /quiet /passive && del /F /Q "%%C"
 		)
 	)
 	rem Unlock the taskbar
