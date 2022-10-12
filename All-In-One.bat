@@ -817,27 +817,6 @@ echo(&echo   # Applying Registry Tweaks
 echo(&echo   # Applying Sophisicated Tweaks
 
 >nul 2>&1 (
-	rem ====================
-	rem Downloading and setting up Everything Search + Search Bar.
-	for /f tokens^=6^ delims^=/^" %%A in ('curl -ksL https://voidtools.com/downloads ^| findstr /C:"x64-Setup.exe"') do (
-		if not defined newest_version set "newest_version=%%A"
-	)
-	curl -ksLO https://voidtools.com/!newest_version! & !newest_version!
-	for /f "tokens=1,* delims=: " %%A in ('curl -ksL https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest ^| findstr /c:"browser_download_url"') do (
-		curl -ksLO %%B
-		for /f "tokens=8 delims=/" %%B in (%%B) do (
-			%%B /quiet /passive
-		)
-	)
-	
-	rem Unlock the taskbar
-	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
-	taskkill /f /im explorer.exe & explorer.exe
-	rem Lock the taskbar
-	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
-	taskkill /f /im explorer.exe & explorer.exe
-	rem ====================
-
 	rem Turns off hibernation mode
 	powercfg -h off
 	
@@ -1552,6 +1531,36 @@ echo(&echo   # Configurating Network Settings
 	rem Refresh Networking
 	ipconfig/flushdns
 	ipconfig/renew
+)
+
+:: ====================
+
+
+
+
+:: ====================
+:: Software
+:: ====================
+
+>nul 2>&1 (
+	rem EVERYTHING SEARCH + EVERYTHING SEARCH BAR
+	for /f tokens^=6^ delims^=/^" %%A in ('curl -fksL "https://voidtools.com/downloads" ^| findstr /C:"Download Installer 64-bit"') do (
+		curl -fksLO "https://voidtools.com/%%A" && %%A & del /F /Q "%%A"
+	)
+	for /f "tokens=1,* delims=: " %%A in ('curl -fksL "https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest" ^| findstr /c:"browser_download_url"') do (
+		curl -ksLO "%%~B"
+		for /f "tokens=8 delims=/" %%C in ("%%~B") do (
+			%%C /quiet /passive & del /F /Q "%%C"
+		)
+	)
+	rem Unlock the taskbar
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
+	taskkill /f /im explorer.exe & explorer.exe
+	rem Lock the taskbar
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
+	taskkill /f /im explorer.exe & explorer.exe
+	
+	rem SOFTWARE
 )
 
 :: ====================
