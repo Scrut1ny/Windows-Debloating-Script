@@ -5,6 +5,15 @@
  - Java > https://www.java.com/
  - NVIDIA Driver > https://www.nvidia.com/Download/index.aspx?lang=en-us
  - Python > https://www.python.org/downloads/
+ 
+ - Bulk Crap Uninstaller > https://github.com/Klocman/Bulk-Crap-Uninstaller
+ - Process Hacker > https://processhacker.sourceforge.io/nightly.php
+ - Wireshark > https://www.wireshark.org/
+ - KeePassXC > https://github.com/keepassxreboot/keepassxc
+ - qBittorrent > https://www.qbittorrent.org/download.php
+ - FreeTube > https://github.com/FreeTubeApp/FreeTube
+ - yt-dlp > https://github.com/yt-dlp/yt-dlp/releases/latest
+ - FFmpeg > https://www.gyan.dev/ffmpeg/builds/
 
 ========== Microsoft Replacements ==========
 
