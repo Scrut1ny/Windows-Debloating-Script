@@ -1,21 +1,26 @@
+Browser Monitoring / Reporting / Data Storing:
 browser.cache.offline.enable = false | Disables websites from storing data on your computer for when you would be offline.
 browser.safebrowsing.malware.enabled = false | Disables Google's malware monitoring.
 browser.safebrowsing.phishing.enabled = false | Disables Google's phishing monitoring.
 browser.safebrowsing.downloads.enabled = false | Disables Google's downloads monitoring.
 browser.tabs.crashReporting.sendReport = false | Disables crash reporting.
+
+MISC:
+identity.fxaccounts.enabled = false | Disables any embedded Firefox accounts.
+media.autoplay.default = 5 | Disables audio and video from playig automatically.
+pdfjs.enableScripting = false | Prevents some malicious PDF actions.
+privacy.resistFingerprinting = true | Resists fingerprinting.
 dom.battery.enabled = false | Blocks sending battery level infoformation.
 dom.event.clipboardevents.enabled = false | Websites won't know if you copy/paste.
 dom.webnotifications.enabled = false | Disables embedded notifications.
-identity.fxaccounts.enabled = false | Disables any embedded Firefox accounts.
-media.autoplay.default = 5 | Disables audio and video from playig automatically.
+webgl.disabled = true | Disables some fingerprinting. Also needed for flash games / online games. Uses your GPU.
+
+Networking:
 network.dns.disablePrefetch = true | Disables prefetching.
 network.dns.disablePrefetchFromHTTPS = true | Disables prefetching.
 network.http.sendRefererHeader = 0 | Disables referring website notifications.
 network.prefetch-next = false | Disables prefetching.
 network.ttr.mode = 2 | DNS=over=HTTPS (DoH)
-pdfjs.enableScripting = false | Prevents some malicious PDF actions.
-privacy.resistFingerprinting = true | Resists fingerprinting.
-webgl.disabled = true | Disables some fingerprinting. Also needed for flash games / online games. Uses your GPU.
 
 Pocket:
 browser.newtabpage.activity-stream.section.highlights.includePocket = false
@@ -64,4 +69,3 @@ media.peerconnection.video.enabled - false
 
 Disable outside requests of primary domain. Prevents supercookies. (May cause websites that rely on 3rd party scripts and libraries to break)
 privacy.firstparty.isolate = true
-
