@@ -15,7 +15,7 @@ network.prefetch-next = false | Disables prefetching.
 network.ttr.mode = 2 | DNS=over=HTTPS (DoH)
 pdfjs.enableScripting = false | Prevents some malicious PDF actions.
 privacy.resistFingerprinting = true | Resists fingerprinting.
-webgl.disabled = true | Disables some fingerprinting.
+webgl.disabled = true | Disables some fingerprinting. Also needed for flash games / online games. Uses your GPU.
 
 Pocket:
 browser.newtabpage.activity-stream.section.highlights.includePocket = false
