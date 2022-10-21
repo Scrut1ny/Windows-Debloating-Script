@@ -45,7 +45,7 @@ Disable geolocation services:
 geo.enabled = false
 
 Disable plugin scanning: (some sites scan for adblockers and script blockers)
-plugin.scan.plid.all
+plugin.scan.plid.all = false
 
 Disable disk caching: (if you find it annoying to click on an "image" before you can view it, then you'll have to turn one of the cache back to true.)
 browser.cache.disk.enable = false
