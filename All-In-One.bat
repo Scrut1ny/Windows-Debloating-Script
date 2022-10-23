@@ -232,6 +232,7 @@ echo(&echo   # Deleting Bloat Microsoft Apps
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'SpotifyAB.SpotifyMusic' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Sway' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Teams' | Remove-AppxPackage"
+	
 	rem MAIN WINDOWS APPS
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.Photos' | Remove-AppxPackage"
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
@@ -904,8 +905,6 @@ echo(&echo   # Applying Sophisicated Tweaks
 	dism /online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2Root" /NoRestart
 	dism /online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2" /NoRestart
 	
-	for /f "tokens=1 delims=," %%x in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /TN %%x /F
-	
 	rem Do not show recently used files in Quick Access
 	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowRecent" /t "REG_DWORD" /d "0" /f
 	reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderDesktop\NameSpace\DelegateFolders\{3134ef9c-6b18-4996-ad04-ed5912e00eb5}" /f
@@ -926,6 +925,7 @@ echo(&echo   # Applying Sophisicated Tweaks
 	rd "%SystemDrive%\OneDriveTemp" /q /s
 	del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Microsoft OneDrive.lnk" /s /f /q
 	del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk" /s /f /q
+	del "%APPDATA%\Local\OneDrive" /s /f /q
 	del "%USERPROFILE%\Links\OneDrive.lnk" /s /f /q
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /t REG_DWORD /v "DisableFileSyncNGSC" /d "1" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /t REG_DWORD /v "DisableFileSync" /d "1" /f
@@ -937,7 +937,7 @@ echo(&echo   # Applying Sophisicated Tweaks
 	reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 	reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 	reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
-	for /f "tokens=1 delims=," %%x in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /TN %%x /F
+	for /f "tokens=1 delims=," %%A in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /TN %%A /F
 	reg delete "HKCU\Environment" /v "OneDrive" /f
 )
 
@@ -956,7 +956,7 @@ rem Adding Windows Defender Exclusion for hosts file.
 powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
 
 rem Removing & adding custom hosts file.
-del /F/Q "%WINDIR%\System32\drivers\etc\hosts"
+del /F /Q "%WINDIR%\System32\drivers\etc\hosts"
 cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 
 (
@@ -1373,7 +1373,7 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 kv201-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 kv401-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 lb1.www.ms.akadns.net
-	echo 0.0.0.0 licensing.mp.microsoft.com
+	echo # 0.0.0.0 licensing.mp.microsoft.com
 	echo 0.0.0.0 live.rads.msn.com
 	echo 0.0.0.0 ls2web.redmond.corp.microsoft.com
 	echo 0.0.0.0 m.adnxs.com
@@ -1504,16 +1504,16 @@ echo(&echo   # Configurating Network Settings
 	ipconfig/release
 	
 	rem Ethernet
-	netsh interface ipv4 set dns "Ethernet" static 1.1.1.1 primary
-	netsh interface ipv4 add dns "Ethernet" 1.0.0.1 index=2
-	rem netsh interface ipv6 set dns "Ethernet" static 2606:4700:4700::1111 primary
-	rem netsh interface ipv6 add dns "Ethernet" 2606:4700:4700::1001 index=2
+	netsh interface ipv4 set dnsservers "Ethernet" static 1.1.1.1 primary
+	netsh interface ipv4 add dnsservers "Ethernet" 1.0.0.1 index=2
+	rem netsh interface ipv6 set dnsservers "Ethernet" static 2606:4700:4700::1111 primary
+	rem netsh interface ipv6 add dnsservers "Ethernet" 2606:4700:4700::1001 index=2
 	
 	rem WIFI
-	netsh interface ipv4 set dns "WIFI" static 1.1.1.1 primary
-	netsh interface ipv4 add dns "WIFI" 1.0.0.1 index=2
-	rem netsh interface ipv6 set dns "WIFI" static 2606:4700:4700::1111 primary
-	rem netsh interface ipv6 add dns "WIFI" 2606:4700:4700::1001 index=2
+	netsh interface ipv4 set dnsservers "Wi-Fi" static 1.1.1.1 primary
+	netsh interface ipv4 add dnsservers "Wi-Fi" 1.0.0.1 index=2
+	rem netsh interface ipv6 set dnsservers "Wi-Fi" static 2606:4700:4700::1111 primary
+	rem netsh interface ipv6 add dnsservers "Wi-Fi" 2606:4700:4700::1001 index=2
 	
 	rem Applies an alternate NCSI
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "208.67.222.222" /f
