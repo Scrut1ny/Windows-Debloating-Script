@@ -6,6 +6,7 @@
  - NVIDIA Driver > https://www.nvidia.com/Download/index.aspx?lang=en-us
  - Python > https://www.python.org/downloads/
  
+ - 7zip > https://www.7-zip.org/
  - Bulk Crap Uninstaller > https://github.com/Klocman/Bulk-Crap-Uninstaller
  - Process Hacker > https://processhacker.sourceforge.io/nightly.php
  - Wireshark > https://www.wireshark.org/
