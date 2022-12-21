@@ -8,7 +8,7 @@
  
  - 7zip > https://www.7-zip.org/
  - Bulk Crap Uninstaller > https://github.com/Klocman/Bulk-Crap-Uninstaller
- - Process Hacker > https://processhacker.sourceforge.io/nightly.php
+ - systeminformer (Process Hacker) > https://systeminformer.sourceforge.io/nightly.php
  - Wireshark > https://www.wireshark.org/
  - KeePassXC > https://github.com/keepassxreboot/keepassxc
  - qBittorrent > https://www.qbittorrent.org/download.php
