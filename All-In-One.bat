@@ -17,19 +17,16 @@ fltmc >nul 2>&1 || (
 
 :: ====================
 
-title S.U.W.T
-mode con:cols=43 lines=21
-
 :MENU
-cls&title https://github.com/Scrut1ny/Windows-Spoofer
-echo(&echo    -------------------------------------
-echo   ^| Scrut1ny's Ultimate Windows Tweaker ^|
-echo    -------------------------------------
-echo    1 ^> Activate Windows
-echo    2 ^> Optimize Windows
-echo   ===============================
-echo     [34mhttps://github.com/Scrut1ny[0m
-echo   ===============================
+mode con:cols=41 lines=21
+cls&title https://github.com/Scrut1ny/Windows-Tweaking
+echo(&echo   =====================================
+echo    Scrut1ny's Ultimate Windows Tweaker
+echo        [34mhttps://github.com/Scrut1ny[0m
+echo   =====================================&&echo(
+echo   1 ^> Activate Windows
+echo   2 ^> Optimize Windows
+echo   3 ^> Boot into UEFI/BIOS
 echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :choice1
@@ -41,6 +38,11 @@ exit /b
 
 :choice1
 powershell irm https://massgrave.dev/get ^| iex
+goto :MENU
+exit /b
+
+:choice3
+shutdown /r /fw /f /t 0
 exit /b
 
 :choice2
@@ -54,7 +56,7 @@ exit /b
 :: Scheduled Tasks
 :: ====================
 
-echo(&echo   # Disabling Scheduled Tasks
+cls&&echo(&echo   # Disabling Scheduled Tasks
 
 >nul 2>&1 (
 	rem Collects program telemtry information...
@@ -1556,8 +1558,6 @@ echo(&echo   # Cleaning System
 :: ====================
 
 mode con:cols=35 lines=3
-cls&&echo(&&echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & goto :MENU
+cls&&echo(&&echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
 
 :: ====================
-
-:: shutdown /r /fw /f /t 0
