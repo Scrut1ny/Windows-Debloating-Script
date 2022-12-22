@@ -104,26 +104,35 @@ cls&&echo(&echo   # Disabling Scheduled Tasks
 echo(&echo   # Disabling Services
 
 >nul 2>&1 (
-	sc stop "diagnosticshub.standardcollector.service" && sc config "diagnosticshub.standardcollector.service" start= disabled
-	sc stop "diagsvc" && sc config "diagsvc" start= disabled
-	sc stop "dmwappushservice" && sc config "dmwappushservice" start= disabled
-	sc stop "DusmSvc" && sc config "DusmSvc" start= disabled && del /F/S/Q "%windir%\System32\sru\*"
-	sc stop "edgeupdate" && sc config "edgeupdate" start= disabled
-	sc stop "edgeupdatem" && sc config "edgeupdatem" start= disabled
-	sc stop "MapsBroker" && sc config "MapsBroker" start= disabled
-	sc stop "MicrosoftEdgeElevationService" && sc config "MicrosoftEdgeElevationService" start= disabled
-	sc stop "NahimicService" && sc config "NahimicService" start= disabled
-	sc stop "NvTelemetryContainer" && sc config "NvTelemetryContainer" start= disabled
-	sc stop "OneSyncSvc" && sc config "OneSyncSvc" start= disabled
-	sc stop "PcaSvc" && sc config "PcaSvc" start= disabled
-	sc stop "PhoneSvc" && sc config "PhoneSvc" start= disabled
-	sc stop "RemoteRegistry" && sc config "RemoteRegistry" start= disabled
-	sc stop "TabletInputService" && sc config "TabletInputService" start= disabled
+	rem Random Services
+	sc stop "CDPUserSvc" & sc config "CDPUserSvc" start= disabled
+	sc stop "diagnosticshub.standardcollector.service" & sc config "diagnosticshub.standardcollector.service" start= disabled
+	sc stop "diagsvc" & sc config "diagsvc" start= disabled
+	sc stop "dmwappushservice" & sc config "dmwappushservice" start= disabled
+	sc stop "DusmSvc" & sc config "DusmSvc" start= disabled & del /F/S/Q "%windir%\System32\sru\*"
+	sc stop "edgeupdate" & sc config "edgeupdate" start= disabled
+	sc stop "edgeupdatem" & sc config "edgeupdatem" start= disabled
+	sc stop "MapsBroker" & sc config "MapsBroker" start= disabled
+	sc stop "MessagingService" & sc config "MessagingService" start= disabled
+	sc stop "MicrosoftEdgeElevationService" & sc config "MicrosoftEdgeElevationService" start= disabled
+	sc stop "NahimicService" & sc config "NahimicService" start= disabled
+	sc stop "NvTelemetryContainer" & sc config "NvTelemetryContainer" start= disabled
+	sc stop "OneSyncSvc" & sc config "OneSyncSvc" start= disabled
+	sc stop "PcaSvc" & sc config "PcaSvc" start= disabled
+	sc stop "PhoneSvc" & sc config "PhoneSvc" start= disabled
+	sc stop "PimIndexMaintenanceSvc" & sc config "PimIndexMaintenanceSvc" start= disabled
+	sc stop "RemoteRegistry" & sc config "RemoteRegistry" start= disabled
+	sc stop "TabletInputService" & sc config "TabletInputService" start= disabled
+	sc stop "UnistoreSvc" & sc config "UnistoreSvc" start= disabled
+	sc stop "UserDataSvc" & sc config "UserDataSvc" start= disabled
+	sc stop "wercplsupport" & sc config "wercplsupport" start= disabled
+	sc stop "WerSvc" & sc config "WerSvc" start= disabled
+	sc stop "WpnUserService" & sc config "WpnUserService" start= disabled
 	rem Xbox Services
-	sc stop "XblAuthManager" && sc config "XblAuthManager" start= disabled
-	sc stop "XblGameSave" && sc config "XblGameSave" start= disabled
-	sc stop "XboxGipSvc" && sc config "XboxGipSvc" start= disabled
-	sc stop "XboxNetApiSvc" && sc config "XboxNetApiSvc" start= disabled
+	sc stop "XblAuthManager" & sc config "XblAuthManager" start= disabled
+	sc stop "XblGameSave" & sc config "XblGameSave" start= disabled
+	sc stop "XboxGipSvc" & sc config "XboxGipSvc" start= disabled
+	sc stop "XboxNetApiSvc" & sc config "XboxNetApiSvc" start= disabled
 )
 
 :: ====================
@@ -161,7 +170,6 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d "506" /f
 	reg add "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t REG_SZ /d "1" /f
 	reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d "1000" /f
-	reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d "2000" /f
 	reg add "HKCU\Control Panel\Desktop" /v "LowLevelHooksTimeout" /t REG_SZ /d "1000" /f
 	reg add "HKCU\Control Panel\Desktop" /v "MenuShowDelay" /t REG_SZ /d "0" /f
 	reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t REG_SZ /d "2000" /f
@@ -664,9 +672,6 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting\BrokerUp" /t REG_DWORD /v "WWAJSE" /d "0" /f
-	reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "ChromeCleanupEnabled" /t REG_DWORD /d "0" /f
-	reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "ChromeCleanupReportingEnabled" /t REG_DWORD /d "0" /f
-	reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "MetricsReportingEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\Biometrics" /v "Enabled" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "ConfigureDoNotTrack" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "PromotionalTabsEnabled" /t REG_DWORD /d "0" /f
@@ -737,17 +742,7 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKLM\SYSTEM\ControlSet001\Control\StorPort" /v "TelemetryDeviceHealthEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\ControlSet001\Control\StorPort" /v "TelemetryErrorDataEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\ControlSet001\Control\StorPort" /v "TelemetryPerformanceEnabled" /t REG_DWORD /d "0" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\dmwappushservice" /v "Start" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SYSTEM\ControlSet001\Services\lfsvc\Service\Configuration" /v "Status" /t REG_DWORD /d "0" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\MessagingService" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\OneSyncSvc" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\PimIndexMaintenanceSvc" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\UnistoreSvc" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\UserDataSvc" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\wercplsupport" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
-	reg add "HKLM\SYSTEM\ControlSet001\Services\WpnUserService" /v "Start" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener" /v "Start" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d "0" /f
