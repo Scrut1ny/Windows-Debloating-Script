@@ -26,7 +26,6 @@ echo        [34mhttps://github.com/Scrut1ny[0m
 echo   =====================================&&echo(
 echo   1 ^> Activate Windows
 echo   2 ^> Optimize Windows
-echo   3 ^> Boot into UEFI/BIOS
 echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :choice1
@@ -39,10 +38,6 @@ exit /b
 :choice1
 powershell irm https://massgrave.dev/get ^| iex
 goto :MENU
-exit /b
-
-:choice3
-shutdown /r /fw /f /t 0
 exit /b
 
 :choice2
