@@ -53,7 +53,7 @@
  - Video Editing > https://www.blackmagicdesign.com/uk/products/davinciresolve/
  - OBS Studio > https://github.com/obsproject/obs-studio
  - VMware PRO > https://www.vmware.com/go/getworkstation-win
-	* Pro License Key: ZF3R0-FHED2-M80TY-8QYGC-NPKYF
+	* Pro License Key: MC60H-DWHD5-H80U9-6V85M-8280D
  - Wireshark > https://www.wireshark.org/
  - yt-dlp > https://github.com/yt-dlp/yt-dlp/releases/latest
  - FFmpeg > https://ffmpeg.org/
