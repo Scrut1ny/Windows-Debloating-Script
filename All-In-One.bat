@@ -3,11 +3,10 @@ setlocal enableDelayedExpansion
 mode con:cols=65 lines=21
 
 fltmc >nul 2>&1 || (
-    echo(&echo   [33m# Administrator privileges are required.[0m
+    echo( && echo   [33m# Administrator privileges are required. && echo([0m
     PowerShell Start -Verb RunAs '%0' 2> nul || (
-		title ERROR: Administrator Privileges Declined
-        echo(&echo   [33m# Right-click on the script and select "Run as administrator[0m".
-        >nul pause & exit 1
+        echo   [33m# Right-click on the script and select "Run as administrator".[0m
+        >nul pause && exit 1
     )
     exit 0
 )
@@ -187,6 +186,7 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "StoreAppsOnTaskbar" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAutoHideInTabletMode" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d "1" /f
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSi" /t REG_DWORD /d "1" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete" /v "Append Completion" /t REG_SZ /d "yes" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete" /v "AutoSuggest" /t REG_SZ /d "yes" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.txt\OpenWithProgids" /v "Notepad++_file" /t REG_NONE /d "" /f
@@ -225,6 +225,8 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Low Latency" /v "Scheduling Category" /t REG_SZ /d "Medium" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Low Latency" /v "SFIO Priority" /t REG_SZ /d "High" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "UseOLEDTaskbarTransparency" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "4" /f
+	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "DoNotShowFeedbackNotifications" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "AllowOnlineTips" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoInternetOpenWith" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoOnlinePrintsWizard" /t REG_DWORD /d "1" /f
@@ -685,6 +687,7 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\MRT" /v "DontReportInfectionInformation" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\MRT" /v "DontOfferThroughWUAU" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\PCHealth\ErrorReporting" /v "DoReport" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\PushToInstall" /v "DisablePushToInstall" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t REG_DWORD /d "0" /f
@@ -747,6 +750,18 @@ echo(&echo   # Applying Registry Tweaks
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\SQMLogger" /v "Start" /t REG_DWORD /d "0" /f
+	reg add "HKCU\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 1 /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 1 /f
+	reg add "HKCU\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d 1 /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d 1 /f
+	reg add "HKCU\Software\Policies\Microsoft\Windows\HandwritingErrorReports" /v "PreventHandwritingErrorReports" /t REG_DWORD /d 1 /f
+	reg add "HKLM\Software\Policies\Microsoft\Windows\HandwritingErrorReports" /v "PreventHandwritingErrorReports" /t REG_DWORD /d 1 /f
+	reg add "HKCU\Software\Policies\Microsoft\Windows\TabletPC" /v "PreventHandwritingDataSharing" /t REG_DWORD /d 1 /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "PreventHandwritingDataSharing" /t REG_DWORD /d 1 /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "AllowInputPersonalization" /t REG_DWORD /d 0 /f
+	reg add "HKCU\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" /v "HarvestContacts" /t REG_DWORD /d 0 /f
+	reg add "HKLM\SOFTWARE\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f
+	reg add "HKCU\SOFTWARE\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f
 )
 
 :: ====================
@@ -911,7 +926,28 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo # Custom Host Config by: Scrut1ny #
 	echo ###################################
 	echo(
-	echo # Windows Telemtry 
+	echo # Microsoft Store
+	echo # 0.0.0.0 bat.bing.com
+	echo # 0.0.0.0 store-images.microsoft.com
+	echo # 0.0.0.0 store-images.s-microsoft.com
+	echo # 0.0.0.0 storeedgefd.dsx.mp.microsoft.com
+	echo(
+	echo Microsoft Store: Xbox
+	echo # 0.0.0.0 da.xboxservices.com
+	echo # 0.0.0.0 images-eds-ssl.xboxlive.com
+	echo # 0.0.0.0 musicart.xboxlive.com
+	echo # 0.0.0.0 musicimage.xboxlive.com
+	echo(
+	echo Microsoft Store: Library - Updating Apps
+	echo # 0.0.0.0 displaycatalog.mp.microsoft.com
+	echo # 0.0.0.0 fe3cr.delivery.mp.microsoft.com
+	echo(
+	echo # Activating Windows
+	echo # 0.0.0.0 licensing.mp.microsoft.com
+	echo(
+	echo # Windows Telemtry
+	echo 0.0.0.0 1oavsblobprodcus350.blob.core.windows.net
+	echo 0.0.0.0 37bvsblobprodcus311.blob.core.windows.net
 	echo 0.0.0.0 a-0001.a-msedge.net
 	echo 0.0.0.0 a-0001.dc-msedge.net
 	echo 0.0.0.0 a-0002.a-msedge.net
@@ -939,7 +975,9 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 ads.msn.com
 	echo 0.0.0.0 aidps.atdmt.com
 	echo 0.0.0.0 aka-cdn-ns.adtech.de
-	echo 0.0.0.0 alpha.telemetry.microsft.com
+	echo 0.0.0.0 alpha.telemetry.microsoft.com
+	echo 0.0.0.0 api.cortana.ai
+	echo 0.0.0.0 api.edgeoffer.microsoft.com
 	echo 0.0.0.0 array101-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 array102-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 array103-prod.do.dsp.mp.microsoft.com
@@ -960,6 +998,7 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 asimov-win.settings.data.microsoft.com.akadns.net
 	echo 0.0.0.0 az361816.vo.msecnd.net
 	echo 0.0.0.0 az512334.vo.msecnd.net
+	echo 0.0.0.0 azwancan.trafficmanager.net
 	echo 0.0.0.0 b.ads1.msn.com
 	echo 0.0.0.0 b.ads2.msads.net
 	echo 0.0.0.0 b.rad.msn.com
@@ -968,17 +1007,57 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 bl3301-c.1drv.com
 	echo 0.0.0.0 bl3301-g.1drv.com
 	echo 0.0.0.0 blob.weather.microsoft.com
+	echo 0.0.0.0 blobcollector.events.data.trafficmanager.net
+	echo 0.0.0.0 bn2-ris-ap-prod-atm.trafficmanager.net
+	echo 0.0.0.0 bn2-ris-prod-atm.trafficmanager.net
 	echo 0.0.0.0 bn2b-cor001.api.p001.1drv.com
 	echo 0.0.0.0 bn2b-cor002.api.p001.1drv.com
 	echo 0.0.0.0 bn2b-cor003.api.p001.1drv.com
 	echo 0.0.0.0 bn2b-cor004.api.p001.1drv.com
 	echo 0.0.0.0 bn2wns1.wns.windows.com
 	echo 0.0.0.0 bn3p-cor001.api.p001.1drv.com
+	echo 0.0.0.0 bn3sch020010558.wns.windows.com
+	echo 0.0.0.0 bn3sch020010560.wns.windows.com
+	echo 0.0.0.0 bn3sch020010618.wns.windows.com
+	echo 0.0.0.0 bn3sch020010629.wns.windows.com
+	echo 0.0.0.0 bn3sch020010631.wns.windows.com
+	echo 0.0.0.0 bn3sch020010635.wns.windows.com
+	echo 0.0.0.0 bn3sch020010636.wns.windows.com
+	echo 0.0.0.0 bn3sch020010650.wns.windows.com
+	echo 0.0.0.0 bn3sch020011727.wns.windows.com
+	echo 0.0.0.0 bn3sch020012850.wns.windows.com
+	echo 0.0.0.0 bn3sch020020322.wns.windows.com
+	echo 0.0.0.0 bn3sch020020749.wns.windows.com
 	echo 0.0.0.0 bn3sch020022328.wns.windows.com
+	echo 0.0.0.0 bn3sch020022335.wns.windows.com
+	echo 0.0.0.0 bn3sch020022361.wns.windows.com
+	echo 0.0.0.0 bn4sch101120814.wns.windows.com
+	echo 0.0.0.0 bn4sch101120818.wns.windows.com
+	echo 0.0.0.0 bn4sch101120911.wns.windows.com
+	echo 0.0.0.0 bn4sch101120913.wns.windows.com
+	echo 0.0.0.0 bn4sch101121019.wns.windows.com
+	echo 0.0.0.0 bn4sch101121109.wns.windows.com
+	echo 0.0.0.0 bn4sch101121118.wns.windows.com
+	echo 0.0.0.0 bn4sch101121223.wns.windows.com
+	echo 0.0.0.0 bn4sch101121407.wns.windows.com
+	echo 0.0.0.0 bn4sch101121618.wns.windows.com
+	echo 0.0.0.0 bn4sch101121704.wns.windows.com
+	echo 0.0.0.0 bn4sch101121709.wns.windows.com
+	echo 0.0.0.0 bn4sch101121714.wns.windows.com
+	echo 0.0.0.0 bn4sch101121908.wns.windows.com
+	echo 0.0.0.0 bn4sch101122117.wns.windows.com
+	echo 0.0.0.0 bn4sch101122310.wns.windows.com
+	echo 0.0.0.0 bn4sch101122312.wns.windows.com
+	echo 0.0.0.0 bn4sch101122421.wns.windows.com
+	echo 0.0.0.0 bn4sch101123108.wns.windows.com
+	echo 0.0.0.0 bn4sch101123110.wns.windows.com
+	echo 0.0.0.0 bn4sch101123202.wns.windows.com
+	echo 0.0.0.0 bn4sch102110124.wns.windows.com
 	echo 0.0.0.0 bn1304-e.1drv.com
 	echo 0.0.0.0 bn1306-a.1drv.com
 	echo 0.0.0.0 bn1306-e.1drv.com
 	echo 0.0.0.0 bn1306-g.1drv.com
+	echo 0.0.0.0 browser.pipe.aria.microsoft.com
 	echo 0.0.0.0 bs.serving-sys.com
 	echo 0.0.0.0 by3301-a.1drv.com
 	echo 0.0.0.0 by3301-c.1drv.com
@@ -992,19 +1071,108 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 cdn.atdmt.com
 	echo 0.0.0.0 cdn.content.prod.cms.msn.com
 	echo 0.0.0.0 cdn.onenote.net
+	echo 0.0.0.0 cds1.stn.llnw.net
+	echo 0.0.0.0 cds10.stn.llnw.net
 	echo 0.0.0.0 cds26.ams9.msecn.net
+	echo 0.0.0.0 cds27.ory.llnw.net
+	echo 0.0.0.0 cds38.ory.llnw.net
+	echo 0.0.0.0 cds46.ory.llnw.net
+	echo 0.0.0.0 cds54.ory.llnw.net
+	echo 0.0.0.0 cds177.dus.llnw.net
+	echo 0.0.0.0 cds299.lcy.llnw.net
+	echo 0.0.0.0 cds308.lcy.llnw.net
+	echo 0.0.0.0 cds310.lcy.llnw.net
+	echo 0.0.0.0 cds405.lcy.llnw.net
+	echo 0.0.0.0 cds406.lcy.llnw.net
+	echo 0.0.0.0 cds407.fra.llnw.net
+	echo 0.0.0.0 cds416.lcy.llnw.net
+	echo 0.0.0.0 cds421.lcy.llnw.net
+	echo 0.0.0.0 cds422.lcy.llnw.net
 	echo 0.0.0.0 cds425.lcy.llnw.net
+	echo 0.0.0.0 cds426.lcy.llnw.net
+	echo 0.0.0.0 cds447.lcy.llnw.net
+	echo 0.0.0.0 cds458.lcy.llnw.net
 	echo 0.0.0.0 cds459.lcy.llnw.net
+	echo 0.0.0.0 cds461.lcy.llnw.net
+	echo 0.0.0.0 cds468.lcy.llnw.net
+	echo 0.0.0.0 cds469.lcy.llnw.net
+	echo 0.0.0.0 cds471.lcy.llnw.net
+	echo 0.0.0.0 cds483.lcy.llnw.net
+	echo 0.0.0.0 cds484.lcy.llnw.net
+	echo 0.0.0.0 cds489.lcy.llnw.net
+	echo 0.0.0.0 cds493.lcy.llnw.net
 	echo 0.0.0.0 cds494.lcy.llnw.net
+	echo 0.0.0.0 cds812.lon.llnw.net
+	echo 0.0.0.0 cds815.lon.llnw.net
+	echo 0.0.0.0 cds818.lon.llnw.net
+	echo 0.0.0.0 cds832.lon.llnw.net
+	echo 0.0.0.0 cds836.lon.llnw.net
+	echo 0.0.0.0 cds840.lon.llnw.net
+	echo 0.0.0.0 cds843.lon.llnw.net
+	echo 0.0.0.0 cds857.lon.llnw.net
+	echo 0.0.0.0 cds868.lon.llnw.net
+	echo 0.0.0.0 cds869.lon.llnw.net
 	echo 0.0.0.0 cds965.lon.llnw.net
+	echo 0.0.0.0 cds1203.lon.llnw.net
 	echo 0.0.0.0 cds1204.lon.llnw.net
+	echo 0.0.0.0 cds1209.lon.llnw.net
+	echo 0.0.0.0 cds1219.lon.llnw.net
+	echo 0.0.0.0 cds1228.lon.llnw.net
+	echo 0.0.0.0 cds1244.lon.llnw.net
+	echo 0.0.0.0 cds1257.lon.llnw.net
+	echo 0.0.0.0 cds1265.lon.llnw.net
+	echo 0.0.0.0 cds1269.lon.llnw.net
+	echo 0.0.0.0 cds1273.lon.llnw.net
+	echo 0.0.0.0 cds1285.lon.llnw.net
+	echo 0.0.0.0 cds1287.lon.llnw.net
+	echo 0.0.0.0 cds1289.lon.llnw.net
 	echo 0.0.0.0 cds1293.lon.llnw.net
+	echo 0.0.0.0 cds1307.lon.llnw.net
+	echo 0.0.0.0 cds1310.lon.llnw.net
+	echo 0.0.0.0 cds1325.lon.llnw.net
+	echo 0.0.0.0 cds1327.lon.llnw.net
+	echo 0.0.0.0 cds20005.stn.llnw.net
+	echo 0.0.0.0 cds20404.lcy.llnw.net
+	echo 0.0.0.0 cds20411.lcy.llnw.net
+	echo 0.0.0.0 cds20415.lcy.llnw.net
+	echo 0.0.0.0 cds20416.lcy.llnw.net
 	echo 0.0.0.0 cds20417.lcy.llnw.net
+	echo 0.0.0.0 cds20424.lcy.llnw.net
+	echo 0.0.0.0 cds20425.lcy.llnw.net
 	echo 0.0.0.0 cds20431.lcy.llnw.net
+	echo 0.0.0.0 cds20435.lcy.llnw.net
+	echo 0.0.0.0 cds20440.lcy.llnw.net
+	echo 0.0.0.0 cds20443.lcy.llnw.net
+	echo 0.0.0.0 cds20445.lcy.llnw.net
 	echo 0.0.0.0 cds20450.lcy.llnw.net
+	echo 0.0.0.0 cds20452.lcy.llnw.net
 	echo 0.0.0.0 cds20457.lcy.llnw.net
+	echo 0.0.0.0 cds20461.lcy.llnw.net
+	echo 0.0.0.0 cds20469.lcy.llnw.net
 	echo 0.0.0.0 cds20475.lcy.llnw.net
+	echo 0.0.0.0 cds20482.lcy.llnw.net
+	echo 0.0.0.0 cds20485.lcy.llnw.net
+	echo 0.0.0.0 cds20495.lcy.llnw.net
+	echo 0.0.0.0 cds21205.lon.llnw.net
+	echo 0.0.0.0 cds21207.lon.llnw.net
+	echo 0.0.0.0 cds21225.lon.llnw.net
+	echo 0.0.0.0 cds21229.lon.llnw.net
+	echo 0.0.0.0 cds21233.lon.llnw.net
+	echo 0.0.0.0 cds21238.lon.llnw.net
 	echo 0.0.0.0 cds21244.lon.llnw.net
+	echo 0.0.0.0 cds21249.lon.llnw.net
+	echo 0.0.0.0 cds21256.lon.llnw.net
+	echo 0.0.0.0 cds21257.lon.llnw.net
+	echo 0.0.0.0 cds21258.lon.llnw.net
+	echo 0.0.0.0 cds21261.lon.llnw.net
+	echo 0.0.0.0 cds21267.lon.llnw.net
+	echo 0.0.0.0 cds21278.lon.llnw.net
+	echo 0.0.0.0 cds21281.lon.llnw.net
+	echo 0.0.0.0 cds21293.lon.llnw.net
+	echo 0.0.0.0 cds21309.lon.llnw.net
+	echo 0.0.0.0 cds21313.lon.llnw.net
+	echo 0.0.0.0 cds21321.lon.llnw.net
+	echo 0.0.0.0 cds30027.stn.llnw.net
 	echo 0.0.0.0 ceuswatcab01.blob.core.windows.net
 	echo 0.0.0.0 ceuswatcab02.blob.core.windows.net
 	echo 0.0.0.0 ch1-cor001.api.p001.1drv.com
@@ -1028,10 +1196,12 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 cp201-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 cp401-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 cs1.wpc.v0cdn.net
+	echo 0.0.0.0 cy2.vortex.data.microsoft.com.akadns.net
 	echo 0.0.0.0 db3aqu.atdmt.com
 	echo 0.0.0.0 db3wns2011111.wns.windows.com
 	echo 0.0.0.0 db5-eap.settings-win.data.microsoft.com.akadns.net
 	echo 0.0.0.0 db5.settings-win.data.microsoft.com.akadns.net
+	echo 0.0.0.0 db5.settings.data.microsoft.com.akadns.net
 	echo 0.0.0.0 db5.vortex.data.microsoft.com.akadns.net
 	echo 0.0.0.0 db5.wns.windows.com
 	echo 0.0.0.0 db5sch101100122.wns.windows.com
@@ -1300,10 +1470,87 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 g.msn.com
 	echo 0.0.0.0 geo-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 geo.settings-win.data.microsoft.com.akadns.net
+	echo 0.0.0.0 geo.settings.data.microsoft.com.akadns.net
 	echo 0.0.0.0 geo.vortex.data.microsoft.com.akadns.net
 	echo 0.0.0.0 geover-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 h1.msn.com
 	echo 0.0.0.0 h2.msn.com
+	echo 0.0.0.0 hk2.settings.data.microsoft.com.akadns.net
+	echo 0.0.0.0 hk2.wns.windows.com
+	echo 0.0.0.0 hk2sch130020721.wns.windows.com
+	echo 0.0.0.0 hk2sch130020723.wns.windows.com
+	echo 0.0.0.0 hk2sch130020726.wns.windows.com
+	echo 0.0.0.0 hk2sch130020729.wns.windows.com
+	echo 0.0.0.0 hk2sch130020732.wns.windows.com
+	echo 0.0.0.0 hk2sch130020824.wns.windows.com
+	echo 0.0.0.0 hk2sch130020843.wns.windows.com
+	echo 0.0.0.0 hk2sch130020851.wns.windows.com
+	echo 0.0.0.0 hk2sch130020854.wns.windows.com
+	echo 0.0.0.0 hk2sch130020855.wns.windows.com
+	echo 0.0.0.0 hk2sch130020924.wns.windows.com
+	echo 0.0.0.0 hk2sch130020936.wns.windows.com
+	echo 0.0.0.0 hk2sch130020940.wns.windows.com
+	echo 0.0.0.0 hk2sch130020956.wns.windows.com
+	echo 0.0.0.0 hk2sch130020958.wns.windows.com
+	echo 0.0.0.0 hk2sch130020961.wns.windows.com
+	echo 0.0.0.0 hk2sch130021017.wns.windows.com
+	echo 0.0.0.0 hk2sch130021029.wns.windows.com
+	echo 0.0.0.0 hk2sch130021035.wns.windows.com
+	echo 0.0.0.0 hk2sch130021137.wns.windows.com
+	echo 0.0.0.0 hk2sch130021142.wns.windows.com
+	echo 0.0.0.0 hk2sch130021153.wns.windows.com
+	echo 0.0.0.0 hk2sch130021217.wns.windows.com
+	echo 0.0.0.0 hk2sch130021246.wns.windows.com
+	echo 0.0.0.0 hk2sch130021249.wns.windows.com
+	echo 0.0.0.0 hk2sch130021260.wns.windows.com
+	echo 0.0.0.0 hk2sch130021264.wns.windows.com
+	echo 0.0.0.0 hk2sch130021322.wns.windows.com
+	echo 0.0.0.0 hk2sch130021323.wns.windows.com
+	echo 0.0.0.0 hk2sch130021329.wns.windows.com
+	echo 0.0.0.0 hk2sch130021334.wns.windows.com
+	echo 0.0.0.0 hk2sch130021360.wns.windows.com
+	echo 0.0.0.0 hk2sch130021432.wns.windows.com
+	echo 0.0.0.0 hk2sch130021433.wns.windows.com
+	echo 0.0.0.0 hk2sch130021435.wns.windows.com
+	echo 0.0.0.0 hk2sch130021437.wns.windows.com
+	echo 0.0.0.0 hk2sch130021440.wns.windows.com
+	echo 0.0.0.0 hk2sch130021450.wns.windows.com
+	echo 0.0.0.0 hk2sch130021518.wns.windows.com
+	echo 0.0.0.0 hk2sch130021523.wns.windows.com
+	echo 0.0.0.0 hk2sch130021526.wns.windows.com
+	echo 0.0.0.0 hk2sch130021527.wns.windows.com
+	echo 0.0.0.0 hk2sch130021544.wns.windows.com
+	echo 0.0.0.0 hk2sch130021554.wns.windows.com
+	echo 0.0.0.0 hk2sch130021618.wns.windows.com
+	echo 0.0.0.0 hk2sch130021634.wns.windows.com
+	echo 0.0.0.0 hk2sch130021638.wns.windows.com
+	echo 0.0.0.0 hk2sch130021646.wns.windows.com
+	echo 0.0.0.0 hk2sch130021652.wns.windows.com
+	echo 0.0.0.0 hk2sch130021654.wns.windows.com
+	echo 0.0.0.0 hk2sch130021657.wns.windows.com
+	echo 0.0.0.0 hk2sch130021723.wns.windows.com
+	echo 0.0.0.0 hk2sch130021726.wns.windows.com
+	echo 0.0.0.0 hk2sch130021727.wns.windows.com
+	echo 0.0.0.0 hk2sch130021730.wns.windows.com
+	echo 0.0.0.0 hk2sch130021731.wns.windows.com
+	echo 0.0.0.0 hk2sch130021754.wns.windows.com
+	echo 0.0.0.0 hk2sch130021829.wns.windows.com
+	echo 0.0.0.0 hk2sch130021830.wns.windows.com
+	echo 0.0.0.0 hk2sch130021833.wns.windows.com
+	echo 0.0.0.0 hk2sch130021840.wns.windows.com
+	echo 0.0.0.0 hk2sch130021842.wns.windows.com
+	echo 0.0.0.0 hk2sch130021851.wns.windows.com
+	echo 0.0.0.0 hk2sch130021852.wns.windows.com
+	echo 0.0.0.0 hk2sch130021927.wns.windows.com
+	echo 0.0.0.0 hk2sch130021928.wns.windows.com
+	echo 0.0.0.0 hk2sch130021929.wns.windows.com
+	echo 0.0.0.0 hk2sch130021958.wns.windows.com
+	echo 0.0.0.0 hk2sch130022035.wns.windows.com
+	echo 0.0.0.0 hk2sch130022041.wns.windows.com
+	echo 0.0.0.0 hk2sch130022049.wns.windows.com
+	echo 0.0.0.0 hk2sch130022135.wns.windows.com
+	echo 0.0.0.0 hk2wns1.wns.windows.com
+	echo 0.0.0.0 hk2wns1b.wns.windows.com
 	echo 0.0.0.0 i1.services.social.microsoft.com
 	echo 0.0.0.0 i1.services.social.microsoft.com.nsatc.net
 	echo 0.0.0.0 i-bl6p-cor001.api.p001.1drv.com
@@ -1313,34 +1560,49 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 i-ch1-cor002.api.p001.1drv.com
 	echo 0.0.0.0 i-sn2-cor001.api.p001.1drv.com
 	echo 0.0.0.0 i-sn2-cor002.api.p001.1drv.com
+	echo 0.0.0.0 ieonlinews.microsoft.com
+	echo 0.0.0.0 ieonlinews.trafficmanager.net
 	echo 0.0.0.0 img-s-msn-com.akamaized.net
 	echo 0.0.0.0 inference.location.live.net
 	echo 0.0.0.0 insiderppe.cloudapp.net
+	echo 0.0.0.0 insideruser.trafficmanager.net
+	echo 0.0.0.0 kmwatson.events.data.microsoft.com
+	echo 0.0.0.0 kmwatsonc.events.data.microsoft.com
 	echo 0.0.0.0 kv101-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 kv201-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 kv401-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 lb1.www.ms.akadns.net
-	echo # 0.0.0.0 licensing.mp.microsoft.com
 	echo 0.0.0.0 live.rads.msn.com
 	echo 0.0.0.0 ls2web.redmond.corp.microsoft.com
 	echo 0.0.0.0 m.adnxs.com
 	echo 0.0.0.0 mediaredirect.microsoft.com
 	echo 0.0.0.0 mobile.pipe.aria.microsoft.com
+	echo 0.0.0.0 modern.watson.data.microsoft.com.akadns.net
+	echo 0.0.0.0 msedge.net
 	echo 0.0.0.0 msnbot-207-46-194-33.search.msn.com
 	echo 0.0.0.0 msntest.serving-sys.com
+	echo 0.0.0.0 nexus.officeapps.live.com
+	echo 0.0.0.0 nexusrules.officeapps.live.com
+	echo 0.0.0.0 nw-umwatson.events.data.microsoft.com
 	echo 0.0.0.0 oca.telemetry.microsft.com
 	echo 0.0.0.0 oca.telemetry.microsoft.com
 	echo 0.0.0.0 oca.telemetry.microsoft.com.nsatc.net
+	echo 0.0.0.0 oca.telemetry.microsoft.us
 	echo 0.0.0.0 officeclient.microsoft.com
 	echo 0.0.0.0 oneclient.sfx.ms
+	echo 0.0.0.0 onecollector.cloudapp.aria.akadns.net
+	echo 0.0.0.0 par02p.wns.windows.com
 	echo 0.0.0.0 pre.footprintpredict.com
+	echo 0.0.0.0 presence.teams.live.com
 	echo 0.0.0.0 preview.msn.com
 	echo 0.0.0.0 pti.store.microsoft.com
 	echo 0.0.0.0 query.prod.cms.rt.microsoft.com
+	echo 0.0.0.0 rad.live.com
 	echo 0.0.0.0 rad.msn.com
 	echo 0.0.0.0 redir.metaservices.microsoft.com
 	echo 0.0.0.0 register.cdpcs.microsoft.com
 	echo 0.0.0.0 reports.wes.df.telemetry.microsoft.com
+	echo 0.0.0.0 romeccs.microsoft.com
 	echo 0.0.0.0 s0.2mdn.net
 	echo 0.0.0.0 schemas.microsoft.akadns.net
 	echo 0.0.0.0 secure.adnxs.com
@@ -1352,6 +1614,8 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 settings-win.data.microsoft.com
 	echo 0.0.0.0 settings.data.glbdns2.microsoft.com
 	echo 0.0.0.0 settings.data.microsof.com
+	echo 0.0.0.0 settingsfd-geo.trafficmanager.net
+	echo 0.0.0.0 sg2p.wns.windows.com
 	echo 0.0.0.0 sls.update.microsoft.com.akadns.net
 	echo 0.0.0.0 sn3301-c.1drv.com
 	echo 0.0.0.0 sn3301-e.1drv.com
@@ -1368,28 +1632,39 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 statsfe1.ws.microsoft.com
 	echo 0.0.0.0 statsfe2.update.microsoft.com.akadns.net
 	echo 0.0.0.0 statsfe2.ws.microsoft.com
-	echo 0.0.0.0 store-images.s-microsoft.com
 	echo 0.0.0.0 storecatalogrevocation.storequality.microsoft.com
-	echo 0.0.0.0 storeedgefd.dsx.mp.microsoft.com
 	echo 0.0.0.0 survey.watson.microsoft.com
 	echo 0.0.0.0 t0.ssl.ak.dynamic.tiles.virtualearth.net
 	echo 0.0.0.0 t0.ssl.ak.tiles.virtualearth.net
+	echo 0.0.0.0 tele.trafficmanager.net
 	echo 0.0.0.0 telecommand.telemetry.microsoft.com
 	echo 0.0.0.0 telecommand.telemetry.microsoft.com.nsatc.net
 	echo 0.0.0.0 telemetry.appex.bing.net
+	echo 0.0.0.0 telemetry.microsoft.com
 	echo 0.0.0.0 telemetry.microsoft.comecho
+	echo 0.0.0.0 telemetry.remoteapp.windowsazure.com
 	echo 0.0.0.0 telemetry.urs.microsoft.com
+	echo 0.0.0.0 teredo.ipv6.microsoft.com
 	echo 0.0.0.0 test.activity.windows.com
 	echo 0.0.0.0 tile-service.weather.microsoft.com
 	echo 0.0.0.0 time.windows.com
 	echo 0.0.0.0 tk2.plt.msn.com
 	echo 0.0.0.0 tsfe.trafficshaping.dsp.mp.microsoft.com
+	echo 0.0.0.0 uks.b.prd.ags.trafficmanager.net
+	echo 0.0.0.0 umwatson.events.data.microsoft.com
+	echo 0.0.0.0 umwatsonc.events.data.microsoft.com
+	echo 0.0.0.0 umwatsonc.telemetry.microsoft.us
+	echo 0.0.0.0 urs.microsoft.com.nsatc.net
 	echo 0.0.0.0 urs.smartscreen.microsoft.com
+	echo 0.0.0.0 us-v10.events.data.microsoft.com
 	echo 0.0.0.0 us.vortex-win.data.microsft.com
+	echo 0.0.0.0 us.vortex-win.data.microsoft.com
 	echo 0.0.0.0 v10-win.vortex.data.microsft.com.akadns.net
+	echo 0.0.0.0 v10-win.vortex.data.microsoft.com.akadns.net
 	echo 0.0.0.0 v10.vortex-win.data.metron.live.com.nsatc.net
 	echo 0.0.0.0 v10.vortex-win.data.microsft.com
 	echo 0.0.0.0 v10.vortex-win.data.microsoft.com
+	echo 0.0.0.0 v20.vortex-win.data.microsoft.com
 	echo 0.0.0.0 version.hybrid.api.here.com
 	echo 0.0.0.0 view.atdmt.com
 	echo 0.0.0.0 vortex-bn2.metron.live.com.nsatc.net
@@ -1403,6 +1678,7 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 vortex.data.glbdns2.microsoft.com
 	echo 0.0.0.0 vortex.data.metron.live.com.nsatc.net
 	echo 0.0.0.0 vortex.data.microsoft.com
+	echo 0.0.0.0 vsgallery.com
 	echo 0.0.0.0 watson.live.com
 	echo 0.0.0.0 watson.microsoft.com
 	echo 0.0.0.0 watson.ppe.telemetry.microsoft.com
@@ -1414,11 +1690,15 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 	echo 0.0.0.0 wes.df.telemetry.microsoft.com
 	echo 0.0.0.0 weus2watcab01.blob.core.windows.net
 	echo 0.0.0.0 weus2watcab02.blob.core.windows.net
+	echo 0.0.0.0 win8.ipv6.microsoft.com
 	echo 0.0.0.0 win10-trt.msedge.net
 	echo 0.0.0.0 win10.ipv6.microsoft.com
 	echo 0.0.0.0 win1710.ipv6.microsoft.com
+	echo 0.0.0.0 wns.notify.windows.com.akadns.net
 	echo 0.0.0.0 wscont.apps.microsoft.com
 	echo 0.0.0.0 www.msedge.net
+	echo 0.0.0.0 xblgdvrassets3010.blob.core.windows.net
+	echo 0.0.0.0 ztd.dds.microsoft.com
 ) >"%WINDIR%\System32\drivers\etc\hosts"
 
 :: ====================
@@ -1448,21 +1728,20 @@ echo(&echo   # Configurating Network Settings
 	netsh interface reset all
 	
 	rem Turning off connection
-	ipconfig/release
+	ipconfig /release
 	
-	rem Ethernet
-	netsh interface ipv4 set dnsservers "Ethernet" static 1.1.1.1 primary
-	netsh interface ipv4 add dnsservers "Ethernet" 1.0.0.1 index=2
-	rem netsh interface ipv6 set dnsservers "Ethernet" static 2606:4700:4700::1111 primary
-	rem netsh interface ipv6 add dnsservers "Ethernet" 2606:4700:4700::1001 index=2
+	rem Setting DNS servers to: "Quad9" (Bypass ISP censorship and tracking.) - https://www.quad9.com/
+	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
+		for /f "delims=" %%B in ("%%~A") do (
+			netsh interface ipv4 set dnsservers "%%B" static "9.9.9.9" primary
+			netsh interface ipv4 add dnsservers "%%B" "149.112.112.112" index=2
+			netsh interface ipv6 set dnsservers "%%B" static "2620:fe::fe" primary
+			netsh interface ipv6 add dnsservers "%%B" "2620:fe::9" index=2
+			ipconfig /flushdns
+		)
+	)
 	
-	rem WIFI
-	netsh interface ipv4 set dnsservers "Wi-Fi" static 1.1.1.1 primary
-	netsh interface ipv4 add dnsservers "Wi-Fi" 1.0.0.1 index=2
-	rem netsh interface ipv6 set dnsservers "Wi-Fi" static 2606:4700:4700::1111 primary
-	rem netsh interface ipv6 add dnsservers "Wi-Fi" 2606:4700:4700::1001 index=2
-	
-	rem Applies an alternate NCSI
+	rem Applies an alternative NCSI
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "208.67.222.222" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContentV6" /t REG_SZ /d "2620:119:35::35" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeHost" /t REG_SZ /d "resolver1.opendns.com" /f
@@ -1476,8 +1755,7 @@ echo(&echo   # Configurating Network Settings
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "1" /f
 	
 	rem Refresh Networking
-	ipconfig/flushdns
-	ipconfig/renew
+	ipconfig /renew
 )
 
 :: ====================
