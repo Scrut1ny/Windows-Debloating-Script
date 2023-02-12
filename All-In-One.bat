@@ -1,6 +1,16 @@
+:: ==================================================
+::  Windows-Tweaking v5.0
+:: ==================================================
+::  Dev  - Scut1ny
+::	Help -  
+::  Link - https://github.com/Scrut1ny/Windows-Tweaking
+:: ==================================================
+
+
 @echo off
 setlocal enableDelayedExpansion
 mode con:cols=65 lines=21
+
 
 fltmc >nul 2>&1 || (
     echo( && echo   [33m# Administrator privileges are required. && echo([0m
@@ -12,25 +22,22 @@ fltmc >nul 2>&1 || (
 )
 
 
-
-
 :: ====================
 
 :MENU
 mode con:cols=41 lines=21
-cls&title https://github.com/Scrut1ny/Windows-Tweaking
-echo(&echo   =====================================
+cls && title https://github.com/Scrut1ny/Windows-Tweaking
+echo( && echo   =====================================
 echo    Scrut1ny's Ultimate Windows Tweaker
 echo        [34mhttps://github.com/Scrut1ny[0m
-echo   =====================================&&echo(
+echo   ===================================== && echo(
 echo   1 ^> Activate Windows
-echo   2 ^> Optimize Windows
-echo(
+echo   2 ^> Optimize Windows && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :choice1
 if '%c%'=='2' goto :choice2
 if '%c%'=='3' goto :choice3
-cls&&echo(&&echo   [31m# "%c%" isn't a valid option, please try again.[0m&& >nul timeout /t 3
+cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 goto :MENU
 exit /b
 
@@ -44,63 +51,114 @@ exit /b
 :: ====================
 
 
-
-
 :: ====================
 :: Scheduled Tasks
 :: ====================
 
-cls&&echo(&echo   # Disabling Scheduled Tasks
+cls && echo( && echo   # Disabling Scheduled Tasks
 
 >nul 2>&1 (
-	rem Collects program telemtry information...
-	schtasks /end /TN "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"
-	schtasks /change /TN "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Application Experience\ProgramDataUpdater"
-	schtasks /change /TN "\Microsoft\Windows\Application Experience\ProgramDataUpdater" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Autochk\Proxy"
-	schtasks /change /TN "Microsoft\Windows\Autochk\Proxy" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator"
-	schtasks /change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"
-	schtasks /change /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable
-
-	schtasks /end /TN "Microsoft\Windows\DiskDiagnosticMicrosoft-Windows-DiskDiagnosticDataCollector"
-	schtasks /change /TN "Microsoft\Windows\DiskDiagnosticMicrosoft-Windows-DiskDiagnosticDataCollector" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Feedback\Siuf\DmClient"
-	schtasks /change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Shell\FamilySafetyMonitor"
-	schtasks /change /TN "Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
-
-	schtasks /end /TN "Microsoft\Windows\Maintenance\WinSAT"
-	schtasks /change /TN "Microsoft\Windows\Maintenance\WinSAT" /disable
+	rem Component: Telemtry Client
+	schtasks /end /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"
+	schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable
 	
-	schtasks /end /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting"
-	schtasks /change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable
+	schtasks /end /tn "\Microsoft\Windows\Device Information\Device User"
+	schtasks /change /tn "\Microsoft\Windows\Device Information\Device User" /disable
 
-	schtasks /end /TN "Microsoft\Windows\Device Information\Device"
-	schtasks /change /TN "Microsoft\Windows\Device Information\Device" /disable
+	schtasks /end /tn "\Microsoft\Windows\Device Information\Device"
+	schtasks /change /tn "\Microsoft\Windows\Device Information\Device" /disable
 	
-	schtasks /end /TN "Mozilla\Firefox Default Browser Agent *"
-	schtasks /change /TN "Mozilla\Firefox Default Browser Agent *" /disable
+	schtasks /end /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Input\MouseSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\MouseSyncDataAvailable" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Input\PenSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\PenSyncDataAvailable" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Input\TouchpadSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\TouchpadSyncDataAvailable" /disable
+	
+	rem Component: CEIP (SQM)
+	schtasks /end /tn "\Microsoft\Windows\Autochk\Proxy"
+	schtasks /change /tn "\Microsoft\Windows\Autochk\Proxy" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"
+	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"
+	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable
+	
+	rem Component: Disk failure diagnostics
+	schtasks /end /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"
+	schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
+	schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /disable
+	
+	rem Component: Data Usage service
+	schtasks /end /tn "\Microsoft\Windows\DUSM\dusmtask"
+	schtasks /change /tn "\Microsoft\Windows\DUSM\dusmtask" /disable
+	
+	rem Component: Windows Error Reporting
+	schtasks /end /tn "\Microsoft\Windows\Feedback\Siuf\DmClient"
+	schtasks /change /tn "\Microsoft\Windows\Feedback\Siuf\DmClient" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload"
+	schtasks /change /tn "\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting"
+	schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable
+	
+	rem Component: Location Service
+	schtasks /end /tn "\Microsoft\Windows\Location\WindowsActionDialog"
+	schtasks /change /tn "\Microsoft\Windows\Location\WindowsActionDialog" /disable
+	
+	rem Component: Windows System Assessment Tool (winSAT)
+	schtasks /end /tn "\Microsoft\Windows\Maintenance\WinSAT"
+	schtasks /change /tn "\Microsoft\Windows\Maintenance\WinSAT" /disable
+	
+	rem Component: Diagnostics and Troubleshooting
+	schtasks /end /tn "\Microsoft\Windows\NetTrace\GatherNetworkInfo"
+	schtasks /change /tn "\Microsoft\Windows\NetTrace\GatherNetworkInfo" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"
+	schtasks /change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable
+	
+	rem Component: Microsoft family featurers
+	schtasks /end /tn "\Microsoft\Windows\Shell\FamilySafetyMonitor"
+	schtasks /change /tn "\Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Shell\FamilySafetyRefreshTask"
+	schtasks /change /tn "\Microsoft\Windows\Shell\FamilySafetyRefreshTask" /disable
+	
+	rem Component: Windows Search
+	schtasks /end /tn "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"
+	schtasks /change /tn "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance" /disable
+	
+	rem Component: Location Service
+	rem Component: Location Notifications
+	schtasks /end /tn "\Microsoft\Windows\Location\Notifications"
+	schtasks /change /tn "\Microsoft\Windows\Location\Notifications" /disable
+
+	rem Component: Speech Recognition
+	schtasks /end /tn "\Microsoft\Windows\Speech\SpeechModelDownloadTask"
+	schtasks /change /tn "\Microsoft\Windows\Speech\SpeechModelDownloadTask" /disable
+
+	rem Misc.:
+	schtasks /end /tn "\Microsoft\Windows\International\Synchronize Language Settings"
+	schtasks /change /tn "\Microsoft\Windows\International\Synchronize Language Settings" /disable
 )
 
 :: ====================
-
-
 
 
 :: ====================
 :: Services
 :: ====================
 
-echo(&echo   # Disabling Services
+echo( && echo   # Disabling Services
 
 >nul 2>&1 (
 	rem Random Services
@@ -137,8 +195,6 @@ echo(&echo   # Disabling Services
 :: ====================
 
 
-
-
 :: ====================
 :: Apps
 :: 
@@ -149,20 +205,72 @@ echo(&echo   # Disabling Services
 :: Get-AppxPackage -PackageTypeFilter Main | ? { $_.SignatureKind -eq "System" } | Sort Name | Format-Table Name, InstallLocation
 :: ====================
 
-echo(&echo   # Deleting Bloat Microsoft Apps
+echo( && echo   # Deleting Bloat Microsoft Apps
 
-
+>nul 2>&1 (
+	rem System Apps
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Disney.37853FC22B2CE' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.549981C3F5F10' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Advertising.Xaml' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.BingWeather' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.GetHelp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Getstarted' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.HEIFImageExtension' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Microsoft3DViewer*' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftEdge.Stable' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftOfficeHub' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftSolitaireCollection' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftStickyNotes' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MixedReality.Portal' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MSPaint' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Office.OneNote' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.People' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.ScreenSketch' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Services.Store.Engagement' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.SkypeApp' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.StorePurchaseApp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.VP9VideoExtensions' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Wallet' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WebMediaExtensions' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WebpImageExtension' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.Photos' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.Search' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.SecHealthUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsAlarms' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsCamera' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.windowscommunicationsapps' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsFeedbackHub' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsMaps' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsSoundRecorder' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsStore' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Xbox.TCUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxApp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxGameOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxGamingOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxIdentityProvider' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxSpeechToTextOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.YourPhone' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.ZuneMusic' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.ZuneVideo' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'NVIDIACorp.NVIDIAControlPanel' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'SpotifyAB.SpotifyMusic' | Remove-AppxPackage"
+	rem 
+	rem MAIN WINDOWS APPS
+	rem 'Microsoft.Windows.Photos' 'Microsoft.WindowsCalculator' 'Microsoft.WindowsCamera' 'Microsoft.WindowsStore' 'Microsoft.ZuneMusic' 'Microsoft.ZuneVideo'
+	rem
+	rem Xbox Services
+	rem 'Microsoft.Xbox.TCUI' 'Microsoft.XboxApp' 'Microsoft.XboxGameOverlay' 'Microsoft.XboxGamingOverlay' 'Microsoft.XboxIdentityProvider' 'Microsoft.XboxSpeechToTextOverlay'
+)
 
 :: ====================
-
-
 
 
 :: ====================
 :: Registry Tweaks
 :: ====================
 
-echo(&echo   # Applying Registry Tweaks
+echo( && echo   # Applying Registry Tweaks
 
 >nul 2>&1 (
 	rem Safe Random Tweaks
@@ -767,13 +875,11 @@ echo(&echo   # Applying Registry Tweaks
 :: ====================
 
 
-
-
 :: ====================
 :: Sophisicated Tweaks
 :: ====================
 
-echo(&echo   # Applying Sophisicated Tweaks
+echo( && echo   # Applying Sophisicated Tweaks
 
 >nul 2>&1 (
 	rem Turns off hibernation mode
@@ -899,27 +1005,25 @@ echo(&echo   # Applying Sophisicated Tweaks
 	reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 	reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 	reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
-	for /f "tokens=1 delims=," %%A in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /TN %%A /F
+	for /f "tokens=1 delims=," %%A in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /tn %%A /F
 	reg delete "HKCU\Environment" /v "OneDrive" /f
 )
 
 :: ====================
 
 
-
-
 :: ====================
 :: Host File Config
 :: ====================
 
-echo(&echo   # Adding Custom Host File Config
+echo( && echo   # Adding Custom Host File Config
 
 rem Adding Windows Defender Exclusion for hosts file.
 powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
 
 rem Removing & adding custom hosts file.
 del /F /Q "%WINDIR%\System32\drivers\etc\hosts"
-cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
+cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 
 (
 	echo ###################################
@@ -1704,13 +1808,11 @@ cd "%WINDIR%\System32\drivers\etc" & type nul > hosts
 :: ====================
 
 
-
-
 :: ====================
 :: Networking Config
 :: ====================
 
-echo(&echo   # Configurating Network Settings
+echo( && echo   # Configurating Network Settings
 
 >nul 2>&1 (
 	nbtstat -R
@@ -1761,8 +1863,6 @@ echo(&echo   # Configurating Network Settings
 :: ====================
 
 
-
-
 :: ====================
 :: Software
 :: ====================
@@ -1780,10 +1880,10 @@ echo(&echo   # Configurating Network Settings
 	)
 	rem Unlock the taskbar
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
-	taskkill /f /im explorer.exe & explorer.exe
+	taskkill /f /im explorer.exe && explorer.exe
 	rem Lock the taskbar
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
-	taskkill /f /im explorer.exe & explorer.exe
+	taskkill /f /im explorer.exe && explorer.exe
 	
 	rem SOFTWARE
 )
@@ -1791,13 +1891,11 @@ echo(&echo   # Configurating Network Settings
 :: ====================
 
 
-
-
 :: ====================
 :: Clean
 :: ====================
 
-echo(&echo   # Cleaning System
+echo( && echo   # Cleaning System
 
 >nul 2>&1 (
 	arp -d *
@@ -1821,11 +1919,9 @@ echo(&echo   # Cleaning System
 :: ====================
 
 
-
-
 :: ====================
 
 mode con:cols=35 lines=3
-cls&&echo(&&echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
+cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
 
 :: ====================
