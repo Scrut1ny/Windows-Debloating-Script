@@ -1,9 +1,9 @@
 ========== Main Software & Drivers ==========
 
- - .NET 6.0.300 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.300-windows-x64-installer
+ - .NET 7.0 > https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.102-windows-x64-installer
  - DirectX > https://www.microsoft.com/en-us/download/details.aspx?id=35
  - Java > https://www.java.com/
- - NVIDIA Driver > https://www.nvidia.com/Download/index.aspx?lang=en-us
+ - NVIDIA Driver > https://www.nvidia.com/Download/index.aspx
  - Python > https://www.python.org/downloads/
  
  - 7zip > https://www.7-zip.org/
