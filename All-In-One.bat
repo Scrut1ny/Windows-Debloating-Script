@@ -2,7 +2,7 @@
 ::  Windows-Tweaking v5.0
 :: ==================================================
 ::  Dev  - Scut1ny
-::	Help -  
+::  Help - 
 ::  Link - https://github.com/Scrut1ny/Windows-Tweaking
 :: ==================================================
 
