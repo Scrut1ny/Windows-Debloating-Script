@@ -1,25 +1,10 @@
 ![image](https://user-images.githubusercontent.com/53458032/218345232-227d4831-cc13-4d87-93ce-a858c689f26b.png)
 
-Useful Windows Shortcuts
-- System Properties Performance > SystemPropertiesPerformance.exe
-- Group Policy Editor           > gpedit.msc
-- Services                      > services.msc
-- NIC                           > ncpa.cpl
-- UAC                           > UserAccountControlSettings.exe
+Windows Shortcuts:
+[https://ss64.com/nt/run.html](https://ss64.com/nt/run.html)
 
 ```
-WIN + R - UserAccountControlSettings.exe
-
- --|--
-   |
- -===-  <---- Select this option!
-   |
- --|--
-   |
- --|--
-```
-```
-WIN + R - SystemPropertiesPerformance.exe
+WIN + R - SystemPropertiesPerformance
 
 ☐  Animate controls and elements inside windows
 ☐  Animate widnows when minimzing and maximizing
@@ -39,6 +24,7 @@ WIN + R - SystemPropertiesPerformance.exe
 ☐  Smooth-scroll list boxes
 ☐  Use drop shadows for icons labels on the desktop
 ```
+
 ```
 WIN + R - ncpa.cpl - Select NIC, then select Properties.
 
@@ -53,6 +39,7 @@ WIN + R - ncpa.cpl - Select NIC, then select Properties.
 ☐  Link-Layer Topology Discovery Responder
 ☐  Link-Layer Topology Discovery Mapper I/O Driver
 ```
+
 ```
 WIN + R - mmsys.cpl
 
@@ -70,13 +57,6 @@ Sound Scheme:
 
 Communications Tab | WIN + R - control mmsys.cpl,,3
 ☐ Do nothing
-```
-### Enable *Ultimate Performance* Mode
-```batch
-powercfg.cpl
-powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
-powercfg /L | find "Ultimate"
-powercfg /S *Ultimate Performance GUID*
 ```
 
 ### BIOS Keys by Manufacturer
@@ -134,8 +114,6 @@ Random
 Game Mod Menu's
 
 Plutonium
-
-sc config "upnphost" start= demand & sc start "upnphost"
 
 - Black Ops 2 GSC Studio        > [Link](https://mega.nz/file/hDoGwAbR#j-9i3oIZyiAz13FULRTaxAiKQcSCOXo-44Lr977YfcQ)
 
