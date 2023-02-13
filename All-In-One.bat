@@ -1007,6 +1007,18 @@ echo( && echo   # Applying Sophisicated Tweaks
 	reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 	for /f "tokens=1 delims=," %%A in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /tn %%A /F
 	reg delete "HKCU\Environment" /v "OneDrive" /f
+	
+	rem Use ultimate performance powercfg
+	
+	rem Balanced
+	powercfg /d 381b4222-f694-41f0-9685-ff5bb260df2e
+	rem High performance
+	powercfg /d 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+	rem Applying Ultimate Performance
+	powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+	for /f "tokens=4 delims= " %%a in ('powercfg /l ^| find "Ultimate"') do (
+		powercfg /d %%a && powercfg /s %%a
+	) 
 )
 
 :: ====================
@@ -1925,3 +1937,7 @@ mode con:cols=35 lines=3
 cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
 
 :: ====================
+
+
+UserAccountControlSettings
+SystemPropertiesDataExecutionPrevention
