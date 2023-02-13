@@ -62,7 +62,7 @@
 
  - Advanced IP Scanner > https://www.advanced-ip-scanner.com/
  - Etcher              > https://github.com/balena-io/etcher/releases/latest
- -                     > https://github.com/ventoy/Ventoy/releases/latest
+ - Ventoy              > https://github.com/ventoy/Ventoy/releases/latest
  - HWIDinfo            > https://www.hwinfo.com/download/
  - testdisk            > https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.2-WIP.win64.zip
  - Disk Drill          > https://www.cleverfiles.com/disk-drill-win.html
