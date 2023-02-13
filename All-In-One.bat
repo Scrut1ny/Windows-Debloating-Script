@@ -1,5 +1,5 @@
 :: ==================================================
-::  Windows-Tweaking v5.0
+::  Windows-Tweaking v7.0
 :: ==================================================
 ::  Dev  - Scut1ny
 ::  Help - 
@@ -1841,9 +1841,6 @@ echo( && echo   # Configurating Network Settings
 	netsh winsock set autotuning off
 	netsh interface reset all
 	
-	rem Turning off connection
-	ipconfig /release
-	
 	rem Setting DNS servers to: "Quad9" (Bypass ISP censorship and tracking.) - https://www.quad9.com/
 	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
 		for /f "delims=" %%B in ("%%~A") do (
@@ -1868,8 +1865,8 @@ echo( && echo   # Configurating Network Settings
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePathV6" /t REG_SZ /d "nm" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "1" /f
 	
-	rem Refresh Networking
-	ipconfig /renew
+	rem Restart 'Network Location Awareness' Service
+	net stop "NlaSvc" & ipconfig /flushdns & net start "NlaSvc" & taskkill /f /im explorer.exe & explorer.exe
 )
 
 :: ====================
