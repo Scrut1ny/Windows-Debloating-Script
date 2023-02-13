@@ -1,5 +1,5 @@
 :: ==================================================
-::  Windows-Tweaking v7.0
+::  Windows-Tweaking v5.0
 :: ==================================================
 ::  Dev  - Scut1ny
 ::  Help - 
@@ -922,7 +922,8 @@ echo( && echo   # Applying Sophisicated Tweaks
 	schtasks /change /tn NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8} /DISABLE
 	schtasks /change /tn NvTmRepOnLogon_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8} /DISABLE
 	
-	sc stop "NVDisplay.ContainerLocalSystem" & sc config "NVDisplay.ContainerLocalSystem" start= disabled rem Annoying auto NVIDIA popup.
+	rem Annoying auto NVIDIA Control Panel can't be found prompt popup.
+	sc stop "NVDisplay.ContainerLocalSystem" & sc config "NVDisplay.ContainerLocalSystem" start= disabled
 	
 	setx DOTNET_CLI_TELEMETRY_OPTOUT 1
 	setx POWERSHELL_TELEMETRY_OPTOUT 1
