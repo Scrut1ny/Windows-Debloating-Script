@@ -1012,13 +1012,13 @@ echo( && echo   # Applying Sophisicated Tweaks
 	rem Use ultimate performance powercfg
 	
 	rem Balanced
-	powercfg /d 381b4222-f694-41f0-9685-ff5bb260df2e
+	powercfg /D 381b4222-f694-41f0-9685-ff5bb260df2e
 	rem High performance
-	powercfg /d 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+	powercfg /D 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 	rem Applying Ultimate Performance
 	powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
-	for /f "tokens=4 delims= " %%a in ('powercfg /l ^| find "Ultimate"') do (
-		powercfg /d %%a && powercfg /s %%a
+	for /f "tokens=4 delims= " %%a in ('powercfg /L ^| find "Ultimate"') do (
+		powercfg /D %%a && powercfg /S %%a
 	) 
 )
 
