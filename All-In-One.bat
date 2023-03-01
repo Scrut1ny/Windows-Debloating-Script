@@ -353,6 +353,9 @@ echo( && echo   # Applying Registry Tweaks
 	rem Choose which folders appear on Start (File Explorer, Settings, Downloads)
 	rem reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${7c766bfc-5110-4f2f-8fb1-146c95476c68}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000097808B89CBAED8010000000043420100C20A01CB320A03058691CC930524AAA30144C38401669FF79DB187CBD1ACD4010005AFE69E9B0E24DE930244D5860166BF9D879BBF8FC6D4370005BCC9A8A401248CAC034489850166A081BACBBDD7A8A4820100C23C01C24601C55A0100" /f
 
+	rem Restore Windows 10 Context Menu
+	reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f
+
 	rem CONTEXT MENU
 
 	rem Directory
