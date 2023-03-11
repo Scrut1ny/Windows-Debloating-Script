@@ -1022,7 +1022,16 @@ echo( && echo   # Applying Sophisicated Tweaks
 	powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 	for /f "tokens=4 delims= " %%a in ('powercfg /L ^| find "Ultimate"') do (
 		powercfg /D %%a && powercfg /S %%a
-	) 
+	)
+	
+	rem Make wallpaper solid black
+	rem Picture | 1 -> Solid color | 2 -> Slideshow
+	rem "X X X" is a RGB Value.
+	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers" /v "BackgroundType" /t REG_DWORD /d "1" /f
+	reg add "HKCU\Control Panel\Colors" /v "Background" /t REG_SZ /d "0 0 0" /f
+	reg add "HKCU\Control Panel\Desktop" /v "WallPaper" /t REG_SZ /d " " /f
+	rem Apply changes
+	RUNDLL32.EXE user32.dll, UpdatePerUserSystemParameters
 )
 
 :: ====================
