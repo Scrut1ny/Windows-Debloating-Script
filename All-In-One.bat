@@ -1895,13 +1895,13 @@ echo( && echo   # Configurating Network Settings
 	netsh winsock set autotuning off
 	netsh interface reset all
 	
-echo   1 ^> Activate Windows
-echo   2 ^> Optimize Windows && echo(
-set /p "c=.  # "
-if '%c%'=='1' goto :choice1
-if '%c%'=='2' goto :choice2
-if '%c%'=='3' goto :choice3
-cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+	echo   1 ^> Activate Windows
+	echo   2 ^> Optimize Windows && echo(
+	set /p "c=.  # "
+	if '%c%'=='1' goto :choice1
+	if '%c%'=='2' goto :choice2
+	if '%c%'=='3' goto :choice3
+	cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 	
 	:menu
 	cls
