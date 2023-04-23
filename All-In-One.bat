@@ -1082,40 +1082,40 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo ###################################
 	echo # Custom Host Config by: Scrut1ny #
 	echo ###################################
-	echo 
+	echo(
 	echo # Microsoft Store
 	echo # 0.0.0.0 bat.bing.com
 	echo # 0.0.0.0 store-images.microsoft.com
 	echo # 0.0.0.0 store-images.s-microsoft.com
 	echo # 0.0.0.0 storeedgefd.dsx.mp.microsoft.com
-	echo 
-	echo 
+	echo(
+	echo(
 	echo Microsoft Store: Xbox
 	echo # 0.0.0.0 da.xboxservices.com
 	echo # 0.0.0.0 images-eds-ssl.xboxlive.com
 	echo # 0.0.0.0 musicart.xboxlive.com
 	echo # 0.0.0.0 musicimage.xboxlive.com
-	echo 
-	echo 
+	echo(
+	echo(
 	echo Microsoft Store: Library - Updating Apps
 	echo # 0.0.0.0 displaycatalog.mp.microsoft.com
 	echo # 0.0.0.0 fe3cr.delivery.mp.microsoft.com
-	echo 
-	echo 
+	echo(
+	echo(
 	echo # Activating Windows
 	echo # 0.0.0.0 licensing.mp.microsoft.com
-	echo 
-	echo 
+	echo(
+	echo(
 	echo # Minecraft: Microsoft Login
 	echo # 0.0.0.0 device.auth.xboxlive.com
 	echo # 0.0.0.0 sisu.xboxlive.com
 	echo # 0.0.0.0 login.live.com
-	echo 
-	echo 
+	echo(
+	echo(
 	echo # Google
 	echo # 0.0.0.0 www.google.com
-	echo 
-	echo 
+	echo(
+	echo(
 	echo # Windows Telemtry
 	echo 0.0.0.0 1oavsblobprodcus350.blob.core.windows.net
 	echo 0.0.0.0 37bvsblobprodcus311.blob.core.windows.net
