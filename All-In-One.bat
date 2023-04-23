@@ -163,12 +163,17 @@ echo( && echo   # Disabling Services
 >nul 2>&1 (
 	rem Random Services
 	sc stop "CDPUserSvc" & sc config "CDPUserSvc" start= disabled
+	sc stop "Connected User Experiences and Telemetry" & sc config "Connected User Experiences and Telemetry" start=disabled
+	sc stop "Diagnostic Policy Service" & sc config "Diagnostic Policy Service" start=disabled
 	sc stop "diagnosticshub.standardcollector.service" & sc config "diagnosticshub.standardcollector.service" start= disabled
 	sc stop "diagsvc" & sc config "diagsvc" start= disabled
+	sc stop "DiagTrack" & sc config "DiagTrack" start= disabled
 	sc stop "dmwappushservice" & sc config "dmwappushservice" start= disabled
+	sc stop "Downloaded Maps Manager" & sc config "Downloaded Maps Manager" start= disabled
 	sc stop "DusmSvc" & sc config "DusmSvc" start= disabled & del /F/S/Q "%windir%\System32\sru\*"
 	sc stop "edgeupdate" & sc config "edgeupdate" start= disabled
 	sc stop "edgeupdatem" & sc config "edgeupdatem" start= disabled
+	sc stop "Geolocation Service" & sc config "Geolocation Service" start= disabled
 	sc stop "MapsBroker" & sc config "MapsBroker" start= disabled
 	sc stop "MessagingService" & sc config "MessagingService" start= disabled
 	sc stop "MicrosoftEdgeElevationService" & sc config "MicrosoftEdgeElevationService" start= disabled
@@ -178,13 +183,18 @@ echo( && echo   # Disabling Services
 	sc stop "PcaSvc" & sc config "PcaSvc" start= disabled
 	sc stop "PhoneSvc" & sc config "PhoneSvc" start= disabled
 	sc stop "PimIndexMaintenanceSvc" & sc config "PimIndexMaintenanceSvc" start= disabled
+	sc stop "Remote Registry" & sc config "Remote Registry" start= disabled
 	sc stop "RemoteRegistry" & sc config "RemoteRegistry" start= disabled
 	sc stop "TabletInputService" & sc config "TabletInputService" start= disabled
 	sc stop "UnistoreSvc" & sc config "UnistoreSvc" start= disabled
 	sc stop "UserDataSvc" & sc config "UserDataSvc" start= disabled
+	sc stop "UsoSvc" & sc config "UsoSvc" start= disabled
+	sc stop "WaaSMedicSvc" & sc config "WaaSMedicSvc" start= disabled
 	sc stop "wercplsupport" & sc config "wercplsupport" start= disabled
 	sc stop "WerSvc" & sc config "WerSvc" start= disabled
+	sc stop "Windows Biometric Service" & sc config "Windows Biometric Service" start=disabled
 	sc stop "WpnUserService" & sc config "WpnUserService" start= disabled
+	
 	rem Xbox Services
 	sc stop "XblAuthManager" & sc config "XblAuthManager" start= disabled
 	sc stop "XblGameSave" & sc config "XblGameSave" start= disabled
@@ -350,11 +360,11 @@ echo( && echo   # Applying Registry Tweaks
 	reg add "HKLM\SYSTEM\ControlSet001\Control\Remote Assistance" /v "fAllowToGetHelp" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control" /v "WaitToKillServiceTimeout" /t REG_SZ /d "2000" /f
 
-	rem Choose which folders appear on Start (File Explorer, Settings, Downloads)
-	rem reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${7c766bfc-5110-4f2f-8fb1-146c95476c68}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000097808B89CBAED8010000000043420100C20A01CB320A03058691CC930524AAA30144C38401669FF79DB187CBD1ACD4010005AFE69E9B0E24DE930244D5860166BF9D879BBF8FC6D4370005BCC9A8A401248CAC034489850166A081BACBBDD7A8A4820100C23C01C24601C55A0100" /f
-
 	rem Restore Windows 10 Context Menu
 	reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f
+	
+	rem Choose which folders appear on Start (File Explorer, Settings, Downloads)
+	rem reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${7c766bfc-5110-4f2f-8fb1-146c95476c68}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000097808B89CBAED8010000000043420100C20A01CB320A03058691CC930524AAA30144C38401669FF79DB187CBD1ACD4010005AFE69E9B0E24DE930244D5860166BF9D879BBF8FC6D4370005BCC9A8A401248CAC034489850166A081BACBBDD7A8A4820100C23C01C24601C55A0100" /f
 
 	rem CONTEXT MENU
 
@@ -609,6 +619,24 @@ echo( && echo   # Applying Registry Tweaks
 	gpupdate /force >nul
 
 	rem Telemetry / Data Collection / Advertising / Tracking
+	
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableUAR" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePcaRecording" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableScriptedDiagnosticLogging" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableSoftLanding" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableTailoredExperiencesWithDiagnosticData" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsSpotlightFeatures" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Customer Experience Improvement Program" /v "CEIPEnable" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Diagnostic" /v "DisableResourceUsage" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Maps" /v "AutoDownload" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Maps" /v "DownloadAllowed" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Search" /v "AllowCortana" /t REG_DWORD /d "0" /f
+	
 	reg add "HKCU\Control Panel\International\User Profile" /v "HttpAcceptLanguageOptOut" /t REG_DWORD /d "1" /f
 	reg add "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FlipAhead" /v "FPEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main" /v "DoNotTrack" /t REG_DWORD /d "1" /f
@@ -1054,26 +1082,40 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo ###################################
 	echo # Custom Host Config by: Scrut1ny #
 	echo ###################################
-	echo(
+	echo 
 	echo # Microsoft Store
 	echo # 0.0.0.0 bat.bing.com
 	echo # 0.0.0.0 store-images.microsoft.com
 	echo # 0.0.0.0 store-images.s-microsoft.com
 	echo # 0.0.0.0 storeedgefd.dsx.mp.microsoft.com
-	echo(
+	echo 
+	echo 
 	echo Microsoft Store: Xbox
 	echo # 0.0.0.0 da.xboxservices.com
 	echo # 0.0.0.0 images-eds-ssl.xboxlive.com
 	echo # 0.0.0.0 musicart.xboxlive.com
 	echo # 0.0.0.0 musicimage.xboxlive.com
-	echo(
+	echo 
+	echo 
 	echo Microsoft Store: Library - Updating Apps
 	echo # 0.0.0.0 displaycatalog.mp.microsoft.com
 	echo # 0.0.0.0 fe3cr.delivery.mp.microsoft.com
-	echo(
+	echo 
+	echo 
 	echo # Activating Windows
 	echo # 0.0.0.0 licensing.mp.microsoft.com
-	echo(
+	echo 
+	echo 
+	echo # Minecraft: Microsoft Login
+	echo # 0.0.0.0 device.auth.xboxlive.com
+	echo # 0.0.0.0 sisu.xboxlive.com
+	echo # 0.0.0.0 login.live.com
+	echo 
+	echo 
+	echo # Google
+	echo # 0.0.0.0 www.google.com
+	echo 
+	echo 
 	echo # Windows Telemtry
 	echo 0.0.0.0 1oavsblobprodcus350.blob.core.windows.net
 	echo 0.0.0.0 37bvsblobprodcus311.blob.core.windows.net
@@ -1576,7 +1618,6 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 db6sch102091607.wns.windows.com
 	echo 0.0.0.0 deploy.static.akamaitechnologies.com
 	echo 0.0.0.0 dev.virtualearth.net
-	echo 0.0.0.0 device.auth.xboxlive.com
 	echo 0.0.0.0 df.telemetry.microsoft.com
 	echo 0.0.0.0 diagnostics.support.microsoft.com
 	echo 0.0.0.0 disc101-prod.do.dsp.mp.microsoft.com
@@ -1854,16 +1895,49 @@ echo( && echo   # Configurating Network Settings
 	netsh winsock set autotuning off
 	netsh interface reset all
 	
-	rem Setting DNS servers to: "Quad9" (Bypass ISP censorship and tracking.) - https://www.quad9.com/
+echo   1 ^> Activate Windows
+echo   2 ^> Optimize Windows && echo(
+set /p "c=.  # "
+if '%c%'=='1' goto :choice1
+if '%c%'=='2' goto :choice2
+if '%c%'=='3' goto :choice3
+cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+	
+	:menu
+	cls
+	echo Select a DNS provider:
+	echo   1 ^> Quad9
+	echo   2 ^> Cloudflare
+	set /p "c=.  # "
+	cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+
+	if %choice% equ 1 (
+		set primary_dns=9.9.9.9
+		set secondary_dns=149.112.112.112
+		set ipv6_primary_dns=2620:fe::fe
+		set ipv6_secondary_dns=2620:fe::9
+	) else if %choice% equ 2 (
+		set primary_dns=1.1.1.1
+		set secondary_dns=1.0.0.1
+		set ipv6_primary_dns=2606:4700:4700::1111
+		set ipv6_secondary_dns=2606:4700:4700::1001
+	) else (
+		echo Invalid choice. Please try again.
+		pause
+		goto menu
+	)
+
+	rem Setting DNS servers
 	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
 		for /f "delims=" %%B in ("%%~A") do (
-			netsh interface ipv4 set dnsservers "%%B" static "9.9.9.9" primary
-			netsh interface ipv4 add dnsservers "%%B" "149.112.112.112" index=2
-			netsh interface ipv6 set dnsservers "%%B" static "2620:fe::fe" primary
-			netsh interface ipv6 add dnsservers "%%B" "2620:fe::9" index=2
-			ipconfig /flushdns
+			netsh interface ipv4 set dnsservers "%%B" static "%primary_dns%" primary
+			netsh interface ipv4 add dnsservers "%%B" "%secondary_dns%" index=2
+			netsh interface ipv6 set dnsservers "%%B" static "%ipv6_primary_dns%" primary
+			netsh interface ipv6 add dnsservers "%%B" "%ipv6_secondary_dns%" index=2
 		)
 	)
+	
+	ipconfig /flushdns
 	
 	rem Applies an alternative NCSI
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "208.67.222.222" /f
