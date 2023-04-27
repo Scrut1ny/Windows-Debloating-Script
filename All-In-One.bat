@@ -763,6 +763,7 @@ echo( && echo   # Applying Registry Tweaks
 	reg add "HKCU\SOFTWARE\Policies\Microsoft\Edge" /v "TyposquattingCheckerEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Policies\Microsoft\Edge" /v "UserFeedbackAllowed" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Policies\Microsoft\Edge" /v "WebWidgetAllowed" /t REG_DWORD /d "0" /f
+	reg add "HKCU\Software\Policies\Microsoft\Edge" /v "HubsSidebarEnabled" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\15.0\OSM" /v "EnableLogging" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\15.0\OSM" /v "EnableUpload" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\16.0\Common" /v "LinkedIn" /t REG_DWORD /d "0" /f
@@ -1060,6 +1061,9 @@ echo( && echo   # Applying Sophisicated Tweaks
 	reg add "HKCU\Control Panel\Desktop" /v "WallPaper" /t REG_SZ /d " " /f
 	rem Apply changes
 	RUNDLL32.EXE user32.dll, UpdatePerUserSystemParameters
+	
+	rem Setting time format to 24h+seconds
+	reg add "HKCU\Control Panel\International" /v "sShortTime" /d "HH:mm:ss" /f
 )
 
 :: ====================
