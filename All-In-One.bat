@@ -922,6 +922,11 @@ echo( && echo   # Applying Sophisicated Tweaks
 	bcdedit /set nx optout
 	bcdedit /set disabledynamictick no
 	bcdedit /set useplatformclock no
+	
+	rem Clear the Windows update cache
+	net stop wuauserv
+	del /F/S/Q "%windir%\SoftwareDistribution\Download\*"
+	net start wuauserv
 
 	rem Prefetch / Superfetch (meant for HDD NOT a SSD)
 	sc stop “SysMain” & sc config “SysMain” start=disabled
@@ -949,7 +954,7 @@ echo( && echo   # Applying Sophisicated Tweaks
 	rem Disable Nvidia Telemetry Container service
 	powershell -ExecutionPolicy Unrestricted -Command "$serviceName = 'NvTelemetryContainer'; Write-Host "^""Disabling service: `"^""$serviceName`"^""."^""; <# -- 1. Skip if service does not exist #>; $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue; if(!$service) {; Write-Host "^""Service `"^""$serviceName`"^"" could not be not found, no need to disable it."^""; Exit 0; }; <# -- 2. Stop if running #>; if ($service.Status -eq [System.ServiceProcess.ServiceControllerStatus]::Running) {; Write-Host "^""`"^""$serviceName`"^"" is running, stopping it."^""; try {; Stop-Service -Name "^""$serviceName"^"" -Force -ErrorAction Stop; Write-Host "^""Stopped `"^""$serviceName`"^"" successfully."^""; } catch {; Write-Warning "^""Could not stop `"^""$serviceName`"^"", it will be stopped after reboot: $_"^""; }; } else {; Write-Host "^""`"^""$serviceName`"^"" is not running, no need to stop."^""; }; <# -- 3. Skip if already disabled #>; $startupType = $service.StartType <# Does not work before .NET 4.6.1 #>; if(!$startupType) {; $startupType = (Get-WmiObject -Query "^""Select StartMode From Win32_Service Where Name='$serviceName'"^"" -ErrorAction Ignore).StartMode; if(!$startupType) {; $startupType = (Get-WmiObject -Class Win32_Service -Property StartMode -Filter "^""Name='$serviceName'"^"" -ErrorAction Ignore).StartMode; }; }; if($startupType -eq 'Disabled') {; Write-Host "^""$serviceName is already disabled, no further action is needed"^""; }; <# -- 4. Disable service #>; try {; Set-Service -Name "^""$serviceName"^"" -StartupType Disabled -Confirm:$false -ErrorAction Stop; Write-Host "^""Disabled `"^""$serviceName`"^"" successfully."^""; } catch {; Write-Error "^""Could not disable `"^""$serviceName`"^"": $_"^""; }"
 
-	rem Disable NVIDIA telemetry services
+	rem Disable NVIDIA Telemetry services
 	schtasks /change /tn NvTmMon_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8} /DISABLE
 	schtasks /change /tn NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8} /DISABLE
 	schtasks /change /tn NvTmRepOnLogon_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8} /DISABLE
@@ -1069,6 +1074,8 @@ echo( && echo   # Applying Sophisicated Tweaks
 :: ====================
 
 
+
+
 :: ====================
 :: Host File Config
 :: ====================
@@ -1136,6 +1143,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 a-0010.a-msedge.net
 	echo 0.0.0.0 a-0011.a-msedge.net
 	echo 0.0.0.0 a-0012.a-msedge.net
+	echo 0.0.0.0 a-msedge.net
 	echo 0.0.0.0 a.ads1.msn.com
 	echo 0.0.0.0 a.ads2.msads.net
 	echo 0.0.0.0 a.ads2.msn.com
@@ -1749,10 +1757,13 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 live.rads.msn.com
 	echo 0.0.0.0 ls2web.redmond.corp.microsoft.com
 	echo 0.0.0.0 m.adnxs.com
+	echo 0.0.0.0 m.hotmail.com
 	echo 0.0.0.0 mediaredirect.microsoft.com
 	echo 0.0.0.0 mobile.pipe.aria.microsoft.com
 	echo 0.0.0.0 modern.watson.data.microsoft.com.akadns.net
 	echo 0.0.0.0 msedge.net
+	echo 0.0.0.0 msftncsi.com
+	echo 0.0.0.0 msnbot-65-55-108-23.search.msn.com
 	echo 0.0.0.0 msnbot-207-46-194-33.search.msn.com
 	echo 0.0.0.0 msntest.serving-sys.com
 	echo 0.0.0.0 nexus.officeapps.live.com
@@ -1769,6 +1780,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 pre.footprintpredict.com
 	echo 0.0.0.0 presence.teams.live.com
 	echo 0.0.0.0 preview.msn.com
+	echo 0.0.0.0 pricelist.skype.com
 	echo 0.0.0.0 pti.store.microsoft.com
 	echo 0.0.0.0 query.prod.cms.rt.microsoft.com
 	echo 0.0.0.0 rad.live.com
@@ -1778,6 +1790,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 reports.wes.df.telemetry.microsoft.com
 	echo 0.0.0.0 romeccs.microsoft.com
 	echo 0.0.0.0 s0.2mdn.net
+	echo 0.0.0.0 s.gateway.messenger.live.com
 	echo 0.0.0.0 schemas.microsoft.akadns.net
 	echo 0.0.0.0 secure.adnxs.com
 	echo 0.0.0.0 secure.flashtalking.com
@@ -1795,6 +1808,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 sn3301-e.1drv.com
 	echo 0.0.0.0 sn3301-g.1drv.com
 	echo 0.0.0.0 sO.2mdn.net
+	echo 0.0.0.0 so.2mdn.net
 	echo 0.0.0.0 spynet2.microsoft.com
 	echo 0.0.0.0 spynetalt.microsoft.com
 	echo 0.0.0.0 spyneteurope.microsoft.akadns.net
@@ -1803,6 +1817,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 sqm.telemetry.microsoft.com.nsatc.net
 	echo 0.0.0.0 ssw.live.com
 	echo 0.0.0.0 static.2mdn.net
+	echo 0.0.0.0 stats-microsoft.com
 	echo 0.0.0.0 statsfe1.ws.microsoft.com
 	echo 0.0.0.0 statsfe2.update.microsoft.com.akadns.net
 	echo 0.0.0.0 statsfe2.ws.microsoft.com
@@ -1813,6 +1828,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 tele.trafficmanager.net
 	echo 0.0.0.0 telecommand.telemetry.microsoft.com
 	echo 0.0.0.0 telecommand.telemetry.microsoft.com.nsatc.net
+	echo 0.0.0.0 telemetry.appex.bing.com
 	echo 0.0.0.0 telemetry.appex.bing.net
 	echo 0.0.0.0 telemetry.microsoft.com
 	echo 0.0.0.0 telemetry.microsoft.comecho
@@ -1824,6 +1840,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 time.windows.com
 	echo 0.0.0.0 tk2.plt.msn.com
 	echo 0.0.0.0 tsfe.trafficshaping.dsp.mp.microsoft.com
+	echo 0.0.0.0 ui.skype.com
 	echo 0.0.0.0 uks.b.prd.ags.trafficmanager.net
 	echo 0.0.0.0 umwatson.events.data.microsoft.com
 	echo 0.0.0.0 umwatsonc.events.data.microsoft.com
@@ -1871,8 +1888,20 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 wns.notify.windows.com.akadns.net
 	echo 0.0.0.0 wscont.apps.microsoft.com
 	echo 0.0.0.0 www.msedge.net
+	echo 0.0.0.0 www.msftncsi.com
 	echo 0.0.0.0 xblgdvrassets3010.blob.core.windows.net
 	echo 0.0.0.0 ztd.dds.microsoft.com
+	echo #0.0.0.0 a.ads1.msn.com
+	echo #0.0.0.0 a.ads2.msads.net
+	echo #0.0.0.0 a.ads2.msn.com
+	echo #0.0.0.0 ad.doubleclick.net
+	echo #0.0.0.0 ads1.msads.net
+	echo #0.0.0.0 ads1.msn.com
+	echo #0.0.0.0 ads.msn.com
+	echo #0.0.0.0 apps.skype.com
+	echo #0.0.0.0 b.ads1.msn.com
+	echo #0.0.0.0 b.ads2.msads.net
+	echo #0.0.0.0 live.rads.msn.com
 ) >"%WINDIR%\System32\drivers\etc\hosts"
 
 :: ====================
@@ -1899,19 +1928,11 @@ echo( && echo   # Configurating Network Settings
 	netsh winsock set autotuning off
 	netsh interface reset all
 	
-	echo   1 ^> Activate Windows
-	echo   2 ^> Optimize Windows && echo(
-	set /p "c=.  # "
-	if '%c%'=='1' goto :choice1
-	if '%c%'=='2' goto :choice2
-	if '%c%'=='3' goto :choice3
-	cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
-	
-	:menu
+	:dns
 	cls
-	echo Select a DNS provider:
-	echo   1 ^> Quad9
-	echo   2 ^> Cloudflare
+	echo Select a DNS provider: && echo(
+	echo   1 ^> Quad9 [9.9.9.9]
+	echo   2 ^> Cloudflare [1.1.1.1]
 	set /p "c=.  # "
 	cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 
@@ -1926,18 +1947,16 @@ echo( && echo   # Configurating Network Settings
 		set ipv6_primary_dns=2606:4700:4700::1111
 		set ipv6_secondary_dns=2606:4700:4700::1001
 	) else (
-		echo Invalid choice. Please try again.
-		pause
-		goto menu
+		echo Invalid choice. Please try again. && pause>nul && goto :dns
 	)
 
 	rem Setting DNS servers
 	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
 		for /f "delims=" %%B in ("%%~A") do (
-			netsh interface ipv4 set dnsservers "%%B" static "%primary_dns%" primary
-			netsh interface ipv4 add dnsservers "%%B" "%secondary_dns%" index=2
-			netsh interface ipv6 set dnsservers "%%B" static "%ipv6_primary_dns%" primary
-			netsh interface ipv6 add dnsservers "%%B" "%ipv6_secondary_dns%" index=2
+			netsh interface ipv4 set dnsservers "%%B" static "!primary_dns!" primary
+			netsh interface ipv4 add dnsservers "%%B" "!secondary_dns!" index=2
+			netsh interface ipv6 set dnsservers "%%B" static "!ipv6_primary_dns!" primary
+			netsh interface ipv6 add dnsservers "%%B" "!ipv6_secondary_dns!" index=2
 		)
 	)
 	
