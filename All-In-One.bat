@@ -1920,33 +1920,35 @@ echo( && echo   # Configurating Network Settings
 	netsh winsock reset
 	netsh winsock set autotuning off
 	netsh interface reset all
-	
-	:dns
-	cls
-	echo Select a DNS provider: && echo(
-	echo   1 ^> Quad9 [9.9.9.9]
-	echo   2 ^> Cloudflare [1.1.1.1]
-	set /p "c=.  # "
-	if '%c%'=='1' goto :1
-	if '%c%'=='2' goto :2
-	cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
-	goto :dns
-	exit /b
+)
 
-	:1
-	set primary_dns=9.9.9.9
-	set secondary_dns=149.112.112.112
-	set ipv6_primary_dns=2620:fe::fe
-	set ipv6_secondary_dns=2620:fe::9
-	exit /b
-	
-	:2
-	set primary_dns=1.1.1.1
-	set secondary_dns=1.0.0.1
-	set ipv6_primary_dns=2606:4700:4700::1111
-	set ipv6_secondary_dns=2606:4700:4700::1001
-	exit /b
+:dns
+cls
+echo Select a DNS provider: && echo(
+echo   1 ^> Quad9 [9.9.9.9]
+echo   2 ^> Cloudflare [1.1.1.1]
+set /p "c=.  # "
+if '%c%'=='1' goto :1
+if '%c%'=='2' goto :2
+cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+goto :dns
+exit /b
 
+:1
+set primary_dns=9.9.9.9
+set secondary_dns=149.112.112.112
+set ipv6_primary_dns=2620:fe::fe
+set ipv6_secondary_dns=2620:fe::9
+exit /b
+
+:2
+set primary_dns=1.1.1.1
+set secondary_dns=1.0.0.1
+set ipv6_primary_dns=2606:4700:4700::1111
+set ipv6_secondary_dns=2606:4700:4700::1001
+exit /b
+
+>nul 2>&1 (
 	rem Setting DNS servers
 	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
 		for /f "delims=" %%B in ("%%~A") do (
@@ -1956,9 +1958,9 @@ echo( && echo   # Configurating Network Settings
 			netsh interface ipv6 add dnsservers "%%B" "!ipv6_secondary_dns!" index=2
 		)
 	)
-	
+
 	ipconfig /flushdns
-	
+
 	rem Applies an alternative NCSI
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "208.67.222.222" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContentV6" /t REG_SZ /d "2620:119:35::35" /f
@@ -1971,7 +1973,7 @@ echo( && echo   # Configurating Network Settings
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePath" /t REG_SZ /d "nm" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePathV6" /t REG_SZ /d "nm" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "1" /f
-	
+
 	rem Restart 'Network Location Awareness' Service
 	net stop "NlaSvc" & ipconfig /flushdns & net start "NlaSvc" & taskkill /f /im explorer.exe & explorer.exe
 )
@@ -2033,6 +2035,6 @@ echo( && echo   # Cleaning System
 :: ====================
 
 mode con:cols=35 lines=3
-cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
+cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && exit
 
 :: ====================
