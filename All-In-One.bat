@@ -2002,6 +2002,8 @@ cls && echo( && echo   # Applying: Custom DNS servers
 	rem Lock the taskbar
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
 	taskkill /f /im explorer.exe && explorer.exe
+	
+	"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
 )
 
 :: ====================
