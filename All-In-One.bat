@@ -1069,6 +1069,10 @@ echo( && echo   # Applying Sophisicated Tweaks
 	
 	rem Setting time format to 24h+seconds
 	reg add "HKCU\Control Panel\International" /v "sShortTime" /d "HH:mm:ss" /f
+	
+
+	rem Delete controversial default0 user
+	net user defaultuser0 /delete
 )
 
 :: ====================
@@ -1891,17 +1895,6 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 	echo 0.0.0.0 www.msftncsi.com
 	echo 0.0.0.0 xblgdvrassets3010.blob.core.windows.net
 	echo 0.0.0.0 ztd.dds.microsoft.com
-	echo #0.0.0.0 a.ads1.msn.com
-	echo #0.0.0.0 a.ads2.msads.net
-	echo #0.0.0.0 a.ads2.msn.com
-	echo #0.0.0.0 ad.doubleclick.net
-	echo #0.0.0.0 ads1.msads.net
-	echo #0.0.0.0 ads1.msn.com
-	echo #0.0.0.0 ads.msn.com
-	echo #0.0.0.0 apps.skype.com
-	echo #0.0.0.0 b.ads1.msn.com
-	echo #0.0.0.0 b.ads2.msads.net
-	echo #0.0.0.0 live.rads.msn.com
 ) >"%WINDIR%\System32\drivers\etc\hosts"
 
 :: ====================
@@ -1934,21 +1927,25 @@ echo( && echo   # Configurating Network Settings
 	echo   1 ^> Quad9 [9.9.9.9]
 	echo   2 ^> Cloudflare [1.1.1.1]
 	set /p "c=.  # "
+	if '%c%'=='1' goto :1
+	if '%c%'=='2' goto :2
 	cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+	goto :dns
+	exit /b
 
-	if %choice% equ 1 (
-		set primary_dns=9.9.9.9
-		set secondary_dns=149.112.112.112
-		set ipv6_primary_dns=2620:fe::fe
-		set ipv6_secondary_dns=2620:fe::9
-	) else if %choice% equ 2 (
-		set primary_dns=1.1.1.1
-		set secondary_dns=1.0.0.1
-		set ipv6_primary_dns=2606:4700:4700::1111
-		set ipv6_secondary_dns=2606:4700:4700::1001
-	) else (
-		echo Invalid choice. Please try again. && pause>nul && goto :dns
-	)
+	:1
+	set primary_dns=9.9.9.9
+	set secondary_dns=149.112.112.112
+	set ipv6_primary_dns=2620:fe::fe
+	set ipv6_secondary_dns=2620:fe::9
+	exit /b
+	
+	:2
+	set primary_dns=1.1.1.1
+	set secondary_dns=1.0.0.1
+	set ipv6_primary_dns=2606:4700:4700::1111
+	set ipv6_secondary_dns=2606:4700:4700::1001
+	exit /b
 
 	rem Setting DNS servers
 	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
@@ -2003,8 +2000,6 @@ echo( && echo   # Configurating Network Settings
 	rem Lock the taskbar
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
 	taskkill /f /im explorer.exe && explorer.exe
-	
-	rem SOFTWARE
 )
 
 :: ====================
@@ -2023,9 +2018,6 @@ echo( && echo   # Cleaning System
 	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8  rem Clear Temporary Internet Files
 	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 16 rem Clear Form Data
 	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 32 rem Clear Saved Passwords
-	
-	del /F/S/Q %LOCALAPPDATA%\Mozilla\Firefox\Profiles\*.default\cache2\entries\*
-	del /F/S/Q %LOCALAPPDATA%\Mozilla\Firefox\Profiles\*.default-release\cache2\entries\*
 
 	del /F/S/Q %tmp%\*
 	del /F/S/Q %SystemDrive%\Windows\Temp\*
@@ -2044,7 +2036,3 @@ mode con:cols=35 lines=3
 cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
 
 :: ====================
-
-
-UserAccountControlSettings
-SystemPropertiesDataExecutionPrevention
