@@ -55,7 +55,7 @@ exit /b
 :: Scheduled Tasks
 :: ====================
 
-cls && echo( && echo   # Disabling Scheduled Tasks
+cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 
 >nul 2>&1 (
 	rem Component: Telemtry Client
@@ -158,7 +158,7 @@ cls && echo( && echo   # Disabling Scheduled Tasks
 :: Services
 :: ====================
 
-echo( && echo   # Disabling Services
+echo( && echo   # Disabling: Bloat Services
 
 >nul 2>&1 (
 	rem Random Services
@@ -215,7 +215,7 @@ echo( && echo   # Disabling Services
 :: Get-AppxPackage -PackageTypeFilter Main | ? { $_.SignatureKind -eq "System" } | Sort Name | Format-Table Name, InstallLocation
 :: ====================
 
-echo( && echo   # Deleting Bloat Microsoft Apps
+echo( && echo   # Deleting: Bloat Microsoft Apps
 
 >nul 2>&1 (
 	rem System Apps
@@ -280,7 +280,7 @@ echo( && echo   # Deleting Bloat Microsoft Apps
 :: Registry Tweaks
 :: ====================
 
-echo( && echo   # Applying Registry Tweaks
+echo( && echo   # Applying: Lean Registry Changes
 
 >nul 2>&1 (
 	rem Safe Random Tweaks
@@ -911,7 +911,7 @@ echo( && echo   # Applying Registry Tweaks
 :: Sophisicated Tweaks
 :: ====================
 
-echo( && echo   # Applying Sophisicated Tweaks
+echo( && echo   # Applying: Sophisicated Tweaks
 
 >nul 2>&1 (
 	rem Turns off hibernation mode
@@ -1084,7 +1084,7 @@ echo( && echo   # Applying Sophisicated Tweaks
 :: Host File Config
 :: ====================
 
-echo( && echo   # Adding Custom Host File Config
+echo( && echo   # Applying: Custom Host File Config
 
 rem Adding Windows Defender Exclusion for hosts file.
 powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
@@ -1904,7 +1904,7 @@ cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
 :: Networking Config
 :: ====================
 
-echo( && echo   # Configurating Network Settings
+echo( && echo   # Configurating: Network Settings
 
 >nul 2>&1 (
 	nbtstat -R
@@ -1924,9 +1924,9 @@ echo( && echo   # Configurating Network Settings
 
 :dns
 cls
-echo Select a DNS provider: && echo(
-echo   1 ^> Quad9 [9.9.9.9]
-echo   2 ^> Cloudflare [1.1.1.1]
+echo( && echo   Select a DNS provider: && echo(
+echo   1 ^> [31mQuad9[0m [9.9.9.9]
+echo   2 ^> [33mCloudflare[0m [1.1.1.1] && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :1
 if '%c%'=='2' goto :2
@@ -1939,14 +1939,12 @@ set primary_dns=9.9.9.9
 set secondary_dns=149.112.112.112
 set ipv6_primary_dns=2620:fe::fe
 set ipv6_secondary_dns=2620:fe::9
-exit /b
 
 :2
 set primary_dns=1.1.1.1
 set secondary_dns=1.0.0.1
 set ipv6_primary_dns=2606:4700:4700::1111
 set ipv6_secondary_dns=2606:4700:4700::1001
-exit /b
 
 >nul 2>&1 (
 	rem Setting DNS servers
@@ -1977,6 +1975,8 @@ exit /b
 	rem Restart 'Network Location Awareness' Service
 	net stop "NlaSvc" & ipconfig /flushdns & net start "NlaSvc" & taskkill /f /im explorer.exe & explorer.exe
 )
+
+cls && echo( && echo   # Applying: Custom DNS servers
 
 :: ====================
 
@@ -2011,7 +2011,7 @@ exit /b
 :: Clean
 :: ====================
 
-echo( && echo   # Cleaning System
+echo( && echo   # Cleaning: System leftovers
 
 >nul 2>&1 (
 	arp -d *
