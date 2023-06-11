@@ -1944,13 +1944,6 @@ cls && echo( && echo   # Applying: Custom DNS servers
 :: ====================
 
 
-	rem Uninstall NVIDIA telemetry tasks
-	if exist "%ProgramFiles%\NVIDIA Corporation\Installer2\InstallerCore\NVI2.DLL" (
-		rundll32 "%PROGRAMFILES%\NVIDIA Corporation\Installer2\InstallerCore\NVI2.DLL",UninstallPackage NvTelemetryContainer
-		rundll32 "%PROGRAMFILES%\NVIDIA Corporation\Installer2\InstallerCore\NVI2.DLL",UninstallPackage NvTelemetry
-	)
-
-
 :: ====================
 :: Clean
 :: ====================
