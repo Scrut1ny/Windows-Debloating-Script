@@ -1911,6 +1911,8 @@ cls && echo( && echo   # Applying: Custom DNS servers
 :: Software
 :: ====================
 
+echo( && echo   # Installing: Everything Search^+Toolbar
+
 >nul 2>&1 (
 	if not exist "%ProgramFiles%\Everything\Everything.exe" (
 		rem EVERYTHING SEARCH + EVERYTHING SEARCH BAR
@@ -1918,7 +1920,6 @@ cls && echo( && echo   # Applying: Custom DNS servers
 			curl -fksLO "https://voidtools.com/%%A" && %%A & del /F /Q "%%A"
 		)
 	)
-	
 	if not exist "%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe" (
 		for /f "tokens=1,* delims=: " %%A in ('curl -fksL "https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest" ^| findstr /c:"browser_download_url"') do (
 			curl -ksLO "%%~B"
@@ -1926,8 +1927,6 @@ cls && echo( && echo   # Applying: Custom DNS servers
 				%%C /quiet /passive && del /F /Q "%%C"
 			)
 		)
-	)
-	if exist "%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe" (
 		rem Unlock the taskbar
 		reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
 		taskkill /f /im explorer.exe && explorer.exe
