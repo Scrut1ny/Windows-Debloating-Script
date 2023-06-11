@@ -400,14 +400,14 @@ echo( && echo   # Applying: Lean Registry Changes
 
 	rem Create .bat
 	reg add "HKCR\.bat\ShellNew" /v "NullFile" /t REG_SZ /d "" /f
-
-	rem Sounds
-	reg add "HKCU\AppEvents\Schemes" /ve /t REG_SZ /d ".None" /f
-	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "1" /f
 	
 	rem Playback/Recording
 	reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowDisconnectedDevices" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowHiddenDevices" /t REG_DWORD /d "0" /f
+	
+	rem Sounds
+	reg add "HKCU\AppEvents\Schemes" /ve /t REG_SZ /d ".None" /f
+	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "1" /f
 	
 	rem Communications
 	reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
