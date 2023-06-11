@@ -1920,6 +1920,36 @@ cls && echo( && echo   # Applying: Custom DNS servers
 
 
 :: ====================
+:: Software
+:: ====================
+
+>nul 2>&1 (
+	rem EVERYTHING SEARCH + EVERYTHING SEARCH BAR
+	for /f tokens^=6^ delims^=/^" %%A in ('curl -fksL "https://voidtools.com/downloads" ^| findstr /C:"Download Installer 64-bit"') do (
+		curl -fksLO "https://voidtools.com/%%A" && %%A & del /F /Q "%%A"
+	)
+	for /f "tokens=1,* delims=: " %%A in ('curl -fksL "https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest" ^| findstr /c:"browser_download_url"') do (
+		curl -ksLO "%%~B"
+		for /f "tokens=8 delims=/" %%C in ("%%~B") do (
+			%%C /quiet /passive && del /F /Q "%%C"
+		)
+	)
+	rem Unlock the taskbar
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
+	taskkill /f /im explorer.exe && explorer.exe
+
+	rem Launching program so the user can set it up.
+	"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
+
+	rem Lock the taskbar
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
+	taskkill /f /im explorer.exe && explorer.exe
+)
+
+:: ====================
+
+
+:: ====================
 :: Clean
 :: ====================
 
