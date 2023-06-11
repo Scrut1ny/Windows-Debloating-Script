@@ -188,7 +188,6 @@ echo( && echo   # Disabling: Bloat Services
 	sc stop "TabletInputService" & sc config "TabletInputService" start= disabled
 	sc stop "UnistoreSvc" & sc config "UnistoreSvc" start= disabled
 	sc stop "UserDataSvc" & sc config "UserDataSvc" start= disabled
-	sc stop "UsoSvc" & sc config "UsoSvc" start= disabled
 	sc stop "WaaSMedicSvc" & sc config "WaaSMedicSvc" start= disabled
 	sc stop "wercplsupport" & sc config "wercplsupport" start= disabled
 	sc stop "WerSvc" & sc config "WerSvc" start= disabled
@@ -218,53 +217,58 @@ echo( && echo   # Disabling: Bloat Services
 echo( && echo   # Deleting: Bloat Microsoft Apps
 
 >nul 2>&1 (
-	rem System Apps
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Disney.37853FC22B2CE' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.549981C3F5F10' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Advertising.Xaml' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.BingWeather' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.GetHelp' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Getstarted' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.HEIFImageExtension' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Microsoft3DViewer*' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftEdge.Stable' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftOfficeHub' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftSolitaireCollection' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MicrosoftStickyNotes' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MixedReality.Portal' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.MSPaint' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Office.OneNote' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.People' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.ScreenSketch' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Services.Store.Engagement' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.SkypeApp' | Remove-AppxPackage"
-	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.StorePurchaseApp' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.VP9VideoExtensions' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Wallet' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WebMediaExtensions' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WebpImageExtension' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.Photos' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.Search' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Windows.SecHealthUI' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsAlarms' | Remove-AppxPackage"
-	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
-	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsCamera' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.windowscommunicationsapps' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsFeedbackHub' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsMaps' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsSoundRecorder' | Remove-AppxPackage"
-	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.WindowsStore' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.Xbox.TCUI' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxApp' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxGameOverlay' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxGamingOverlay' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxIdentityProvider' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.XboxSpeechToTextOverlay' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.YourPhone' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.ZuneMusic' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'Microsoft.ZuneVideo' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'NVIDIACorp.NVIDIAControlPanel' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage 'SpotifyAB.SpotifyMusic' | Remove-AppxPackage"
+	rem Apps
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsAlarms' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Clipchamp.Clipchamp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Disney.37853FC22B2CE' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.549981C3F5F10' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Advertising.Xaml' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.BingNews' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.BingWeather' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.GetHelp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Getstarted' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.HEIFImageExtension' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Microsoft3DViewer*' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftEdge.Stable' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftOfficeHub' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftSolitaireCollection' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftStickyNotes' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MixedReality.Portal' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MSPaint' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Office.OneNote' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.People' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ScreenSketch' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Services.Store.Engagement' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.SkypeApp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Todos' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.VP9VideoExtensions' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Wallet' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WebMediaExtensions' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WebpImageExtension' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.Photos' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.Search' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.SecHealthUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.windowscommunicationsapps' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsFeedbackHub' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsMaps' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsSoundRecorder' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Xbox.TCUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxApp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxGameOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxGamingOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxIdentityProvider' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxSpeechToTextOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.YourPhone' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ZuneMusic' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ZuneVideo' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'MicrosoftCorporationII.QuickAssist' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'MicrosoftTeams' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'NVIDIACorp.NVIDIAControlPanel' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'SpotifyAB.SpotifyMusic' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.StorePurchaseApp' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCamera' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsStore' | Remove-AppxPackage"
 	rem 
 	rem MAIN WINDOWS APPS
 	rem 'Microsoft.Windows.Photos' 'Microsoft.WindowsCalculator' 'Microsoft.WindowsCamera' 'Microsoft.WindowsStore' 'Microsoft.ZuneMusic' 'Microsoft.ZuneVideo'
@@ -1070,7 +1074,6 @@ echo( && echo   # Applying: Sophisicated Tweaks
 	rem Setting time format to 24h+seconds
 	reg add "HKCU\Control Panel\International" /v "sShortTime" /d "HH:mm:ss" /f
 	
-
 	rem Delete controversial default0 user
 	net user defaultuser0 /delete
 )
@@ -1923,28 +1926,29 @@ echo( && echo   # Configurating: Network Settings
 )
 
 :dns
-cls
-echo( && echo   Select a DNS provider: && echo(
+cls && echo( && echo   Select a DNS provider: && echo(
 echo   1 ^> [31mQuad9[0m [9.9.9.9]
 echo   2 ^> [33mCloudflare[0m [1.1.1.1] && echo(
 set /p "c=.  # "
-if '%c%'=='1' goto :1
-if '%c%'=='2' goto :2
+
+if '%c%'=='1' do (
+	set primary_dns=9.9.9.9
+	set secondary_dns=149.112.112.112
+	set ipv6_primary_dns=2620:fe::fe
+	set ipv6_secondary_dns=2620:fe::9
+)
+
+if '%c%'=='2' do (
+	set primary_dns=1.1.1.1
+	set secondary_dns=1.0.0.1
+	set ipv6_primary_dns=2606:4700:4700::1111
+	set ipv6_secondary_dns=2606:4700:4700::1001
+)
+
 cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 goto :dns
 exit /b
 
-:1
-set primary_dns=9.9.9.9
-set secondary_dns=149.112.112.112
-set ipv6_primary_dns=2620:fe::fe
-set ipv6_secondary_dns=2620:fe::9
-
-:2
-set primary_dns=1.1.1.1
-set secondary_dns=1.0.0.1
-set ipv6_primary_dns=2606:4700:4700::1111
-set ipv6_secondary_dns=2606:4700:4700::1001
 
 >nul 2>&1 (
 	rem Setting DNS servers
