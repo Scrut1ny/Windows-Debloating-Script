@@ -401,67 +401,14 @@ echo( && echo   # Applying: Lean Registry Changes
 	rem Create .bat
 	reg add "HKCR\.bat\ShellNew" /v "NullFile" /t REG_SZ /d "" /f
 
-
 	rem Sounds
 	reg add "HKCU\AppEvents\Schemes" /ve /t REG_SZ /d ".None" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\SystemHand\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\SystemHand\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\.Default\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\.Default\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\MailBeep\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\MailBeep\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current" /f
-	reg delete "HKCU\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current" /ve /f
-	reg add "HKCU\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "1" /f
+	
 	rem Playback/Recording
 	reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowDisconnectedDevices" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowHiddenDevices" /t REG_DWORD /d "0" /f
+	
 	rem Communications
 	reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
 	
