@@ -1930,25 +1930,29 @@ cls && echo( && echo   Select a DNS provider: && echo(
 echo   1 ^> [31mQuad9[0m [9.9.9.9]
 echo   2 ^> [33mCloudflare[0m [1.1.1.1] && echo(
 set /p "c=.  # "
-
-if '%c%'=='1' do (
-	set primary_dns=9.9.9.9
-	set secondary_dns=149.112.112.112
-	set ipv6_primary_dns=2620:fe::fe
-	set ipv6_secondary_dns=2620:fe::9
-)
-
-if '%c%'=='2' do (
-	set primary_dns=1.1.1.1
-	set secondary_dns=1.0.0.1
-	set ipv6_primary_dns=2606:4700:4700::1111
-	set ipv6_secondary_dns=2606:4700:4700::1001
-)
-
+if '%c%'=='1' goto :choice_1
+if '%c%'=='2' goto :choice_2
 cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 goto :dns
 exit /b
 
+:choice_1
+set primary_dns=9.9.9.9
+set secondary_dns=149.112.112.112
+set ipv6_primary_dns=2620:fe::fe
+set ipv6_secondary_dns=2620:fe::9
+goto :continue
+exit /b
+
+:choice_2
+set primary_dns=1.1.1.1
+set secondary_dns=1.0.0.1
+set ipv6_primary_dns=2606:4700:4700::1111
+set ipv6_secondary_dns=2606:4700:4700::1001
+goto :continue
+exit /b
+
+:continue
 
 >nul 2>&1 (
 	rem Setting DNS servers
@@ -1958,59 +1962,12 @@ exit /b
 			netsh interface ipv4 add dnsservers "%%B" "!secondary_dns!" index=2
 			netsh interface ipv6 set dnsservers "%%B" static "!ipv6_primary_dns!" primary
 			netsh interface ipv6 add dnsservers "%%B" "!ipv6_secondary_dns!" index=2
+			ipconfig /flushdns
 		)
 	)
-
-	ipconfig /flushdns
-
-	rem Applies an alternative NCSI
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "208.67.222.222" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContentV6" /t REG_SZ /d "2620:119:35::35" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeHost" /t REG_SZ /d "resolver1.opendns.com" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeHostV6" /t REG_SZ /d "resolver1.opendns.com" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeContent" /t REG_SZ /d "NetworkManager is online" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeContentV6" /t REG_SZ /d "NetworkManager is online" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeHost" /t REG_SZ /d "network-test.debian.org" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeHostV6" /t REG_SZ /d "network-test.debian.org" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePath" /t REG_SZ /d "nm" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePathV6" /t REG_SZ /d "nm" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "1" /f
-
-	rem Restart 'Network Location Awareness' Service
-	net stop "NlaSvc" & ipconfig /flushdns & net start "NlaSvc" & taskkill /f /im explorer.exe & explorer.exe
 )
 
 cls && echo( && echo   # Applying: Custom DNS servers
-
-:: ====================
-
-
-:: ====================
-:: Software
-:: ====================
-
->nul 2>&1 (
-	rem EVERYTHING SEARCH + EVERYTHING SEARCH BAR
-	for /f tokens^=6^ delims^=/^" %%A in ('curl -fksL "https://voidtools.com/downloads" ^| findstr /C:"Download Installer 64-bit"') do (
-		curl -fksLO "https://voidtools.com/%%A" && %%A & del /F /Q "%%A"
-	)
-	for /f "tokens=1,* delims=: " %%A in ('curl -fksL "https://api.github.com/repos/stnkl/EverythingToolbar/releases/latest" ^| findstr /c:"browser_download_url"') do (
-		curl -ksLO "%%~B"
-		for /f "tokens=8 delims=/" %%C in ("%%~B") do (
-			%%C /quiet /passive && del /F /Q "%%C"
-		)
-	)
-	rem Unlock the taskbar
-	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
-	taskkill /f /im explorer.exe && explorer.exe
-	
-	rem Launching program so the user can set it up.
-	"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
-	
-	rem Lock the taskbar
-	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
-	taskkill /f /im explorer.exe && explorer.exe
-)
 
 :: ====================
 
