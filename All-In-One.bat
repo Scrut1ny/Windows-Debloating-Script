@@ -193,13 +193,49 @@ echo( && echo   # Disabling: Bloat Services
 	sc stop "WerSvc" & sc config "WerSvc" start= disabled
 	sc stop "Windows Biometric Service" & sc config "Windows Biometric Service" start=disabled
 	sc stop "WpnUserService" & sc config "WpnUserService" start= disabled
-	
-	rem Xbox Services
+)
+
+:xbox_services
+cls && echo( && echo   Xbox Services: && echo(
+echo   1 ^> [32mEnable[0m
+echo   2 ^> [31mDisable[0m
+echo   2 ^> Skip && echo(
+set /p "c=.  # "
+if '%c%'=='1' goto :c_1
+if '%c%'=='2' goto :c_2
+if '%c%'=='2' goto :c_3
+cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+goto :xbox_services
+exit /b
+
+:c_1
+>nul 2>&1 (
+	rem Enable Xbox Services
+	sc start "XblAuthManager" & sc config "XblAuthManager" start= demand
+	sc start "XblGameSave" & sc config "XblGameSave" start= demand
+	sc start "XboxGipSvc" & sc config "XboxGipSvc" start= demand
+	sc start "XboxNetApiSvc" & sc config "XboxNetApiSvc" start= demand
+)
+goto :continue_1
+exit /b
+
+:c_2
+>nul 2>&1 (
+	rem Disable Xbox Services
 	sc stop "XblAuthManager" & sc config "XblAuthManager" start= disabled
 	sc stop "XblGameSave" & sc config "XblGameSave" start= disabled
 	sc stop "XboxGipSvc" & sc config "XboxGipSvc" start= disabled
 	sc stop "XboxNetApiSvc" & sc config "XboxNetApiSvc" start= disabled
 )
+goto :continue_1
+exit /b
+
+:c_3
+rem Skip
+goto :continue_1
+exit /b
+
+:continue_1
 
 :: ====================
 
@@ -252,12 +288,6 @@ echo( && echo   # Deleting: Bloat Microsoft Apps
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsFeedbackHub' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsMaps' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsSoundRecorder' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Xbox.TCUI' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxApp' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxGameOverlay' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxGamingOverlay' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxIdentityProvider' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxSpeechToTextOverlay' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.YourPhone' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ZuneMusic' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ZuneVideo' | Remove-AppxPackage"
@@ -276,6 +306,52 @@ echo( && echo   # Deleting: Bloat Microsoft Apps
 	rem Xbox Services
 	rem 'Microsoft.Xbox.TCUI' 'Microsoft.XboxApp' 'Microsoft.XboxGameOverlay' 'Microsoft.XboxGamingOverlay' 'Microsoft.XboxIdentityProvider' 'Microsoft.XboxSpeechToTextOverlay'
 )
+
+:xbox_apps
+cls && echo( && echo   Xbox Apps: && echo(
+echo   1 ^> [32mInstall[0m
+echo   2 ^> [31mRemove[0m
+echo   2 ^> Skip && echo(
+set /p "c=.  # "
+if '%c%'=='1' goto :c1
+if '%c%'=='2' goto :c2
+if '%c%'=='2' goto :c3
+cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+goto :xbox_apps
+exit /b
+
+:c1
+>nul 2>&1 (
+	rem Install Xbox Apps
+	winget install -h --force --disable-interactivity --id 'Microsoft.Xbox.TCUI'
+	winget install -h --force --disable-interactivity --id 'Microsoft.XboxApp'
+	winget install -h --force --disable-interactivity --id 'Microsoft.XboxGameOverlay'
+	winget install -h --force --disable-interactivity --id 'Microsoft.XboxGamingOverlay'
+	winget install -h --force --disable-interactivity --id 'Microsoft.XboxIdentityProvider'
+	winget install -h --force --disable-interactivity --id 'Microsoft.XboxSpeechToTextOverlay'
+)
+goto :continue_2
+exit /b
+
+:c2
+>nul 2>&1 (
+	rem Remove Xbox Apps
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Xbox.TCUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxApp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxGameOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxGamingOverlay' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxIdentityProvider' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.XboxSpeechToTextOverlay' | Remove-AppxPackage"
+)
+goto :continue_2
+exit /b
+
+:c3
+rem Skip
+goto :continue_2
+exit /b
+
+:continue_2
 
 :: ====================
 
