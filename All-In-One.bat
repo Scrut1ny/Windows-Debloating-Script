@@ -2047,6 +2047,6 @@ echo( && echo   # Cleaning: System leftovers
 :: ====================
 
 mode con:cols=35 lines=3
-cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && exit
+cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
 
 :: ====================
