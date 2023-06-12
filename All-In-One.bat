@@ -199,7 +199,7 @@ echo( && echo   # Disabling: Bloat Services
 cls && echo( && echo   Xbox Services: && echo(
 echo   1 ^> [32mEnable[0m
 echo   2 ^> [31mDisable[0m
-echo   2 ^> Skip && echo(
+echo   3 ^> Skip && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :c_1
 if '%c%'=='2' goto :c_2
@@ -250,7 +250,7 @@ exit /b
 :: Get-AppxPackage -PackageTypeFilter Main | ? { $_.SignatureKind -eq "System" } | Sort Name | Format-Table Name, InstallLocation
 :: ====================
 
-echo( && echo   # Deleting: Bloat Microsoft Apps
+cls && echo( && echo   # Deleting: Bloat Microsoft Apps
 
 >nul 2>&1 (
 	rem Apps
@@ -311,7 +311,7 @@ echo( && echo   # Deleting: Bloat Microsoft Apps
 cls && echo( && echo   Xbox Apps: && echo(
 echo   1 ^> [32mInstall[0m
 echo   2 ^> [31mRemove[0m
-echo   2 ^> Skip && echo(
+echo   3 ^> Skip && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :c1
 if '%c%'=='2' goto :c2
@@ -360,7 +360,7 @@ exit /b
 :: Registry Tweaks
 :: ====================
 
-echo( && echo   # Applying: Lean Registry Changes
+cls && echo( && echo   # Applying: Lean Registry Changes
 
 >nul 2>&1 (
 	rem Safe Random Tweaks
@@ -2047,6 +2047,6 @@ echo( && echo   # Cleaning: System leftovers
 :: ====================
 
 mode con:cols=35 lines=3
-cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
+cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && exit
 
 :: ====================
