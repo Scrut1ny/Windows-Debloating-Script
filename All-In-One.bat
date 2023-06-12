@@ -203,7 +203,7 @@ echo   3 ^> Skip && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :c_1
 if '%c%'=='2' goto :c_2
-if '%c%'=='2' goto :c_3
+if '%c%'=='3' goto :c_3
 cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 goto :xbox_services
 exit /b
@@ -315,7 +315,7 @@ echo   3 ^> Skip && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :c1
 if '%c%'=='2' goto :c2
-if '%c%'=='2' goto :c3
+if '%c%'=='3' goto :c3
 cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 goto :xbox_apps
 exit /b
@@ -2047,6 +2047,6 @@ echo( && echo   # Cleaning: System leftovers
 :: ====================
 
 mode con:cols=35 lines=3
-cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
+cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && exit
 
 :: ====================
