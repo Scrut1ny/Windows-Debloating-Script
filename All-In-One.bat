@@ -253,58 +253,77 @@ exit /b
 cls && echo( && echo   # Deleting: Bloat Microsoft Apps
 
 >nul 2>&1 (
-	rem Apps
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsAlarms' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Clipchamp.Clipchamp' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Disney.37853FC22B2CE' | Remove-AppxPackage"
+	rem Microsoft Windows 10 21H2 Provisioned Apps
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.549981C3F5F10' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Advertising.Xaml' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.BingNews' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.BingWeather' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.GetHelp' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Getstarted' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.HEIFImageExtension' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Microsoft3DViewer*' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftEdge.Stable' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftOfficeHub' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftSolitaireCollection' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftStickyNotes' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MixedReality.Portal' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MSPaint' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Office.OneNote' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.People' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ScreenSketch' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Services.Store.Engagement' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.SkypeApp' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Todos' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.VP9VideoExtensions' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Wallet' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WebMediaExtensions' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WebpImageExtension' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.Photos' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.Search' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.SecHealthUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsAlarms' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCamera' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.windowscommunicationsapps' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsFeedbackHub' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsMaps' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsSoundRecorder' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.YourPhone' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ZuneMusic' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ZuneVideo' | Remove-AppxPackage"
+	
+	rem New Microsoft Windows 11 22H2 Provisioned Apps (added onto existing w10 ones above)
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Clipchamp.Clipchamp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.BingNews' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.GamingApp' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftSolitaireCollection' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftStickyNotes' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.PowerAutomateDesktop' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Todos' | Remove-AppxPackage"
+	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'MicrosoftWindows.Client.WebExperience' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'MicrosoftCorporationII.QuickAssist' | Remove-AppxPackage"
+	
+	rem Third Party Apps
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers '9E2F88E3.Twitter' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers '46928bounde.EclipseManager' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'ActiproSoftwareLLC.562882FEEB491' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'AdobeSystemIncorporated.AdobePhotoshop' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'ClearChannelRadioDigital.iHeartRadio' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'D5EA27B7.Duolingo-LearnLanguagesforFree' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Flipboard.Flipboard' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'king.com.CandyCrushSaga' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'king.com.CandyCrushSodaSaga' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'PandoraMediaInc.29680B314EFC2' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'ShazamEntertainmentLtd.Shazam' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'SpotifyAB.SpotifyMusic' | Remove-AppxPackage"
+	
+	rem Misc. Microsoft & Other Apps
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Disney.37853FC22B2CE' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Advertising.Xaml' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.HEIFImageExtension' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.MicrosoftEdge.Stable' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.ScreenSketch' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Services.Store.Engagement' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.VP9VideoExtensions' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WebMediaExtensions' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WebpImageExtension' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.Search' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.Windows.SecHealthUI' | Remove-AppxPackage"
+	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsSoundRecorder' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'MicrosoftTeams' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'NVIDIACorp.NVIDIAControlPanel' | Remove-AppxPackage"
-	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'SpotifyAB.SpotifyMusic' | Remove-AppxPackage"
+	
+	rem Main Recommended Microsoft Windows Apps
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.StorePurchaseApp' | Remove-AppxPackage"
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCamera' | Remove-AppxPackage"
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsStore' | Remove-AppxPackage"
-	rem 
-	rem MAIN WINDOWS APPS
-	rem 'Microsoft.Windows.Photos' 'Microsoft.WindowsCalculator' 'Microsoft.WindowsCamera' 'Microsoft.WindowsStore' 'Microsoft.ZuneMusic' 'Microsoft.ZuneVideo'
-	rem
-	rem Xbox Services
-	rem 'Microsoft.Xbox.TCUI' 'Microsoft.XboxApp' 'Microsoft.XboxGameOverlay' 'Microsoft.XboxGamingOverlay' 'Microsoft.XboxIdentityProvider' 'Microsoft.XboxSpeechToTextOverlay'
 )
 
 :xbox_apps
@@ -998,7 +1017,7 @@ echo( && echo   # Applying: Sophisicated Tweaks
 	)
 	
 	if %PROCESSOR_ARCHITECTURE%==x86 ( REM is 32 bit?
-    	reg add "HKLM\SOFTWARE\Microsoft\VSCommon\14.0\SQM" /v "OptIn" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SOFTWARE\Microsoft\VSCommon\14.0\SQM" /v "OptIn" /t REG_DWORD /d "0" /f
     	reg add "HKLM\SOFTWARE\Microsoft\VSCommon\15.0\SQM" /v "OptIn" /t REG_DWORD /d "0" /f
     	reg add "HKLM\SOFTWARE\Microsoft\VSCommon\16.0\SQM" /v "OptIn" /t REG_DWORD /d "0" /f
 	) else (
@@ -1037,33 +1056,56 @@ echo( && echo   # Applying: Sophisicated Tweaks
 		reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderDesktop\NameSpace\DelegateFolders\{3134ef9c-6b18-4996-ad04-ed5912e00eb5}" /f
 	)
 	
+	rem ================================================================================
 	rem OneDrive Removal
+	rem ================================================================================
+	
+	rem Kill OneDrive process
 	taskkill /f /im OneDrive.exe
-	if %PROCESSOR_ARCHITECTURE%==x86 (
-		%SystemRoot%\System32\OneDriveSetup.exe /uninstall 2>nul
-	) else (
-		%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall 2>nul
-	)
-	rd "%UserProfile%\OneDrive" /q /s
-	rd "%LocalAppData%\Microsoft\OneDrive" /q /s
-	rd "%ProgramData%\Microsoft OneDrive" /q /s
-	rd "%SystemDrive%\OneDriveTemp" /q /s
-	del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Microsoft OneDrive.lnk" /s /f /q
-	del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk" /s /f /q
-	del "%APPDATA%\Local\OneDrive" /s /f /q
-	del "%USERPROFILE%\Links\OneDrive.lnk" /s /f /q
-	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /t REG_DWORD /v "DisableFileSyncNGSC" /d "1" /f
-	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /t REG_DWORD /v "DisableFileSync" /d "1" /f
+
+	rem Delete all OneDrive related Services
+	for /f "tokens=1 delims=," %%x in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /TN %%x /F
+
+	rem Prevent automatic OneDrive install for current user
 	reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+	 
+	rem Prevent automatic OneDrive install for new users
 	reg load "HKU\Default" "%SystemDrive%\Users\Default\NTUSER.DAT" 
 	reg delete "HKU\Default\software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 	reg unload "HKU\Default"
+
+	rem Disable usage of OneDrive
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /t REG_DWORD /v "DisableFileSyncNGSC" /d 1 /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /t REG_DWORD /v "DisableFileSync" /d 1 /f
+
+	rem Delete OneDrive shortcuts
+	del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Microsoft OneDrive.lnk" /s /f /q
+	del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk" /s /f /q
+	del "%USERPROFILE%\Links\OneDrive.lnk" /s /f /q
+
+	rem Remove OneDrive from explorer menu
 	reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 	reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 	reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 	reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
-	for /f "tokens=1 delims=," %%A in ('schtasks /query /fo csv ^| find "OneDrive"') do schtasks /Delete /tn %%A /F
+
+	rem Uninstall OneDrive
+	if %PROCESSOR_ARCHITECTURE%==x86 (
+		%SystemRoot%\System32\OneDriveSetup.exe /uninstall
+	) else (
+		%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall
+	)
+
+	rem --Delete OneDrive path from registry
 	reg delete "HKCU\Environment" /v "OneDrive" /f
+
+	rem Remove OneDrive leftovers
+	rd "%UserProfile%\OneDrive" /q /s
+	rd "%LocalAppData%\Microsoft\OneDrive" /q /s
+	rd "%ProgramData%\Microsoft OneDrive" /q /s
+	rd "%SystemDrive%\OneDriveTemp" /q /s
+	
+	rem rem ================================================================================
 	
 	rem Use ultimate performance powercfg
 	
