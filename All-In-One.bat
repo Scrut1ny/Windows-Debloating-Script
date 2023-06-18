@@ -399,11 +399,14 @@ cls && echo( && echo   # Applying: Lean Registry Changes
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowInfoTip" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSecondsInSystemClock" /t REG_DWORD /d "1" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d "0" /f
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "StoreAppsOnTaskbar" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAutoHideInTabletMode" /t REG_DWORD /d "0" /f
-	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d "1" /f
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d "0" /f
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarMn" /t REG_DWORD /d "0" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSi" /t REG_DWORD /d "1" /f
+	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d "1" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete" /v "Append Completion" /t REG_SZ /d "yes" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete" /v "AutoSuggest" /t REG_SZ /d "yes" /f
 	reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.txt\OpenWithProgids" /v "Notepad++_file" /t REG_NONE /d "" /f
@@ -1131,13 +1134,19 @@ echo( && echo   # Applying: Sophisicated Tweaks
 	rem Setting time format to 24h+seconds
 	reg add "HKCU\Control Panel\International" /v "sShortTime" /d "HH:mm:ss" /f
 	
+	rem Remove all pinned taskbar apps
+	del /f/s/q/a "%AppData%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\*"
+	
 	rem Delete controversial default0 user
 	net user defaultuser0 /delete
+	
+	rem Delete annoying "wlrmdr.exe" (Windows Logon Reminder; changing password)
+	takeown /f "%SYSTEMROOT%\System32\wlrmdr.exe"
+	icacls "%SYSTEMROOT%\System32\wlrmdr.exe" /grant %username%:(F^)
+	del /f "%SYSTEMROOT%\System32\wlrmdr.exe"
 )
 
 :: ====================
-
-
 
 
 :: ====================
@@ -1146,13 +1155,14 @@ echo( && echo   # Applying: Sophisicated Tweaks
 
 echo( && echo   # Applying: Custom Host File Config
 
-rem Adding Windows Defender Exclusion for hosts file.
-powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
+>nul 2>&1 (
+	rem Adding Windows Defender Exclusion for hosts file.
+	powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
 
-rem Removing & adding custom hosts file.
-del /F /Q "%WINDIR%\System32\drivers\etc\hosts"
-cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
-
+	rem Removing & adding custom hosts file.
+	del /F /Q "%WINDIR%\System32\drivers\etc\hosts"
+	cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
+)
 (
 	echo ###################################
 	echo # Custom Host Config by: Scrut1ny #
@@ -2047,14 +2057,12 @@ echo( && echo   # Installing: Everything Search^+Toolbar
 		)
 		rem Unlock the taskbar
 		reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000001" /f
-		taskkill /f /im explorer.exe && explorer.exe
 
 		rem Launching program so the user can set it up.
 		"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
 
 		rem Lock the taskbar
 		reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "00000000" /f
-		taskkill /f /im explorer.exe && explorer.exe
 	)
 )
 
