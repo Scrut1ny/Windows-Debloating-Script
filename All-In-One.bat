@@ -174,7 +174,12 @@ echo( && echo   # Disabling: Bloat Services
 
 >nul 2>&1 (
 	rem Set all services to manual (demand)
+	rem for /f "tokens=1,2" %%G in ('net start ^| find /v "The " ^| find /v " service is not started."') do (
+	rem 	net stop "%%G" & sc config "%%G" start= demand & net start "%%G"
+	rem )
+
 	wmic service where "state='running'" call changeStartmode "manual"
+	wmic service where "state='stopped'" call changeStartmode "manual"
 
 	rem Random Services
 	sc stop "CDPUserSvc" & sc config "CDPUserSvc" start= disabled
