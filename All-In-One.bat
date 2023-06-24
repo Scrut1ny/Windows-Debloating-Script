@@ -62,11 +62,17 @@ cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 	schtasks /end /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"
 	schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable
 	
+	schtasks /end /tn "\Microsoft\Windows\Application Experience\ProgramDataUpdater"
+	schtasks /change /tn "\Microsoft\Windows\Application Experience\ProgramDataUpdater" /disable
+	
 	schtasks /end /tn "\Microsoft\Windows\Device Information\Device User"
 	schtasks /change /tn "\Microsoft\Windows\Device Information\Device User" /disable
 
 	schtasks /end /tn "\Microsoft\Windows\Device Information\Device"
 	schtasks /change /tn "\Microsoft\Windows\Device Information\Device" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Input\InputSettingsRestoreDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /disable
 	
 	schtasks /end /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable"
 	schtasks /change /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable" /disable
@@ -77,6 +83,9 @@ cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 	schtasks /end /tn "\Microsoft\Windows\Input\PenSyncDataAvailable"
 	schtasks /change /tn "\Microsoft\Windows\Input\PenSyncDataAvailable" /disable
 	
+	schtasks /end /tn "\Microsoft\Windows\Input\syncpensettings"
+	schtasks /change /tn "\Microsoft\Windows\Input\syncpensettings" /disable
+	
 	schtasks /end /tn "\Microsoft\Windows\Input\TouchpadSyncDataAvailable"
 	schtasks /change /tn "\Microsoft\Windows\Input\TouchpadSyncDataAvailable" /disable
 	
@@ -86,6 +95,9 @@ cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 	
 	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"
 	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable
+	
+	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"
+	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /disable
 	
 	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"
 	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable
@@ -161,6 +173,9 @@ cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 echo( && echo   # Disabling: Bloat Services
 
 >nul 2>&1 (
+	rem Set all services to manual (demand)
+	wmic service where "state='running'" call changeStartmode "manual"
+
 	rem Random Services
 	sc stop "CDPUserSvc" & sc config "CDPUserSvc" start= disabled
 	sc stop "Connected User Experiences and Telemetry" & sc config "Connected User Experiences and Telemetry" start=disabled
@@ -943,6 +958,8 @@ cls && echo( && echo   # Applying: Lean Registry Changes
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\SQMLogger" /v "Start" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Wifi\AllowWiFiHotSpotReporting" /v "value" /t REG_DWORD /d "0" /f
+	reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Wifi\AllowAutoConnectToWiFiSenseHotspots" /v "value" /t REG_DWORD /d "0" /f
 )
 
 :: ====================
