@@ -176,10 +176,6 @@ cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 echo( && echo   # Disabling: Bloat Services
 
 >nul 2>&1 (
-	rem Set all services to manual (demand)
-	wmic service where "state='running'" call changeStartmode "manual"
-	wmic service where "state='stopped'" call changeStartmode "manual"
-
 	rem Random Useless Services
 	sc stop "CDPUserSvc" & sc config "CDPUserSvc" start= disabled
 	sc stop "Connected User Experiences and Telemetry" & sc config "Connected User Experiences and Telemetry" start= disabled
