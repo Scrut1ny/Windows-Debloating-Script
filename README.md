@@ -105,36 +105,3 @@ icacls “%temp%” /grant Users:F /T
 icacls “%temp%” /grant SYSTEM:F /T
 icacls “%temp%” /grant Everyone:F /T
 ```
-
-Free Games
-- steamunlocked                 > [Link](https://steamunlocked.net/)
-- crohasit                      > [Link](https://crohasit.net/)
-- igg-games                     > [Link](https://igg-games.com/)
-
-Random
-- SteamAchievementManager       > [Link](https://github.com/gibbed/SteamAchievementManager/releases/latest)
-
-Game Mod Menu's
-
-Plutonium
-
-- Black Ops 2 GSC Studio        > [Link](https://mega.nz/file/hDoGwAbR#j-9i3oIZyiAz13FULRTaxAiKQcSCOXo-44Lr977YfcQ)
-
-- Call of Duty: Black Ops
-	* Multiplayer  > 
-	* Zombies               > [Link](https://cabconmodding.com/attachments/cabconmodding-com-encorev8-zombie-edition-0-9-rar.59/)
-	
-- Call of Duty: Black Ops 2
-	- plutonium    > [Link](https://plutonium.pw/)
-	- Black Ops 2 GSC Studio > [Link](https://mega.nz/file/hDoGwAbR#j-9i3oIZyiAz13FULRTaxAiKQcSCOXo-44Lr977YfcQ)
-	* Multiplayer  > [Link](https://cabconmodding.com/attachments/cabconmodding-com-jiggy-4-3-compiled-pc-rar.1296/)
-	* Zombies      > [Link](https://www.mediafire.com/?28un6sdd1wsdad6)
-	* Zombies      > [Link](https://cabconmodding.com/attachments/encore_9-7_beta_by_cabcon-rar.249/)
-
-- BO3/4 - t7-compiler > [Link](https://github.com/shiversoftdev/t7-compiler)
-
-- Call of Duty: Black Ops 3
-	* Multiplayer  > 
-	* Zombies      > [Link](https://cabconmodding.com/attachments/zm_encorev14_release_1-rar.1103/)
-	* Zombies      > [Link](https://cabconmodding.com/attachments/zm_encorev12_alpha_1-rar.639/)
-- cod4x                > [Link](https://cod4x.ovh/)
