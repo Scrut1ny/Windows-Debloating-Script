@@ -217,47 +217,45 @@ echo( && echo   # Disabling: Bloat Services
 	rem ===== Windows Update =====
 	rem ==========================
 	rem Background Intelligent Transfer Service
-	sc config "BITS" start= demand
+	sc config "BITS" start= demand & sc start "BITS"
 	rem Cryptographic Services
-	sc config "CryptSvc" start= auto
+	sc config "CryptSvc" start= auto & sc start "CryptSvc"
 	rem Windows Update Orchestrator Service
-	sc config "UsoSvc" start= demand
+	sc config "UsoSvc" start= demand & sc start "UsoSvc"
 	rem Windows Update
-	sc config "wuauserv" start= demand
+	sc config "wuauserv" start= demand & sc start "wuauserv"
 	rem Windows Modules Installer
-	sc config "TrustedInstaller" start= demand
-	rem WaaSMedicSvc (Windows Update Medic Service)
-	sc config "WaaSMedicSVC" start= demand
+	sc config "TrustedInstaller" start= demand & sc start "TrustedInstaller"
 	
 	rem ==========================
 	rem ===== Windows Audio ======
 	rem ==========================
 	rem Windows Audio Endpoint Builder
-	sc config "AudioEndpointBuilder" start= demand
+	sc config "AudioEndpointBuilder" start= demand & sc start "AudioEndpointBuilder"
 	rem Windows Audio
-	sc config "Audiosrv" start= auto
+	sc config "Audiosrv" start= auto & sc start "Audiosrv"
 	
 	rem ==========================
 	rem ==== Windows Network =====
 	rem ==========================
 	rem DHCP Client
-	sc config "Dhcp" start= auto
+	sc config "Dhcp" start= auto & sc start "Dhcp"
 	rem DNS Client
-	sc config "Dnscache" start= auto
+	sc config "Dnscache" start= auto & sc start "Dnscache"
 	rem TCP/IP NetBIOS Helper
-	sc config "lmhosts" start= demand
+	sc config "lmhosts" start= demand & sc start "lmhosts"
 	rem Network Connections
-	sc config "Netman" start= demand
+	sc config "Netman" start= demand & sc start "Netman"
 	rem Network List Service
-	sc config "Netprofm" start= demand
+	sc config "Netprofm" start= demand & sc start "Netprofm"
 	rem Network Location Awareness
-	sc config "NlaSvc" start= auto
+	sc config "NlaSvc" start= auto & sc start "NlaSvc"
 	rem Network Store Interface Service
-	sc config "nsi" start= auto
+	sc config "nsi" start= auto & sc start "nsi"
 	rem Remote Access Connection Manager
-	sc config "RasMan" start= demand
+	sc config "RasMan" start= demand & sc start "RasMan"
 	rem WLAN AutoConfig
-	sc config "Wlansvc" start= auto
+	sc config "Wlansvc" start= auto & sc start "Wlansvc"
 )
 
 :xbox_services
@@ -385,6 +383,11 @@ cls && echo( && echo   # Deleting: Bloat Microsoft Apps
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'PandoraMediaInc.29680B314EFC2*' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'ShazamEntertainmentLtd.Shazam*' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'SpotifyAB.SpotifyMusic*' | Remove-AppxPackage"
+	
+	rem "IMPOSSIBLE" Apps to remove
+	takeown /f "%SystemRoot%\SystemApps\MicrosoftWindows.Client.CBS*" /r /d y
+	icacls "%SystemRoot%\SystemApps\MicrosoftWindows.Client.CBS*" /grant administrators:F /t
+	del /f "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS*"
 	
 	rem Main Recommended Microsoft Windows Apps
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.StorePurchaseApp' | Remove-AppxPackage"
@@ -518,6 +521,7 @@ cls && echo( && echo   # Applying: Lean Registry Changes
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "4" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "DoNotShowFeedbackNotifications" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "AllowOnlineTips" /t REG_DWORD /d "0" /f
+	reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "HideSCAMeetNow" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoInternetOpenWith" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoOnlinePrintsWizard" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoPublishingWizard" /t REG_DWORD /d "1" /f
@@ -536,13 +540,13 @@ cls && echo( && echo   # Applying: Lean Registry Changes
 	reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f
 	
 	rem Choose which folders appear on Start (File Explorer, Settings, Downloads)
-	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${7c766bfc-5110-4f2f-8fb1-146c95476c68}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000097808B89CBAED8010000000043420100C20A01CB320A03058691CC930524AAA30144C38401669FF79DB187CBD1ACD4010005AFE69E9B0E24DE930244D5860166BF9D879BBF8FC6D4370005BCC9A8A401248CAC034489850166A081BACBBDD7A8A4820100C23C01C24601C55A0100" /f
+	rem reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${7c766bfc-5110-4f2f-8fb1-146c95476c68}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000097808B89CBAED8010000000043420100C20A01CB320A03058691CC930524AAA30144C38401669FF79DB187CBD1ACD4010005AFE69E9B0E24DE930244D5860166BF9D879BBF8FC6D4370005BCC9A8A401248CAC034489850166A081BACBBDD7A8A4820100C23C01C24601C55A0100" /f
 
 	rem Show recently installed apps
-	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${5e9e7a6f-428f-4cae-b72c-e10764ab30c6}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000020DD657DC7A6D9010000000043420100C21401C23C01C55A0200" /f
-
+	rem reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${5e9e7a6f-428f-4cae-b72c-e10764ab30c6}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "0200000020DD657DC7A6D9010000000043420100C21401C23C01C55A0200" /f
+	rem reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$de${2779c8e4-e601-4bad-aff5-287d62a38262}$$windows.data.unifiedtile.startglobalproperties\Current" /v "Data" /t REG_BINARY /d "02000000330B77FEA6A7D9010000000043420100C21401C23C01C55A0200" /f
+	
 	rem ===== CONTEXT MENU =====
-
 	rem Directory
 	reg add "HKCR\Directory\shell\OpenCmdHereAsAdmin" /ve /t REG_SZ /d "CMD (Admin)" /f
 	reg delete "HKCR\Directory\shell\OpenCmdHereAsAdmin" /v "Extended" /f
@@ -562,15 +566,14 @@ cls && echo( && echo   # Applying: Lean Registry Changes
 	reg delete "HKCR\LibraryFolder\background\shell\OpenCmdHereAsAdmin" /f
 	rem To allow mapped drives to be available in command prompt
 	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLinkedConnections" /t REG_DWORD /d "1" /f
-
 	rem Restart Explorer.exe
 	reg add "HKCR\Directory\Background\shell\REX" /ve /t REG_SZ /d "Restart Explorer" /f
 	reg delete "HKCR\Directory\Background\shell\REX" /v "Extended" /f
 	reg add "HKCR\Directory\Background\shell\REX" /v "Icon" /t REG_SZ /d "imageres.dll,0" /f
 	reg add "HKCR\Directory\Background\shell\REX\command" /ve /t REG_SZ /d "cmd /c taskkill /F /IM explorer.exe & start explorer" /f
-
 	rem Create .bat
 	reg add "HKCR\.bat\ShellNew" /v "NullFile" /t REG_SZ /d "" /f
+	rem ========================
 	
 	rem Playback/Recording
 	reg add "HKCU\Software\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowDisconnectedDevices" /t REG_DWORD /d "0" /f
@@ -1126,7 +1129,7 @@ echo( && echo   # Applying: Sophisicated Tweaks
 		%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall
 	)
 
-	rem --Delete OneDrive path from registry
+	rem Delete OneDrive path from registry
 	reg delete "HKCU\Environment" /v "OneDrive" /f
 
 	rem Remove OneDrive leftovers
@@ -1184,13 +1187,21 @@ echo( && echo   # Applying: Sophisicated Tweaks
 echo( && echo   # Applying: Custom Host File Config
 
 >nul 2>&1 (
-	rem Adding Windows Defender Exclusion for hosts file.
-	powershell -Command Add-MpPreference -ExclusionPath "%WINDIR%\System32\drivers\etc\hosts"
-
-	rem Removing & adding custom hosts file.
-	del /F /Q "%WINDIR%\System32\drivers\etc\hosts"
-	cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
+	rem Check if Windows Defender executable exists
+	dir "C:\Program Files\Windows Defender\MpCmdRun.exe"
+	if %errorlevel% equ 0 (
+		rem Adding Windows Defender Exclusion for hosts file.
+		powershell -Command "Add-MpPreference -ExclusionPath '%WINDIR%\System32\drivers\etc\hosts'"
+		rem Removing & adding custom hosts file.
+		del /f/q "%WINDIR%\System32\drivers\etc\hosts"
+		cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
+	) else (
+		rem Removing & adding custom hosts file.
+		del /f/q "%WINDIR%\System32\drivers\etc\hosts"
+		cd "%WINDIR%\System32\drivers\etc" && type nul > hosts
+	)
 )
+
 (
 	echo ###################################
 	echo # Custom Host Config by: Scrut1ny #
@@ -1277,13 +1288,16 @@ echo( && echo   # Applying: Custom Host File Config
 	echo 0.0.0.0 array408-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 ars.smartscreen.microsoft.com
 	echo 0.0.0.0 asimov-win.settings.data.microsoft.com.akadns.net
+	echo 0.0.0.0 assets.msn.com
 	echo 0.0.0.0 az361816.vo.msecnd.net
 	echo 0.0.0.0 az512334.vo.msecnd.net
+	echo 0.0.0.0 azureedge.net
 	echo 0.0.0.0 azwancan.trafficmanager.net
 	echo 0.0.0.0 b.ads1.msn.com
 	echo 0.0.0.0 b.ads2.msads.net
 	echo 0.0.0.0 b.rad.msn.com
 	echo 0.0.0.0 bingads.microsoft.com
+	echo 0.0.0.0 bingapis.com
 	echo 0.0.0.0 bl3301-a.1drv.com
 	echo 0.0.0.0 bl3301-c.1drv.com
 	echo 0.0.0.0 bl3301-g.1drv.com
@@ -1478,6 +1492,8 @@ echo( && echo   # Applying: Custom Host File Config
 	echo 0.0.0.0 cp401-prod.do.dsp.mp.microsoft.com
 	echo 0.0.0.0 cs1.wpc.v0cdn.net
 	echo 0.0.0.0 cy2.vortex.data.microsoft.com.akadns.net
+	echo 0.0.0.0 data.microsoft.com
+	echo 0.0.0.0 data.msn.com
 	echo 0.0.0.0 db3aqu.atdmt.com
 	echo 0.0.0.0 db3wns2011111.wns.windows.com
 	echo 0.0.0.0 db5-eap.settings-win.data.microsoft.com.akadns.net
@@ -1738,6 +1754,7 @@ echo( && echo   # Applying: Custom Host File Config
 	echo 0.0.0.0 eaus2watcab02.blob.core.windows.net
 	echo 0.0.0.0 ec.atdmt.com
 	echo 0.0.0.0 ecn.dev.virtualearth.net
+	echo 0.0.0.0 edge.microsoft.com
 	echo 0.0.0.0 eu.vortex-win.data.microsft.com
 	echo 0.0.0.0 eu.vortex.data.microsoft.com
 	echo 0.0.0.0 fe2.update.microsoft.com.akadns.net
@@ -1860,6 +1877,7 @@ echo( && echo   # Applying: Custom Host File Config
 	echo 0.0.0.0 mobile.pipe.aria.microsoft.com
 	echo 0.0.0.0 modern.watson.data.microsoft.com.akadns.net
 	echo 0.0.0.0 msedge.net
+	echo 0.0.0.0 msftconnecttest.com
 	echo 0.0.0.0 msftncsi.com
 	echo 0.0.0.0 msnbot-65-55-108-23.search.msn.com
 	echo 0.0.0.0 msnbot-207-46-194-33.search.msn.com
@@ -1867,7 +1885,6 @@ echo( && echo   # Applying: Custom Host File Config
 	echo 0.0.0.0 nexus.officeapps.live.com
 	echo 0.0.0.0 nexusrules.officeapps.live.com
 	echo 0.0.0.0 nw-umwatson.events.data.microsoft.com
-	echo 0.0.0.0 oca.telemetry.microsft.com
 	echo 0.0.0.0 oca.telemetry.microsoft.com
 	echo 0.0.0.0 oca.telemetry.microsoft.com.nsatc.net
 	echo 0.0.0.0 oca.telemetry.microsoft.us
@@ -1890,6 +1907,7 @@ echo( && echo   # Applying: Custom Host File Config
 	echo 0.0.0.0 s0.2mdn.net
 	echo 0.0.0.0 s.gateway.messenger.live.com
 	echo 0.0.0.0 schemas.microsoft.akadns.net
+	echo 0.0.0.0 scorecardresearch.com
 	echo 0.0.0.0 secure.adnxs.com
 	echo 0.0.0.0 secure.flashtalking.com
 	echo 0.0.0.0 services.wes.df.telemetry.microsoft.com
@@ -2067,16 +2085,30 @@ cls && echo( && echo   # Applying: Custom DNS servers
 :: Software
 :: ====================
 
-echo( && echo   # Installing: Software
 
->nul 2>&1 (
+ping -n 1 9.9.9.9 >nul 2>&1
+if errorlevel 0 (
 	set "packages=VideoLAN.VLC 7zip.7zip LibreWolf.LibreWolf Notepad^+^+.Notepad^+^+ KeePassXCTeam.KeePassXC voidtools.Everything stnkl.EverythingToolbar"
-	
 	for %%p in (%packages%) do (
+		if not exist "winget list | find %%p" (
 		echo Installing package: %%p
 		winget install -h --id "%%p"
 	)
+	rem Launching program so the user can set it up.
+	"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
+) else (
+	echo( && echo   # Software Download: FAILED (No Internet)
 )
+
+:: ====================
+
+
+:: ====================
+:: Personalization
+:: ====================
+
+"SystemPropertiesPerformance.exe"
+"ncpa.cpl"
 
 :: ====================
 
@@ -2109,6 +2141,6 @@ echo( && echo   # Cleaning: System leftovers
 :: ====================
 
 mode con:cols=35 lines=3
-cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && del /F/Q %0 & exit
+cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && exit
 
 :: ====================
