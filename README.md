@@ -83,25 +83,22 @@ Communications Tab | WIN + R - control mmsys.cpl,,3
 |Toshiba|`F2`|
 |Zotac|`DEL`|
 
-### Installation Error Code 2502 & 2503 FIX
-Open CMD as admin then paste these commands in:
-```batch
-
-msiexec /unreg
-msiexec /regserver
-
-takeown /f “%systemroot%\Temp” /R /A /D Y
-icacls “%systemroot%\Temp” /inheritance:r /grant:r Users:(OI)(CI)F /T
-icacls “%systemroot%\Temp” /inheritance:r /grant:r Everyone:(OI)(CI)F /T
-icacls “%systemroot%\Temp” /grant Administrators:F /T
-icacls “%systemroot%\Temp” /grant Users:F /T
-icacls “%systemroot%\Temp” /grant SYSTEM:F /T
-icacls “%systemroot%\Temp” /grant Everyone:F /T
-takeown /f “%temp%” /R /A /D Y
-icacls “%temp%” /inheritance:r /grant:r Users:(OI)(CI)F /T
-icacls “%temp%” /inheritance:r /grant:r Everyone:(OI)(CI)F /T
-icacls “%temp%” /grant Administrators:F /T
-icacls “%temp%” /grant Users:F /T
-icacls “%temp%” /grant SYSTEM:F /T
-icacls “%temp%” /grant Everyone:F /T
-```
+### Personal Fresh Install Programs
+| Software | Links |
+|-|-|
+| LibreWolf | [Link](https://librewolf.net/installation/) |
+| 7-Zip | [Link](https://7-zip.org/download.html) |
+| VLC | [Link](https://www.videolan.org/vlc/) |
+| ImageGlass | [Link](https://imageglass.org/download) |
+| Notepad++ | [Link](https://notepad-plus-plus.org/downloads/) |
+| LibreOffice | [Link](https://www.libreoffice.org/download/download-libreoffice/) |
+| System Informer | [Link](https://www.systeminformer.com/nightly.php) |
+| BCUninstaller | [Link](https://github.com/Klocman/Bulk-Crap-Uninstaller/releases/latest) |
+| Wireshark | [Link](https://www.wireshark.org/download.html) |
+| FreeTube | [Link](https://freetubeapp.io/#download) |
+| qBittorrent | [Link](https://www.qbittorrent.org/download) |
+| KeePassXC | [Link](https://keepassxc.org/download) |
+| Everything | [Link](https://www.voidtools.com/) |
+| EverythingToolbar | [Link](https://github.com/srwi/EverythingToolbar/releases/latest) |
+| Python | [Link](https://www.python.org/downloads/) |
+| ShareX | [Link](https://getsharex.com/downloads) |
