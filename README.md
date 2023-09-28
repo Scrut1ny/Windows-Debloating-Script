@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/53458032/218345232-227d4831-cc13-4d87-93ce-a858c689f26b.png)
+
 
 ### Windows ISO & Activation
 [massgrave.dev](https://massgrave.dev/index.html)
