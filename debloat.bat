@@ -1,9 +1,9 @@
 :: ==================================================
-::  Windows-Tweaking v8.0
+::  Windows-Tweaking v10.0
 :: ==================================================
 ::  Dev  - Scut1ny
 ::  Help - 
-::  Link - https://github.com/Scrut1ny/Windows-Tweaking
+::  Link - https://github.com/Scrut1ny/Windows-Debloating-Script
 :: ==================================================
 
 
@@ -25,20 +25,20 @@ fltmc >nul 2>&1 || (
 :: ====================
 
 :MENU
-mode con:cols=41 lines=21
-cls && title https://github.com/Scrut1ny/Windows-Tweaking
-echo( && echo   =====================================
-echo    Scrut1ny's Ultimate Windows Tweaker
-echo        [34mhttps://github.com/Scrut1ny[0m
-echo   ===================================== && echo(
-echo   1 ^> Activate Windows
-echo   2 ^> Optimize Windows
-echo   3 ^> Update All Apps && echo(
-set /p "c=.  # "
+@chcp 65001>nul
+mode con:cols=28 lines=11
+cls && title https://github.com/Scrut1ny/Windows-Debloating-Script && echo(
+echo   ╔══════════════════════╗
+echo   ║ Windows • Multi-Tool ║
+echo   ╚══════════════════════╝ && echo(
+echo   [1] - Activate Windows
+echo   [2] - Optimize Windows
+echo   [3] - Update all Apps && echo(
+set /p "c=.  ► "
 if '%c%'=='1' goto :choice1
 if '%c%'=='2' goto :choice2
 if '%c%'=='3' goto :choice3
-cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
+cls && echo( && echo   [31m• "%c%" is invalid.[0m && >nul timeout /t 2
 goto :MENU
 exit /b
 
@@ -48,8 +48,9 @@ goto :MENU
 exit /b
 
 :choice3
-cls && echo( && echo   [92m# Downloading/Installing Latest Updates...[0m
-winget upgrade -h --all >nul 2>&1
+cls && echo( && echo   [92m• Receiving Latest Updates[0m && echo(
+mode con:cols=120 lines=40
+winget upgrade -h --all
 goto :MENU
 exit /b
 
@@ -57,8 +58,8 @@ exit /b
 :: ====================
 :: Scheduled Tasks
 :: ====================
-
-cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
+mode con:cols=38 lines=20
+cls && echo( && echo   • Disabling: Bloat Scheduled Tasks
 
 >nul 2>&1 (
 	rem Component: Telemtry Client
@@ -173,7 +174,7 @@ cls && echo( && echo   # Disabling: Bloat Scheduled Tasks
 :: Services
 :: ====================
 
-echo( && echo   # Disabling: Bloat Services
+echo( && echo   • Disabling: Bloat Services
 
 >nul 2>&1 (
 	rem Random Useless Services
@@ -313,7 +314,7 @@ exit /b
 :: Get-AppxPackage -PackageTypeFilter Main | ? { $_.SignatureKind -eq "System" } | Sort Name | Format-Table Name, InstallLocation
 :: ====================
 
-cls && echo( && echo   # Deleting: Bloat Microsoft Apps
+cls && echo( && echo   • Removing: Bloat Microsoft Apps
 
 >nul 2>&1 (
 	rem Microsoft Apps
@@ -449,7 +450,7 @@ exit /b
 :: Registry Tweaks
 :: ====================
 
-cls && echo( && echo   # Applying: Lean Registry Changes
+cls && echo( && echo   • Applying: Registry Tweaks
 
 >nul 2>&1 (
 	rem Safe Random Tweaks
@@ -982,7 +983,7 @@ cls && echo( && echo   # Applying: Lean Registry Changes
 :: Sophisicated Tweaks
 :: ====================
 
-echo( && echo   # Applying: Sophisicated Tweaks
+echo( && echo   • Applying: Sophisicated Tweaks
 
 >nul 2>&1 (
 	rem Turns off hibernation mode
@@ -1184,7 +1185,7 @@ echo( && echo   # Applying: Sophisicated Tweaks
 :: Host File Config
 :: ====================
 
-echo( && echo   # Applying: Custom Host File Config
+echo( && echo   • Applying: Custom Host File Config
 
 >nul 2>&1 (
 	rem Check if Windows Defender executable exists
@@ -2016,7 +2017,7 @@ echo( && echo   # Applying: Custom Host File Config
 :: Networking Config
 :: ====================
 
-echo( && echo   # Configurating: Network Settings
+echo( && echo   • Configurating: Network Settings
 
 >nul 2>&1 (
 	nbtstat -R
@@ -2076,7 +2077,7 @@ exit /b
 	)
 )
 
-cls && echo( && echo   # Applying: Custom DNS servers
+cls && echo( && echo   • Applying: Custom DNS servers
 
 :: ====================
 
@@ -2085,19 +2086,22 @@ cls && echo( && echo   # Applying: Custom DNS servers
 :: Software
 :: ====================
 
+set "packages=VideoLAN.VLC 7zip.7zip LibreWolf.LibreWolf Notepad^+^+.Notepad^+^+ KeePassXCTeam.KeePassXC voidtools.Everything stnkl.EverythingToolbar"
 
 ping -n 1 9.9.9.9 >nul 2>&1
 if errorlevel 0 (
-	set "packages=VideoLAN.VLC 7zip.7zip LibreWolf.LibreWolf Notepad^+^+.Notepad^+^+ KeePassXCTeam.KeePassXC voidtools.Everything stnkl.EverythingToolbar"
 	for %%p in (%packages%) do (
-		if not exist "winget list | find %%p" (
-		echo Installing package: %%p
-		winget install -h --id "%%p"
+		if exist "winget list | findstr %%p" (
+			echo Installing package: %%p
+			winget install -h --id "%%p"
+		)
 	)
 	rem Launching program so the user can set it up.
-	"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
+	if exist "%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe" (
+		"%PROGRAMFILES(X86)%\EverythingToolbar\EverythingToolbar.Launcher.exe"
+	)
 ) else (
-	echo( && echo   # Software Download: FAILED (No Internet)
+	echo( && echo   • Software Download: FAILED (No Internet)
 )
 
 :: ====================
@@ -2117,21 +2121,18 @@ if errorlevel 0 (
 :: Clean
 :: ====================
 
-echo( && echo   # Cleaning: System leftovers
+echo( && echo   • Cleaning: System leftovers
 
 >nul 2>&1 (
 	arp -d *
 	certutil -URLCache * delete
-	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2  rem Clear Cookies
-	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8  rem Clear Temporary Internet Files
-	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 16 rem Clear Form Data
-	RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 32 rem Clear Saved Passwords
 
-	del /F/S/Q %tmp%\*
-	del /F/S/Q %SystemDrive%\Windows\Temp\*
-	del /F/S/Q %SystemDrive%\*.log,*.LOG,*.etl,*.tmp,*.hta
+	del /f/s/q "%WINDIR%\Prefetch\*"
+	del /f/s/q "%SystemDrive%\*.log"
+	del /f/s/q "%SystemDrive%\Windows\Temp\*"
+	del /f/s/q "%tmp%\*"
 
-	PowerShell -ExecutionPolicy Unrestricted -Command "$bin = (New-Object -ComObject Shell.Application).NameSpace(10); $bin.items() | ForEach {; Write-Host "^""Deleting $($_.Name) from Recycle Bin"^""; Remove-Item $_.Path -Recurse -Force; }"
+	powershell Clear-RecycleBin -Force -ErrorAction SilentlyContinue
 	taskkill /f /im explorer.exe && explorer.exe
 )
 
@@ -2140,7 +2141,6 @@ echo( && echo   # Cleaning: System leftovers
 
 :: ====================
 
-mode con:cols=35 lines=3
-cls && echo( && echo   [92m# Windows Optimization Completed![0m && timeout /t 3 >nul && exit
+cls && echo( && echo   [92m• Windows Optimization Completed.[0m && timeout /t 3 >nul && goto :MENU
 
 :: ====================
