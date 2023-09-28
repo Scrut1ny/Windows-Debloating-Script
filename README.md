@@ -1,3 +1,4 @@
+![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/8b3c601f-1d68-4a7d-aaef-1f69f28101a1)
 
 
 ### Windows ISO & Activation
