@@ -2037,28 +2037,38 @@ echo( && echo   • Configurating: Network Settings
 
 :dns
 cls && echo( && echo   Select a DNS provider: && echo(
-echo   1 ^> [31mQuad9[0m [9.9.9.9]
-echo   2 ^> [33mCloudflare[0m [1.1.1.1] && echo(
+echo   1 ^> [93mCloudflare[0m [1.1.1.1]
+echo   2 ^> [94mGoogle[0m [8.8.8.8]
+echo   3 ^> [91mQuad9[0m [9.9.9.9] && echo(
 set /p "c=.  # "
 if '%c%'=='1' goto :choice_1
 if '%c%'=='2' goto :choice_2
+if '%c%'=='3' goto :choice_3
 cls && echo( && echo   [31m# "%c%" isn't a valid option, please try again.[0m && >nul timeout /t 3
 goto :dns
 exit /b
 
 :choice_1
-set primary_dns=9.9.9.9
-set secondary_dns=149.112.112.112
-set ipv6_primary_dns=2620:fe::fe
-set ipv6_secondary_dns=2620:fe::9
-goto :continue
-exit /b
-
-:choice_2
 set primary_dns=1.1.1.1
 set secondary_dns=1.0.0.1
 set ipv6_primary_dns=2606:4700:4700::1111
 set ipv6_secondary_dns=2606:4700:4700::1001
+goto :continue
+exit /b
+
+:choice_2
+set primary_dns=8.8.8.8
+set secondary_dns=8.8.4.4
+set ipv6_primary_dns=2001:4860:4860::8888
+set ipv6_secondary_dns=2001:4860:4860::8844
+goto :continue
+exit /b
+
+:choice_3
+set primary_dns=9.9.9.9
+set secondary_dns=149.112.112.112
+set ipv6_primary_dns=2620:fe::fe
+set ipv6_secondary_dns=2620:fe::9
 goto :continue
 exit /b
 
@@ -2086,7 +2096,7 @@ cls && echo( && echo   • Applying: Custom DNS servers
 :: Software
 :: ====================
 
-set "packages=VideoLAN.VLC 7zip.7zip LibreWolf.LibreWolf Notepad^+^+.Notepad^+^+ KeePassXCTeam.KeePassXC voidtools.Everything stnkl.EverythingToolbar"
+set "packages=7zip.7zip"
 
 ping -n 1 9.9.9.9 >nul 2>&1
 if errorlevel 0 (
