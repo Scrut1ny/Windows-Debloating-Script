@@ -1,5 +1,4 @@
-![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/8b3c601f-1d68-4a7d-aaef-1f69f28101a1)
-
+![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/8b3c601f-1d68-4a7d-aaef-1f69f28101a1) ![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/b040765b-dd1a-4f9f-b40d-749ca96162f5) ![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/c666b027-748f-4323-b294-077e51337530) ![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/f8596a0d-251f-4c60-8bb1-f8160bcd0acc)
 
 ### Windows ISO & Activation
 [massgrave.dev](https://massgrave.dev/index.html)
