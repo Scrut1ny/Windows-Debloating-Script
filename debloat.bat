@@ -264,7 +264,7 @@ cls && echo( && echo   Xbox Services: && echo(
 echo   1 ^> [32mEnable[0m
 echo   2 ^> [31mDisable[0m
 echo   3 ^> Skip && echo(
-set /p "c=.  # "
+set /p "c=.  ► "
 if '%c%'=='1' goto :c_1
 if '%c%'=='2' goto :c_2
 if '%c%'=='3' goto :c_3
@@ -402,7 +402,7 @@ cls && echo( && echo   Xbox Apps: && echo(
 echo   1 ^> [32mInstall[0m
 echo   2 ^> [31mRemove[0m
 echo   3 ^> Skip && echo(
-set /p "c=.  # "
+set /p "c=.  ► "
 if '%c%'=='1' goto :c1
 if '%c%'=='2' goto :c2
 if '%c%'=='3' goto :c3
@@ -854,6 +854,7 @@ cls && echo( && echo   • Applying: Registry Tweaks
 	reg add "HKLM\SOFTWARE\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f
 	reg add "HKLM\SOFTWARE\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Microsoft\OneDrive" /v "PreventNetworkTrafficPreUserSignIn" /t REG_DWORD /d "1" /f
+	reg add "HKLM\SOFTWARE\Microsoft\PCHC" /v "PreviousUninstall" /t REG_DWORD /d "1" /f
 	reg add "HKLM\SOFTWARE\Microsoft\Personalization\Settings" /v "AcceptedPrivacyPolicy" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth" /v "AllowAdvertising" /t REG_DWORD /d "0" /f
 	reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System" /v "AllowExperimentation" /t REG_DWORD /d "0" /f
@@ -2040,7 +2041,7 @@ cls && echo( && echo   Select a DNS provider: && echo(
 echo   1 ^> [93mCloudflare[0m [1.1.1.1]
 echo   2 ^> [94mGoogle[0m [8.8.8.8]
 echo   3 ^> [91mQuad9[0m [9.9.9.9] && echo(
-set /p "c=.  # "
+set /p "c=.  ► "
 if '%c%'=='1' goto :choice_1
 if '%c%'=='2' goto :choice_2
 if '%c%'=='3' goto :choice_3
@@ -2076,15 +2077,15 @@ exit /b
 
 >nul 2>&1 (
 	rem Setting DNS servers
-	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic get netconnectionid /format:csv') do (
-		for /f "delims=" %%B in ("%%~A") do (
+	for /f "skip=2 tokens=2 delims=," %%A in ('wmic nic where NetEnabled^=True get NetConnectionID /format:csv') do (
+		for /f "delims=" %%B in ("%%A") do (
 			netsh interface ipv4 set dnsservers "%%B" static "!primary_dns!" primary
 			netsh interface ipv4 add dnsservers "%%B" "!secondary_dns!" index=2
 			netsh interface ipv6 set dnsservers "%%B" static "!ipv6_primary_dns!" primary
 			netsh interface ipv6 add dnsservers "%%B" "!ipv6_secondary_dns!" index=2
-			ipconfig /flushdns
 		)
 	)
+	ipconfig /flushdns
 )
 
 cls && echo( && echo   • Applying: Custom DNS servers
@@ -2099,7 +2100,7 @@ cls && echo( && echo   • Applying: Custom DNS servers
 set "packages=7zip.7zip"
 
 ping -n 1 9.9.9.9 >nul 2>&1
-if errorlevel 0 (
+if %errorlevel% 0 (
 	for %%p in (%packages%) do (
 		if exist "winget list | findstr %%p" (
 			echo Installing package: %%p
