@@ -62,10 +62,10 @@ Communications Tab | WIN + R - control mmsys.cpl,,3
 ☐ Do nothing
 ```
 
-### Convert Legacy BIOS to UEFI
-``
+### Convert BIOS Mode from Legacy to UEFI
+```
 MBR2GPT.exe /convert /allowfullos
-``
+```
 
 ### BIOS Keys by Manufacturer
 `shutdown /r /fw /f /t 0`
