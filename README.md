@@ -68,7 +68,9 @@ MBR2GPT.exe /convert /allowfullos
 ```
 
 ### BIOS Keys by Manufacturer
-`shutdown /r /fw /f /t 0`
+```
+shutdown /r /fw /f /t 0
+```
 |Manufacturer|Key/Sequence|
 |-|-|
 |ASRock|`F2` or `DEL`|
