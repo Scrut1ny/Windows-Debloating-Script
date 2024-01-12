@@ -1968,6 +1968,7 @@ echo( && echo   • Applying: Custom Host File Config
 	echo 0.0.0.0 us-v10.events.data.microsoft.com
 	echo 0.0.0.0 us.vortex-win.data.microsft.com
 	echo 0.0.0.0 us.vortex-win.data.microsoft.com
+	echo 0.0.0.0 v10.events.data.microsoft.com
 	echo 0.0.0.0 v10-win.vortex.data.microsft.com.akadns.net
 	echo 0.0.0.0 v10-win.vortex.data.microsoft.com.akadns.net
 	echo 0.0.0.0 v10.vortex-win.data.metron.live.com.nsatc.net
