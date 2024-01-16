@@ -62,6 +62,11 @@ Communications Tab | WIN + R - control mmsys.cpl,,3
 ☐ Do nothing
 ```
 
+### Windows Search Broken Fix
+```
+Repair-WindowsImage -Online -RestoreHealth
+```
+
 ### Convert BIOS Mode from Legacy to UEFI
 ```
 MBR2GPT.exe /convert /allowfullos
