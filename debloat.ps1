@@ -1468,7 +1468,7 @@ function Software {
         if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
             Write-Host "  # Installing winget..."
             $latestWingetUrl = Invoke-RestMethod -Uri 'https://api.github.com/repos/microsoft/winget-cli/releases/latest' | 
-							Select-Object -ExpandProperty assets | 
+			    Select-Object -ExpandProperty assets | 
                             Where-Object { $_.name -like '*msixbundle*' } | 
                             Select-Object -ExpandProperty browser_download_url
 
@@ -1510,10 +1510,6 @@ function Software {
 
 
 function DNS {
-    function Show-InvalidOption {
-        cls; Write-Host "`n  [31m# ""$choice"" isn't a valid option, please try again.[0m"; Start-Sleep -Seconds 3
-    }
-
     function Set-DnsConfiguration {
         param(
             [string]$Ipv4PrimaryDns,
@@ -1546,7 +1542,9 @@ function DNS {
             '1' { Set-DnsConfiguration -Ipv4PrimaryDns "1.1.1.1" -Ipv4BackupDns "1.0.0.1" -Ipv6PrimaryDns "2606:4700:4700::1111" -Ipv6BackupDns "2606:4700:4700::1001" }
             '2' { Set-DnsConfiguration -Ipv4PrimaryDns "8.8.8.8" -Ipv4BackupDns "8.8.4.4" -Ipv6PrimaryDns "2001:4860:4860::8888" -Ipv6BackupDns "2001:4860:4860::8844" }
             '3' { Set-DnsConfiguration -Ipv4PrimaryDns "9.9.9.9" -Ipv4BackupDns "149.112.112.112" -Ipv6PrimaryDns "2620:fe::fe" -Ipv6BackupDns "2620:fe::9" }
-            default { Show-InvalidOption }
+            default {
+				cls; Write-Host "`n  [31m# ""$choice"" isn't a valid option, please try again.[0m"; Start-Sleep -Seconds 3
+			}
         }
     } while ($choice -notin '1', '2', '3')
 }
@@ -1556,10 +1554,12 @@ function DNS {
 # Personalization
 # ==================================================
 
+
 function Personalization {
 	SystemPropertiesPerformance.exe
 	ncpa.cpl
 }
+
 
 # ==================================================
 # Clean System
@@ -1569,9 +1569,9 @@ function Personalization {
 function Clean {
 	Remove-Item -Path "$env:WINDIR\SoftwareDistribution\Download\*" -Force -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "$env:SystemDrive\Windows\Installer\*" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$env:SystemDrive\Windows\Temp\*" -Force -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "$env:SystemDrive\Windows.old" -Force -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "$env:WINDIR\Prefetch\*" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:SystemDrive\Windows\Temp\*" -Force -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "$env:tmp\*" -Force -Recurse -ErrorAction SilentlyContinue
 	wevtutil el | ForEach-Object { wevtutil cl "$_" } *>$null
 	arp -d *
