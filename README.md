@@ -64,6 +64,7 @@ Communications Tab | WIN + R - control mmsys.cpl,,3
 
 ### Windows Search Broken Fix
 ```
+sfc /scannow
 Repair-WindowsImage -Online -RestoreHealth
 ```
 
