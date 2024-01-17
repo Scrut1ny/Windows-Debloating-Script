@@ -27,21 +27,23 @@ if (-not $isAdmin) {
 
 function Apps {
 	# Microsoft Apps
+	Get-AppxPackage -AllUsers 'Microsoft Edge Update' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.549981C3F5F10*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.Advertising.Xaml*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.BingNews*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.BingWeather*' | Remove-AppxPackage
+	Get-AppxPackage -AllUsers 'Microsoft.EdgeWebView2Runtime' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.GamingApp*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.GetHelp*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.Getstarted*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.HEIFImageExtension*' | Remove-AppxPackage
+	Get-AppxPackage -AllUsers 'Microsoft.MSPaint*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.Microsoft3DViewer*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.MicrosoftEdge.Stable*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.MicrosoftOfficeHub*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.MicrosoftSolitaireCollection*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.MicrosoftStickyNotes*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.MixedReality.Portal*' | Remove-AppxPackage
-	Get-AppxPackage -AllUsers 'Microsoft.MSPaint*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.Office.OneNote*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.OneDrive*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.Paint*' | Remove-AppxPackage
@@ -56,27 +58,22 @@ function Apps {
 	Get-AppxPackage -AllUsers 'Microsoft.WebMediaExtensions*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.WebpImageExtension*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.Windows.Photos*' | Remove-AppxPackage
-	Get-AppxPackage -AllUsers 'Microsoft.Windows.SecHealthUI*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.WindowsAlarms*' | Remove-AppxPackage
-	Get-AppxPackage -AllUsers 'Microsoft.windowscommunicationsapps*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.WindowsFeedbackHub*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.WindowsMaps*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.WindowsSoundRecorder*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.YourPhone*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.ZuneMusic*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Microsoft.ZuneVideo*' | Remove-AppxPackage
-	
-	# Misc. Apps
-	Get-AppxPackage -AllUsers 'Microsoft Edge Update' | Remove-AppxPackage
-	Get-AppxPackage -AllUsers 'Microsoft.EdgeWebView2Runtime' | Remove-AppxPackage
+	Get-AppxPackage -AllUsers 'Microsoft.windowscommunicationsapps*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'MicrosoftCorporationII.QuickAssist*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'MicrosoftTeams*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'MicrosoftWindows.Client.WebExperience*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers '{43D501A5-E5E3-46EC-8F33-9E15D2A2CBD5}' | Remove-AppxPackage
 	
 	# Third Party Apps
-	Get-AppxPackage -AllUsers '9E2F88E3.Twitter*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers '46928bounde.EclipseManager*' | Remove-AppxPackage
+	Get-AppxPackage -AllUsers '9E2F88E3.Twitter*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'ActiproSoftwareLLC.562882FEEB491*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'AdobeSystemIncorporated.AdobePhotoshop*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'BytedancePte.Ltd.TikTok*' | Remove-AppxPackage
@@ -85,29 +82,17 @@ function Apps {
 	Get-AppxPackage -AllUsers 'D5EA27B7.Duolingo-LearnLanguagesforFree*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Disney.37853FC22B2CE*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'Flipboard.Flipboard*' | Remove-AppxPackage
-	Get-AppxPackage -AllUsers 'king.com.CandyCrushSaga*' | Remove-AppxPackage
-	Get-AppxPackage -AllUsers 'king.com.CandyCrushSodaSaga*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'PandoraMediaInc.29680B314EFC2*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'ShazamEntertainmentLtd.Shazam*' | Remove-AppxPackage
 	Get-AppxPackage -AllUsers 'SpotifyAB.SpotifyMusic*' | Remove-AppxPackage
-	
-	# ===== Remove "IMPOSSIBLE" Apps to remove =====
-	$CBS = (Get-Item -Path "$env:SystemRoot\SystemApps\MicrosoftWindows.Client.CBS*").Name
-	# Stop the process if running
-	Stop-Process -Name "TextInputHost" -Force
-	# Take ownership and grant permissions recursively
-	takeown /f "$env:SystemRoot\SystemApps\$CBS" /r /d y
-	icacls "$env:SystemRoot\SystemApps\$CBS" /grant administrators:F /t
-	# Remove the entire folder
-	Remove-Item -Path "C:\Windows\SystemApps\$CBS" -Recurse -Force -Confirm:$false
-	# ==============================================
+	Get-AppxPackage -AllUsers 'king.com.CandyCrushSaga*' | Remove-AppxPackage
+	Get-AppxPackage -AllUsers 'king.com.CandyCrushSodaSaga*' | Remove-AppxPackage
 	
 	# Main Recommended Microsoft Windows Apps
 	# Get-AppxPackage -allusers 'Microsoft.StorePurchaseApp' | Remove-AppxPackage
 	# Get-AppxPackage -allusers 'Microsoft.WindowsCalculator' | Remove-AppxPackage
 	# Get-AppxPackage -allusers 'Microsoft.WindowsCamera' | Remove-AppxPackage
 	# Get-AppxPackage -allusers 'Microsoft.WindowsStore' | Remove-AppxPackage
-	# Get-AppxPackage -AllUsers 'Microsoft.Windows.Search*' | Remove-AppxPackage
 }
 
 
@@ -135,6 +120,7 @@ function Registry {
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowSecondsInSystemClock' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowSyncProviderNotifications' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowTaskViewButton' -Type 'DWord' -Value '0' -Force
+	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_AccountNotifications' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_IrisRecommendations' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_TrackDocs' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'StoreAppsOnTaskbar' -Type 'DWord' -Value '0' -Force
@@ -202,18 +188,17 @@ function Registry {
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'WaitToKillServiceTimeout' -Type 'String' -Value '2000' -Force
 	
 	# Restore Windows 10 Context Menu
-	New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' -Force
-	
+	if (([System.Environment]::OSVersion.Version).Major -ge 11) { New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' -Force }
+
 	# ===== CONTEXT MENU =====
 	# To allow mapped drives to be available in command prompt
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Type 'DWord' -Value '1' -Force
 	# Restart Explorer.exe
-	Set-ItemProperty -Path 'HKCR:\Directory\Background\shell\REX' -Name -Type 'String' -Value 'Restart Explorer' -Force
-	Remove-Item 'HKCR:\Directory\Background\shell\REX' -Name 'Extended' -Force
-	Set-ItemProperty -Path 'HKCR:\Directory\Background\shell\REX' -Name 'Icon' -Type 'String' -Value 'imageres.dll,0' -Force
-	Set-ItemProperty -Path 'HKCR:\Directory\Background\shell\REX\command' -Name -Type 'String' -Value 'cmd /c taskkill -Force /IM explorer.exe & start explorer' -Force
+	New-ItemProperty -Path 'REGISTRY::HKEY_CLASSES_ROOT\Directory\Background\shell\REX' -Name '(Default)' -Value 'Restart Explorer' -Force
+	New-ItemProperty -Path 'REGISTRY::HKEY_CLASSES_ROOT\Directory\Background\shell\REX' -Name 'Icon' -Type 'String' -Value 'imageres.dll,0' -Force
+	New-ItemProperty -Path 'REGISTRY::HKEY_CLASSES_ROOT\Directory\Background\shell\REX\command' -Name '(Default)' -Type 'String' -Value 'cmd /c taskkill -Force /IM explorer.exe & start explorer' -Force
 	# Create .bat
-	Set-ItemProperty -Path 'HKCR:\.bat\ShellNew' -Name 'NullFile' -Type 'String' -Value '' -Force
+	New-ItemProperty -Path 'REGISTRY::HKEY_CLASSES_ROOT\.bat\ShellNew' -Name 'NullFile' -Force
 	# ========================
 	
 	# Playback/Recording
@@ -226,14 +211,6 @@ function Registry {
 	
 	# Communications
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Multimedia\Audio' -Name 'UserDuckingPreference' -Type 'DWord' -Value '3' -Force
-	
-	# Mouse Configuration
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Accessibility' -Name 'CursorColor' -Type 'DWord' -Value 'fafa' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Accessibility' -Name 'CursorSize' -Type 'DWord' -Value '1' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Accessibility' -Name 'CursorType' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Accessibility\CursorIndicator' -Name 'IndicatorColor' -Type 'DWord' -Value 'ff00bf' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Accessibility\CursorIndicator' -Name 'IndicatorType' -Type 'DWord' -Value '1' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Accessibility' -Name 'Configuration' -Type 'String' -Value '' -Force
 
 	# HKCU: ContentDeliveryManager
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager' -Name 'ContentDeliveryAllowed' -Type 'DWord' -Value '0' -Force
@@ -331,19 +308,10 @@ function Registry {
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam' -Name 'Value' -Type 'String' -Value 'Allow' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wiFiDirect' -Name 'Value' -Type 'String' -Value 'Allow' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wifiData' -Name 'Value' -Type 'String' -Value 'Allow' -Force
-	gpupdate
+	gpupdate *>$null
 	
 	# Telemetry / Data Collection / Advertising / Tracking
 	Set-ItemProperty -Path 'HKCU:\Control Panel\International\User Profile' -Name 'HttpAcceptLanguageOptOut' -Type 'DWord' -Value '1' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FlipAhead' -Name 'FPEnabled' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main' -Name 'DoNotTrack' -Type 'DWord' -Value '1' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main' -Name 'OptimizeWindowsSearchResultsForScreenReaders' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main' -Name 'ShowSearchSuggestionsGlobal' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main' -Name 'Use FormSuggest' -Type 'String' -Value 'no' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter' -Name 'EnabledV9' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Privacy' -Name 'EnableEncryptedMediaExtensions' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ServiceUI' -Name 'EnableCortana' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ServiceUI\ShowSearchHistory' -Name -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'EnableClipboardHistory' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\InputPersonalization' -Name 'RestrictImplicitInkCollection' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\InputPersonalization' -Name 'RestrictImplicitTextCollection' -Type 'DWord' -Value '1' -Force
@@ -418,9 +386,6 @@ function Registry {
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\S-1-15-2-3624051433-2125758914-1423191267-1740899205-1073925389-3782572162-737981194\{E5323777-F976-4f5b-9B55-B94699C46E44}' -Name 'Value' -Type 'String' -Value 'Deny' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\S-1-15-2-4153522205-3718366397-1353898457-1332184198-1210887116-3116787857-2103916698\{2EEF81BE-33FA-4800-9670-1CD474972C3F}' -Name 'Value' -Type 'String' -Value 'Deny' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'ShowedToastAtLevel' -Type 'DWord' -Value '4' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowSyncProviderNotifications' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_TrackProgs' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartPage' -Name 'StartMenu_Start_Time' -Type 'Binary' -Value 'C3166B83A98BD801' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR' -Name 'AppCaptureEnabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR' -Name 'AudioCaptureEnabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR' -Name 'CursorCaptureEnabled' -Type 'DWord' -Value '0' -Force
@@ -500,7 +465,6 @@ function Registry {
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo' -Name 'Enabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost' -Name 'EnableWebContentEvaluation' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'EnableLog' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ConnectedSearch' -Name 'ConnectedSearchUseWeb' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager' -Name 'SubscribedContent-338389Enabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager' -Name 'SystemPaneSuggestionsEnabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config' -Name 'DODownloadMode' -Type 'DWord' -Value '0' -Force
@@ -601,7 +565,8 @@ function Registry {
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\ControlSet001\Control\StorPort' -Name 'TelemetryPerformanceEnabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\ControlSet001\Control\Storage\EnabledDenyGP' -Name 'DenyAllGPState' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\ControlSet001\Services\lfsvc\Service\Configuration' -Name 'Status' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener' -Name 'Start' -Type 'DWord' -Value '4' -Force
+	New-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener' -Force
+	New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\AutoLogger-Diagtrack-Listener' -Name 'Start' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger\SQMLogger' -Name 'Start' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger' -Name 'Start' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Start' -Type 'DWord' -Value '0' -Force
@@ -1466,11 +1431,11 @@ function Software {
     if ($pingResult) {
         # Check if winget is installed, and install it if not
         if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-            Write-Host "  # Installing winget..."
+            Write-Host "   # Installing [92mwinget[0m..."
             $latestWingetUrl = Invoke-RestMethod -Uri 'https://api.github.com/repos/microsoft/winget-cli/releases/latest' | 
-			    Select-Object -ExpandProperty assets | 
-                            Where-Object { $_.name -like '*msixbundle*' } | 
-                            Select-Object -ExpandProperty browser_download_url
+							Select-Object -ExpandProperty assets | 
+							Where-Object { $_.name -like '*msixbundle*' } | 
+							Select-Object -ExpandProperty browser_download_url
 
             if ($latestWingetUrl) {
                 $downloadPath = Join-Path $env:TEMP 'Microsoft.DesktopAppInstaller.msixbundle'
@@ -1478,7 +1443,7 @@ function Software {
                 Start-Process -Wait -FilePath "Add-AppxPackage" -ArgumentList "$downloadPath"
                 Remove-Item -Path $downloadPath -Force
             } else {
-                Write-Host "`n  # Failed to obtain the latest winget version."; Start-Sleep -Seconds 2
+                cls; Write-Host "`n  # [91mFailed[0m to obtain the latest winget version."; Start-Sleep -Seconds 3
                 return
             }
         }
@@ -1487,19 +1452,19 @@ function Software {
         foreach ($package in $packages) {
             $installedPackage = winget list | Select-String $package
             if (-not $installedPackage) {
-                Write-Host "`n  # Installing package: $package"; Start-Sleep -Seconds 2
+                cls; Write-Host "`n  # Installing package: [92m$package[0m"; Start-Sleep -Seconds 3
                 winget install -h --id $package
             } else {
-                Write-Host "`n  # $package is already installed."; Start-Sleep -Seconds 2
+                cls; Write-Host "`n  # [92m$package[0m is already installed."; Start-Sleep -Seconds 3
             }
         }
 
         $launcherPath = Join-Path ${env:ProgramFiles(x86)} "\EverythingToolbar\EverythingToolbar.Launcher.exe"
         if (Test-Path $launcherPath) {
-            Start-Process -FilePath $launcherPath -NoNewWindow
+            # Start-Process -FilePath $launcherPath -NoNewWindow
         }
     } else {
-        Write-Host "`n   # Software Download: FAILED (No Internet)"; Start-Sleep -Seconds 2
+        cls; Write-Host "`n  # Software Download: [91mFAILED[0m (No Internet)"; Start-Sleep -Seconds 3
     }
 }
 
@@ -1528,7 +1493,7 @@ function DNS {
     do {
 		cls; Write-Host @"
 
-  Select a IPv4&6 DNS Provider:
+  IPv4 & IPv6 DNS Providers:
 
   [1] - [93mCloudflare[0m [1.1.1.1]
   [2] - [94mGoogle[0m     [8.8.8.8]
@@ -1547,17 +1512,6 @@ function DNS {
 			}
         }
     } while ($choice -notin '1', '2', '3')
-}
-
-
-# ==================================================
-# Personalization
-# ==================================================
-
-
-function Personalization {
-	SystemPropertiesPerformance.exe
-	ncpa.cpl
 }
 
 
@@ -1586,7 +1540,7 @@ function Clean {
 
 
 function Exit-Menu {
-	cls; Write-Host "`n  [92m# Windows Optimization Completed.[0m"; Start-Sleep -Seconds 3
+	cls; Write-Host "`n  [92m# Optimization Complete.[0m"; Start-Sleep -Seconds 3
 	Main-Menu
 }
 
@@ -1603,6 +1557,7 @@ function Main-Menu {
     cls; Write-Host @"
 
     Windows - Multi-Tool 
+
 
    [1] - Activate Windows
    [2] - Update all Apps
@@ -1628,16 +1583,12 @@ while ($true) {
 			break
 		}
 		'3' {
-			$functions = @('Apps', 'Registry', 'Hosts', 'Software', 'DNS', 'Clean', 'Personalization', 'Exit-Menu')
-
-			foreach ($functionName in $functions) {
-				if ($functionName -eq 'DNS') {
-					DNS
-				} else {
-					Invoke-Expression "$functionName *>`$null"
-				}
-			}
-
+			$functionsToNull = 'Apps', 'Registry', 'Hosts', 'Clean'
+			$functionsNoNull = 'Software', 'DNS', 'Exit-Menu'
+			$functionsToNull | ForEach-Object { Invoke-Expression "$_ *>`$null" }
+			$functionsNoNull | ForEach-Object { Invoke-Expression $_ }
+			
+			SystemPropertiesPerformance.exe; ncpa.cpl
 			Main-Menu
 			break
 		}
