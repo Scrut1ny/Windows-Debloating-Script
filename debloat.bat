@@ -385,11 +385,6 @@ cls && echo( && echo   • Removing: Bloat Microsoft Apps
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'ShazamEntertainmentLtd.Shazam*' | Remove-AppxPackage"
 	PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'SpotifyAB.SpotifyMusic*' | Remove-AppxPackage"
 	
-	rem "IMPOSSIBLE" Apps to remove
-	takeown /f "%SystemRoot%\SystemApps\MicrosoftWindows.Client.CBS*" /r /d y
-	icacls "%SystemRoot%\SystemApps\MicrosoftWindows.Client.CBS*" /grant administrators:F /t
-	del /f "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS*"
-	
 	rem Main Recommended Microsoft Windows Apps
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.StorePurchaseApp' | Remove-AppxPackage"
 	rem PowerShell -ExecutionPolicy Unrestricted -Command "Get-AppxPackage -allusers 'Microsoft.WindowsCalculator' | Remove-AppxPackage"
