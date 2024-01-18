@@ -596,19 +596,14 @@ function Registry {
 
 
 function Hosts {
-    try {
-        $defenderPath = "C:\Program Files\Windows Defender\MpCmdRun.exe"
-        
-        if (Test-Path $defenderPath) {
-            Add-MpPreference -ExclusionPath "$env:WINDIR\System32\drivers\etc\hosts"
-        }
-
-        Remove-Item -Path "$env:WINDIR\System32\drivers\etc\hosts" -Force -ErrorAction SilentlyContinue
-        Set-Location "$env:WINDIR\System32\drivers\etc"
-        $null > hosts
-
-        # Custom Hosts Config
-        @"
+    $defenderPath = "C:\Program Files\Windows Defender\MpCmdRun.exe"
+    if (Test-Path $defenderPath) {
+        Add-MpPreference -ExclusionPath "$env:WINDIR\System32\drivers\etc\hosts" -Force -ErrorAction Stop
+    }
+    Remove-Item -Path "$env:WINDIR\System32\drivers\etc\hosts" -Force -ErrorAction SilentlyContinue
+    Set-Location "$env:WINDIR\System32\drivers\etc"
+    $null > hosts
+    @"
 ###################################
 # Custom Host Config by: Scrut1ny #
 ###################################
@@ -1365,7 +1360,7 @@ function Hosts {
 0.0.0.0 urs.microsoft.com.nsatc.net
 0.0.0.0 urs.smartscreen.microsoft.com
 0.0.0.0 us-v10.events.data.microsoft.com
-0.0.0.0 us.vortex-win.data.microsft.com
+0.0.0.0 us-v20.events.data.microsoft.com
 0.0.0.0 us.vortex-win.data.microsoft.com
 0.0.0.0 v10-win.vortex.data.microsft.com.akadns.net
 0.0.0.0 v10-win.vortex.data.microsoft.com.akadns.net
@@ -1409,10 +1404,6 @@ function Hosts {
 0.0.0.0 xblgdvrassets3010.blob.core.windows.net
 0.0.0.0 ztd.dds.microsoft.com
 "@ | Out-File -FilePath "$env:WINDIR\System32\drivers\etc\hosts" -Encoding ASCII
-    }
-    catch {
-        # error log
-    }
 }
 
 
@@ -1583,11 +1574,13 @@ while ($true) {
 			break
 		}
 		'3' {
-			$functionsToNull = 'Apps', 'Registry', 'Hosts', 'Clean'
-			$functionsNoNull = 'Software', 'DNS', 'Exit-Menu'
-			$functionsToNull | ForEach-Object { Invoke-Expression "$_ *>`$null" }
-			$functionsNoNull | ForEach-Object { Invoke-Expression $_ }
-			
+			Apps *>$null
+			Registry *>$null
+			Hosts *>$null
+			Software
+			DNS
+			Clean *>$null
+			Exit-Menu
 			SystemPropertiesPerformance.exe; ncpa.cpl
 			Main-Menu
 			break
