@@ -73,6 +73,11 @@ Repair-WindowsImage -Online -RestoreHealth
 MBR2GPT.exe /convert /allowfullos
 ```
 
+### Bypass Microsoft Login
+```
+oobe\bypassnro
+```
+
 ### BIOS Keys by Manufacturer
 ```
 shutdown /r /fw /f /t 0
