@@ -1,5 +1,5 @@
 # ==================================================
-#  Windows-Tweaking v1.0
+#  Windows-Tweaking v2.0
 # ==================================================
 #  Dev  - Scut1ny
 #  Help - 
@@ -12,11 +12,9 @@
 # ==================================================
 
 
-$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-if (-not $isAdmin) {
-	Write-Host "`n  [92m# Administrator privileges are required.[0m"
-	Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-	exit
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"cd '$($PWD.Path)' ; & '$($myInvocation.InvocationName)'`"" -Verb RunAs
+    Exit
 }
 
 
@@ -397,7 +395,6 @@ function Registry {
 	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings' -Name 'NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings' -Name 'NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PenWorkspace' -Name 'PenWorkspaceAppSuggestionsEnabled' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'HideSCAMeetNow' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy' -Name 'TailoredExperiencesWithDiagnosticDataEnabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications' -Name 'LockScreenToastEnabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications' -Name 'ToastEnabled' -Type 'DWord' -Value '0' -Force
@@ -455,7 +452,7 @@ function Registry {
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\DusmSvc\Settings' -Name 'DisableSystemBucket' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\DusmSvc\Settings' -Name 'DisableSystemBucket' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Input\TIPC' -Name 'Enabled' -Type 'DWord' -Value '0' -Force
-	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Input\TIPC' -Name 'Enabled' -Type 'DWord' -Value 0 -Force
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Input\TIPC' -Name 'Enabled' -Type 'DWord' -Value '0' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\OneDrive' -Name 'PreventNetworkTrafficPreUserSignIn' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\PCHC' -Name 'PreviousUninstall' -Type 'DWord' -Value '1' -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Personalization\Settings' -Name 'AcceptedPrivacyPolicy' -Type 'DWord' -Value '0' -Force
@@ -572,20 +569,167 @@ function Registry {
 
 
 # ==================================================
-# 
+# Scheduled Tasks
 # ==================================================
 
 
+function Scheduled-Tasks {
+	# Component: Telemtry Client
+	schtasks /end /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"
+	schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable
 
+	schtasks /end /tn "\Microsoft\Windows\Application Experience\ProgramDataUpdater"
+	schtasks /change /tn "\Microsoft\Windows\Application Experience\ProgramDataUpdater" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Device Information\Device User"
+	schtasks /change /tn "\Microsoft\Windows\Device Information\Device User" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Device Information\Device"
+	schtasks /change /tn "\Microsoft\Windows\Device Information\Device" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Input\InputSettingsRestoreDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Input\MouseSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\MouseSyncDataAvailable" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Input\PenSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\PenSyncDataAvailable" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Input\syncpensettings"
+	schtasks /change /tn "\Microsoft\Windows\Input\syncpensettings" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Input\TouchpadSyncDataAvailable"
+	schtasks /change /tn "\Microsoft\Windows\Input\TouchpadSyncDataAvailable" /disable
+
+	# Component: CEIP (SQM)
+	schtasks /end /tn "\Microsoft\Windows\Autochk\Proxy"
+	schtasks /change /tn "\Microsoft\Windows\Autochk\Proxy" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"
+	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"
+	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"
+	schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable
+
+	# Component: Disk failure diagnostics
+	schtasks /end /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"
+	schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
+	schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /disable
+
+	# Component: Data Usage service
+	schtasks /end /tn "\Microsoft\Windows\DUSM\dusmtask"
+	schtasks /change /tn "\Microsoft\Windows\DUSM\dusmtask" /disable
+
+	# Component: Windows Error Reporting
+	schtasks /end /tn "\Microsoft\Windows\Feedback\Siuf\DmClient"
+	schtasks /change /tn "\Microsoft\Windows\Feedback\Siuf\DmClient" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload"
+	schtasks /change /tn "\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting"
+	schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable
+
+	# Component: Location Service
+	schtasks /end /tn "\Microsoft\Windows\Location\WindowsActionDialog"
+	schtasks /change /tn "\Microsoft\Windows\Location\WindowsActionDialog" /disable
+
+	# Component: Windows System Assessment Tool (winSAT)
+	schtasks /end /tn "\Microsoft\Windows\Maintenance\WinSAT"
+	schtasks /change /tn "\Microsoft\Windows\Maintenance\WinSAT" /disable
+
+	# Component: Diagnostics and Troubleshooting
+	schtasks /end /tn "\Microsoft\Windows\NetTrace\GatherNetworkInfo"
+	schtasks /change /tn "\Microsoft\Windows\NetTrace\GatherNetworkInfo" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"
+	schtasks /change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable
+
+	# Component: Microsoft family featurers
+	schtasks /end /tn "\Microsoft\Windows\Shell\FamilySafetyMonitor"
+	schtasks /change /tn "\Microsoft\Windows\Shell\FamilySafetyMonitor" /disable
+
+	schtasks /end /tn "\Microsoft\Windows\Shell\FamilySafetyRefreshTask"
+	schtasks /change /tn "\Microsoft\Windows\Shell\FamilySafetyRefreshTask" /disable
+
+	# Component: Windows Search
+	schtasks /end /tn "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"
+	schtasks /change /tn "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance" /disable
+
+	# Component: Location Service
+	# Component: Location Notifications
+	schtasks /end /tn "\Microsoft\Windows\Location\Notifications"
+	schtasks /change /tn "\Microsoft\Windows\Location\Notifications" /disable
+
+	# Component: Speech Recognition
+	schtasks /end /tn "\Microsoft\Windows\Speech\SpeechModelDownloadTask"
+	schtasks /change /tn "\Microsoft\Windows\Speech\SpeechModelDownloadTask" /disable
+
+	# Misc.:
+	schtasks /end /tn "\Microsoft\Windows\International\Synchronize Language Settings"
+	schtasks /change /tn "\Microsoft\Windows\International\Synchronize Language Settings" /disable
+}
 
 
 # ==================================================
-# 
+# Services
 # ==================================================
 
 
+function Services {
+	$services = @(
+		"CDPUserSvc",
+		"Connected User Experiences and Telemetry",
+		"Diagnostic Policy Service",
+		"diagnosticshub.standardcollector.service",
+		"diagsvc",
+		"DiagTrack",
+		"dmwappushservice",
+		"Downloaded Maps Manager",
+		"DusmSvc",
+		"edgeupdate",
+		"edgeupdatem",
+		"Geolocation Service",
+		"MapsBroker",
+		"MessagingService",
+		"MicrosoftEdgeElevationService",
+		"NahimicService",
+		"NvTelemetryContainer",
+		"OneSyncSvc_*",
+		"PcaSvc",
+		"PhoneSvc",
+		"PimIndexMaintenanceSvc",
+		"Remote Registry",
+		"RemoteRegistry",
+		"RetailDemo",
+		"TabletInputService",
+		"UnistoreSvc",
+		"UserDataSvc",
+		"wercplsupport",
+		"WerSvc",
+		"Windows Biometric Service",
+		"WpnUserService"
+	)
 
+	foreach ($service in $services) {
+		Stop-Service -Name $service; Set-Service -Name $service -StartupType Disabled
+	}
+	
+	Remove-Item -Path "$env:windir\System32\sru\*" -Recurse -Force -ErrorAction SilentlyContinue
 
+	function Set-ServicesToManual {
+		Get-Service | ForEach-Object { Set-Service $_.Name -StartupType Manual }
+	}
+}
 
 
 # ==================================================
@@ -1411,6 +1555,30 @@ function Hosts {
 
 
 function Software {
+    $installWinget = cls; Read-Host "`n  # Install winget? (Y/N)"
+
+    if ($installWinget -eq 'Y' -or $installWinget -eq 'y') {
+        Write-Host "  # Installing [92mwinget[0m..."
+
+        $latestWingetUrl = Invoke-RestMethod -Uri 'https://api.github.com/repos/microsoft/winget-cli/releases/latest' | 
+                            Select-Object -ExpandProperty assets | 
+                            Where-Object { $_.name -like '*msixbundle*' } | 
+                            Select-Object -ExpandProperty browser_download_url
+
+        if ($latestWingetUrl) {
+            $downloadPath = Join-Path $env:TEMP 'Microsoft.DesktopAppInstaller.msixbundle'
+            Invoke-WebRequest -Uri $latestWingetUrl -OutFile $downloadPath -UserAgent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' -UseBasicParsing
+            Start-Process -Wait -FilePath "Add-AppxPackage" -ArgumentList "$downloadPath"
+            Remove-Item -Path $downloadPath -Force
+        } else {
+            cls; Write-Host "`n  # [91mFailed[0m to obtain the latest winget version."; Start-Sleep -Seconds 3
+            return
+        }
+    } else {
+        cls; Write-Host "`n  # Skipped winget installation."
+        return
+    }
+
     $packages = @"
 7-Zip
 "@
@@ -1418,25 +1586,6 @@ function Software {
     $pingResult = Test-Connection -ComputerName 9.9.9.9 -Count 1 -Quiet
 
     if ($pingResult) {
-        # Check if winget is installed, and install it if not
-        if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-            Write-Host "   # Installing [92mwinget[0m..."
-            $latestWingetUrl = Invoke-RestMethod -Uri 'https://api.github.com/repos/microsoft/winget-cli/releases/latest' | 
-							Select-Object -ExpandProperty assets | 
-							Where-Object { $_.name -like '*msixbundle*' } | 
-							Select-Object -ExpandProperty browser_download_url
-
-            if ($latestWingetUrl) {
-                $downloadPath = Join-Path $env:TEMP 'Microsoft.DesktopAppInstaller.msixbundle'
-                Invoke-WebRequest -Uri $latestWingetUrl -OutFile $downloadPath -UserAgent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' -UseBasicParsing
-                Start-Process -Wait -FilePath "Add-AppxPackage" -ArgumentList "$downloadPath"
-                Remove-Item -Path $downloadPath -Force
-            } else {
-                cls; Write-Host "`n  # [91mFailed[0m to obtain the latest winget version."; Start-Sleep -Seconds 3
-                return
-            }
-        }
-
         # Install specified packages
         foreach ($package in $packages) {
             $installedPackage = winget list | Select-String $package
@@ -1557,7 +1706,7 @@ function Main-Menu {
 
 while ($true) {
 	Main-Menu
-	$c = Read-Host "   "
+	$c = Read-Host "   "; cls
 
 	switch ($c) {
 		'1' {
@@ -1573,6 +1722,8 @@ while ($true) {
 		}
 		'3' {
 			Apps *>$null
+			Scheduled-Tasks *>$null
+			Services *>$null
 			Registry *>$null
 			Hosts *>$null
 			Software
