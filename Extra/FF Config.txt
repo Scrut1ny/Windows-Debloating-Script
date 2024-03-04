@@ -1,0 +1,71 @@
+Browser Monitoring / Reporting / Data Storing:
+browser.cache.offline.enable = false | Disables websites from storing data on your computer for when you would be offline.
+browser.safebrowsing.malware.enabled = false | Disables Google's malware monitoring.
+browser.safebrowsing.phishing.enabled = false | Disables Google's phishing monitoring.
+browser.safebrowsing.downloads.enabled = false | Disables Google's downloads monitoring.
+browser.tabs.crashReporting.sendReport = false | Disables crash reporting.
+
+MISC:
+identity.fxaccounts.enabled = false | Disables any embedded Firefox accounts.
+media.autoplay.default = 5 | Disables audio and video from playig automatically.
+pdfjs.enableScripting = false | Prevents some malicious PDF actions.
+privacy.resistFingerprinting = true | Resists fingerprinting.
+dom.battery.enabled = false | Blocks sending battery level infoformation.
+dom.event.clipboardevents.enabled = false | Websites won't know if you copy/paste.
+dom.webnotifications.enabled = false | Disables embedded notifications.
+webgl.disabled = true | Disables some fingerprinting. Also needed for flash games / online games. Uses your GPU.
+
+Networking:
+network.dns.disablePrefetch = true | Disables prefetching.
+network.dns.disablePrefetchFromHTTPS = true | Disables prefetching.
+network.http.sendRefererHeader = 0 | Disables referring website notifications.
+network.prefetch-next = false | Disables prefetching.
+network.ttr.mode = 2 | DNS=over=HTTPS (DoH)
+
+Pocket:
+browser.newtabpage.activity-stream.section.highlights.includePocket = false
+extensions.pocket.enabled = false
+
+Telemetry:
+browser.newtabpage.activity-stream.feeds.telemetry = false
+browser.newtabpage.activity-stream.telemetry = false
+browser.ping-centre.telemetry = false
+devtools.onboarding.telemetry-logged = false
+media.wmf.deblacklisting-for-telemetry-in-gpu-process = false
+toolkit.telemetry.archive.enabled = false
+toolkit.telemetry.bhrping.enabled = false
+toolkit.telemetry.enabled = false
+toolkit.telemetry.firstshutdownping.enabled = false
+toolkit.telemetry.hybridcontent.enabled = false
+toolkit.telemetry.newprofileping.enabled = false
+toolkit.telemetry.server =
+toolkit.telemetry.shutdownpingsender.enabled = false
+toolkit.telemetry.unified = false
+toolkit.telemetry.updateping.enabled = false
+
+Disable Automatic Formfill:
+browser.formfill.enable = false
+
+Disable geolocation services:
+geo.enabled = false
+
+Disable plugin scanning: (some sites scan for adblockers and script blockers)
+plugin.scan.plid.all = false
+
+Disable disk caching: (if you find it annoying to click on an "image" before you can view it, then you'll have to turn one of the cache back to true.)
+browser.cache.disk.enable = false
+
+browser.cache.disk_cache_ssl = false
+browser.cache.memory.enable = false
+browser.cache.offline.enable = false
+browser.cache.insecure.enable = false
+
+WebRTC:
+media.navigator.enabled - false
+media.peerconnection.enabled - false | NEEDED FOR OMEGLE
+media.peerconnection.turn.disable - false
+media.peerconnection.use_document_iceservers - false
+media.peerconnection.video.enabled - false
+
+Disable outside requests of primary domain. Prevents supercookies. (May cause websites that rely on 3rd party scripts and libraries to break)
+privacy.firstparty.isolate = true
