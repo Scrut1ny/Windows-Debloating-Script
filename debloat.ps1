@@ -1710,7 +1710,7 @@ while ($true) {
 
 	switch ($c) {
 		'1' {
-			Invoke-Expression (irm 'https://massgrave.dev/get') 
+			Invoke-Expression (irm 'https://massgrave.dev/get')
 			Main-Menu
 			break
 		}
