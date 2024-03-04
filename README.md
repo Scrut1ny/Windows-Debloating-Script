@@ -4,7 +4,7 @@
 ## How to run:
 1. Download `debloat.ps1` to your Downloads directory
 2. Open PowerShell as Administrator
-3. Enter the current directory where `debloat.ps1` is located
+3. Enter the current directory where `debloat.ps1` is located:
 ```
 cd '$env:USERPROFILE\Downloads'
 ```
