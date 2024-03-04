@@ -6,7 +6,7 @@
 2. Open PowerShell as Administrator
 3. Enter the current directory where `debloat.ps1` is located
 ```
-cd '$:USERPROFILE\Downloads'
+cd '$env:USERPROFILE\Downloads'
 ```
 4. Set the PowerShell Execution Policy:
 ```
