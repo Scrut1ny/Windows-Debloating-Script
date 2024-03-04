@@ -1,5 +1,5 @@
 > [!CAUTION]
-> For your system safety, please inspect the source code before running the file.
+> For your system safety, please inspect the source code before executing.
 
 ## How to run:
 1. Download `debloat.ps1` to your Downloads directory
