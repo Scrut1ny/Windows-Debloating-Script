@@ -8,7 +8,7 @@
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
 3. Enter the current directory where `debloat.ps1` is located
-4. Now run the debloat script running this command
+4. Execute the script running this command:
 ```
 .\debloat.ps1
 ```
