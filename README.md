@@ -1,16 +1,21 @@
-### Set execution policy to be able to run scripts only in the current PowerShell session:
+## Set PowerShell Execution Policy:
 ```
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
 
-![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/8b3c601f-1d68-4a7d-aaef-1f69f28101a1) ![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/b040765b-dd1a-4f9f-b40d-749ca96162f5) ![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/c666b027-748f-4323-b294-077e51337530) ![image](https://github.com/Scrut1ny/Windows-Debloating-Script/assets/53458032/f8596a0d-251f-4c60-8bb1-f8160bcd0acc)
+## Windows Tools
 
-### Windows ISO & Activation
-[massgrave.dev](https://massgrave.dev/index.html)
+### ISO Downloads:
+- [massgrave.dev](https://massgrave.dev/genuine-installation-media.html)
+- [Windows 11 ISO](https://www.microsoft.com/software-download/windows11)
+- [Windows 10 ISO](https://www.microsoft.com/software-download/windows10ISO)
 
-Windows Shortcuts:
-[https://ss64.com/nt/run.html](https://ss64.com/nt/run.html)
+### Activation:
+```
+irm https://massgrave.dev/get | iex
+```
 
+## Windows System Configuration:
 ```
 WIN + R - SystemPropertiesPerformance
 
@@ -67,23 +72,25 @@ Communications Tab | WIN + R - control mmsys.cpl,,3
 ☐ Do nothing
 ```
 
-### Windows Search Broken Fix
+## Windows Miscellaneous
+
+### Windows Search Broken Fix:
 ```
 sfc /scannow
 Repair-WindowsImage -Online -RestoreHealth
 ```
 
-### Convert BIOS Mode from Legacy to UEFI
+### Convert BIOS Mode from Legacy to UEFI:
 ```
 MBR2GPT.exe /convert /allowfullos
 ```
 
-### Bypass Microsoft Login
+### Bypass Microsoft Login:
 ```
 oobe\bypassnro
 ```
 
-### BIOS Keys by Manufacturer
+### UEFI/BIOS Keys by Manufacturer:
 ```
 shutdown /r /fw /f /t 0
 ```
@@ -106,7 +113,7 @@ shutdown /r /fw /f /t 0
 |Toshiba|`F2`|
 |Zotac|`DEL`|
 
-### Personal Fresh Install Programs
+### Personal Fresh Install Programs:
 | Software | Links |
 |-|-|
 | LibreWolf | [Link](https://librewolf.net/installation/) |
