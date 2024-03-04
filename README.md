@@ -1,7 +1,18 @@
-## Set PowerShell Execution Policy:
+> [!CAUTION]
+> For system safety, please inspect the source code before running the file.
+
+## How to run:
+1. Open PowerShell as Administrator
+2. Set PowerShell Execution Policy:
 ```
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
+3. Enter the current directory where `debloat.ps1` is located
+4. Now run the debloat script running this command
+```
+.\debloat.ps1
+```
+5. Enjoy!
 
 ## Windows Tools
 
