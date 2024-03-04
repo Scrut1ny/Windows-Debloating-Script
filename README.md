@@ -3,7 +3,7 @@
 
 ## How to run:
 1. Open PowerShell as Administrator
-2. Set PowerShell Execution Policy:
+2. Set the PowerShell Execution Policy:
 ```
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
