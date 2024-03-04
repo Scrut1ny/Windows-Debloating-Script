@@ -2,17 +2,20 @@
 > For system safety, please inspect the source code before running the file.
 
 ## How to run:
-1. Open PowerShell as Administrator
-2. Set the PowerShell Execution Policy:
+1. Download `debloat.ps1` to your Downloads directory
+2. Open PowerShell as Administrator
+3. Enter the current directory where `debloat.ps1` is located
+```
+cd '$:USERPROFILE\Downloads'
+```
+4. Set the PowerShell Execution Policy:
 ```
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
-3. Enter the current directory where `debloat.ps1` is located
-4. Execute the script running this command:
+5. Execute the script:
 ```
 .\debloat.ps1
 ```
-5. Enjoy!
 
 ## Windows Tools
 
