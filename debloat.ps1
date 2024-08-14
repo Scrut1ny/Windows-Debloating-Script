@@ -1629,28 +1629,32 @@ function DNS {
         Clear-DnsClientCache
     }
 
-    do {
-		cls; Write-Host @"
+    $menu = @"
+IPv4 & IPv6 DNS Providers:
 
-  IPv4 & IPv6 DNS Providers:
-
-  [1] - [93mCloudflare[0m [1.1.1.1]
-  [2] - [94mGoogle[0m     [8.8.8.8]
-  [3] - [91mQuad9[0m      [9.9.9.9]
+[1] - [93mCloudflare[0m [1.1.1.1]
+[2] - [94mGoogle[0m     [8.8.8.8]
+[3] - [91mQuad9[0m      [9.9.9.9]
+[4] - [92mNone (Skip DNS Configuration)[0m
 "@
 
-		
+    do {
+        cls
+        Write-Host $menu
         $choice = Read-Host "`n  "
 
         switch ($choice) {
             '1' { Set-DnsConfiguration -Ipv4PrimaryDns "1.1.1.1" -Ipv4BackupDns "1.0.0.1" -Ipv6PrimaryDns "2606:4700:4700::1111" -Ipv6BackupDns "2606:4700:4700::1001" }
             '2' { Set-DnsConfiguration -Ipv4PrimaryDns "8.8.8.8" -Ipv4BackupDns "8.8.4.4" -Ipv6PrimaryDns "2001:4860:4860::8888" -Ipv6BackupDns "2001:4860:4860::8844" }
             '3' { Set-DnsConfiguration -Ipv4PrimaryDns "9.9.9.9" -Ipv4BackupDns "149.112.112.112" -Ipv6PrimaryDns "2620:fe::fe" -Ipv6BackupDns "2620:fe::9" }
+            '4' { Write-Host "No DNS configuration will be applied." }
             default {
-				cls; Write-Host "`n  [31m# ""$choice"" isn't a valid option, please try again.[0m"; Start-Sleep -Seconds 3
-			}
+                cls
+                Write-Host "`n  [31m# ""$choice"" isn't a valid option, please try again.[0m"
+                Start-Sleep -Seconds 3
+            }
         }
-    } while ($choice -notin '1', '2', '3')
+    } while ($choice -notin '1', '2', '3', '4')
 }
 
 
@@ -1660,16 +1664,31 @@ function DNS {
 
 
 function Clean {
-	Remove-Item -Path "$env:WINDIR\SoftwareDistribution\Download\*" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:SystemDrive\Windows\Installer\*" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:SystemDrive\Windows\Temp\*" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:SystemDrive\Windows.old" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:WINDIR\Prefetch\*" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:tmp\*" -Force -Recurse -ErrorAction SilentlyContinue
-	wevtutil el | ForEach-Object { wevtutil cl "$_" } *>$null
-	arp -d *
-	Clear-RecycleBin -Force -ErrorAction SilentlyContinue
-	Stop-Process -Name explorer -Force; Start-Process explorer -NoNewWindow
+    $paths = @(
+        "$env:WINDIR\SoftwareDistribution\Download\*"
+        "$env:SystemDrive\Windows\Installer\*"
+        "$env:SystemDrive\Windows\Temp\*"
+        "$env:SystemDrive\Windows.old"
+        "$env:WINDIR\Prefetch\*"
+        "$env:tmp\*"
+    )
+
+    foreach ($path in $paths) {
+        Remove-Item -Path $path -Force -Recurse -ErrorAction SilentlyContinue
+    }
+
+    # Clear event logs
+    wevtutil el | ForEach-Object { wevtutil cl "$_" } > $null
+
+    # Delete ARP cache
+    arp -d *
+
+    # Clear Recycle Bin
+    Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+
+    # Restart Explorer
+    Stop-Process -Name explorer -Force
+    Start-Process explorer -NoNewWindow
 }
 
 
