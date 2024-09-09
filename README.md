@@ -26,7 +26,7 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 
 ### Activation:
 ```
-irm https://massgrave.dev/get | iex
+irm https://get.activated.win | iex
 ```
 
 ## Windows System Configuration:
