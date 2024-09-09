@@ -1730,7 +1730,7 @@ while ($true) {
 
 	switch ($c) {
 		'1' {
-			Invoke-Expression (irm 'https://massgrave.dev/get')
+			iex (irm 'https://get.activated.win')
 			Main-Menu
 			break
 		}
